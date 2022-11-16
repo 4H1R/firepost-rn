@@ -27,7 +27,8 @@
     "react-native-screens": "^3.18.2",
     "react-native-web": "~0.18.9",
     "twrnc": "^3.4.1",
-    "yup": "^0.32.11"
+    "yup": "^0.32.11",
+    "expo-updates": "~0.15.5"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

@@ -1,7 +1,8 @@
 {
   "expo": {
-    "name": "firepost-rn",
-    "slug": "firepost-rn",
+    "name": "FirePost",
+    "slug": "FirePost",
+    "description": "A place that you can share your best moments with others and see what's happening.",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
