@@ -1,0 +1,41 @@
+{
+    "auth": {
+        "or": "یا",
+        "loginWithGoogle": "ورود با گوگل",
+        "login": {
+            "title": "ورود به حساب کاربری",
+            "buttonText": "ورود",
+            "forgotYourPassword": "کلمه عبور خود را فراموش کرده اید ؟",
+            "newToFirePost": "حساب ندارید ؟"
+        },
+        "register": {
+            "title": "ایجاد حساب کاربری",
+            "buttonText": "ایجاد",
+            "alreadyHaveAnAccount": "حساب کاربری دارید؟"
+        },
+        "forgotPassword": {
+            "title": "فراموش کلمه عبور",
+            "rememberYourPassword": "کلمه عبور خود را به یاد اوردید ؟"
+        },
+        "resetPassword": {
+            "title": "بازنشانی کلمه عبور"
+        }
+    },
+    "fields": {
+        "email": "ایمیل",
+        "password": "کلمه عبور",
+        "passwordConfirmation": "تایید کلمه عبور",
+        "name": "نام",
+        "username": "نام کاربری"
+    },
+    "errors": {
+        "required": "این فیلد الزامی است.",
+        "min": "این فیلد حداقل باید {{ min }} کاراکتر باشه.",
+        "max": "این فیلد حداکثر باید {{ max }} کاراکتر باشه.",
+        "passwordsMatch": "کلمه های عبور باید شبیه هم باشند.",
+        "email": "این فیلد باید ایمیل باشه.",
+        "matches": "این فیلد درست نیست.",
+        "invalidCredentials": "این اطلاعات با رکورد های ما سازگاری نداره.",
+        "somethingWentWrong": "یه مشکلی پیش اومد لطفا دوباره امتحان کنید."
+    }
+}

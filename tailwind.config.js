@@ -13,9 +13,9 @@ module.exports = {
         warning: colors.yellow,
       },
       fontFamily: {
-        primary: 'Poppins-Regular',
-        'primary-semi': 'Poppins-Semi',
-        'primary-bold': 'Poppins-Bold',
+        primary: 'Primary-Regular',
+        'primary-semi': 'Primary-Semi',
+        'primary-bold': 'Primary-Bold',
       },
     },
   },
