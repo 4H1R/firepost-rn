@@ -13,8 +13,11 @@ type FieldsProps = {
 };
 
 function Fields({ fields, buttonText }: FieldsProps) {
-  const { errors, handleBlur, handleChange, handleSubmit, values } =
+  const { errors, handleBlur, handleChange, handleSubmit, values, touched } =
     useFormikContext<Record<string, string>>();
+
+  const hasError = (name: string) =>
+    (touched[name] && errors[name] !== undefined) || false;
 
   return (
     <View>
@@ -22,12 +25,12 @@ function Fields({ fields, buttonText }: FieldsProps) {
         <View key={name}>
           <TextInput
             {...fieldProps}
-            hasError={!!errors[name]}
+            hasError={hasError(name)}
             onChangeText={handleChange(name)}
             onBlur={handleBlur(name)}
             value={values[name]}
           />
-          <ErrorMessage error={errors[name]} />
+          <ErrorMessage name={name} />
         </View>
       ))}
       <Button onPress={handleSubmit}>{buttonText}</Button>

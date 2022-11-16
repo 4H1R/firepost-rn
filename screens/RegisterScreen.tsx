@@ -22,16 +22,19 @@ import tw from 'libs/tailwind';
 import validations from 'fixtures/validations';
 import Fields from 'components/auth/Fields';
 
-const schema = yup.object({
-  name: validations.name,
-  username: validations.username,
-  email: validations.email,
-  password: validations.password,
-  passwordConfirmation: validations.password.oneOf([yup.ref('password')]),
-});
-
 function RegisterScreen() {
   const { t } = useTranslation();
+
+  const schema = yup.object({
+    name: validations.name,
+    username: validations.username,
+    email: validations.email,
+    password: validations.password,
+    passwordConfirmation: validations.password.oneOf(
+      [yup.ref('password')],
+      t('errors.passwordsMatch')
+    ),
+  });
 
   const fields: IField<TextInputProps>[] = [
     {

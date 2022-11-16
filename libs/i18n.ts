@@ -21,7 +21,7 @@ i18n
   .init(
     {
       compatibilityJSON: 'v3',
-      lng: 'fa',
+      lng: 'en',
       fallbackLng: fallbackLang,
       interpolation: {
         escapeValue: false, // not needed for react as it escapes by default
@@ -36,6 +36,7 @@ i18n
           email: t('errors.email'),
           min: ({ min }) => t('errors.min', { min }),
           max: ({ max }) => t('errors.max', { max }),
+          matches: t('errors.matches'),
         },
         number: {
           min: ({ min }) => t('errors.min', { min }),

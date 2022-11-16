@@ -9,9 +9,7 @@ type TitleProps = {
 
 function Title({ children }: TitleProps) {
   return (
-    <Text
-      style={tw`text-3xl mt-4 text-secondary-700 font-primary-bold text-center`}
-    >
+    <Text style={tw`text-3xl text-secondary-700 font-primary-bold text-center`}>
       {children}
     </Text>
   );
