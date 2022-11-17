@@ -8,7 +8,7 @@ import { IField } from 'interfaces';
 import { TextInputProps } from 'components/auth/TextInput';
 import { fieldsToInitialValues } from 'utils';
 import Illustration from 'assets/svg/auth/forgotPassword.svg';
-import Title from 'components/auth/Title';
+import Title from 'shared/common/Title';
 import Container from 'components/auth/Container';
 import Link from 'components/auth/Link';
 import tw from 'libs/tailwind';

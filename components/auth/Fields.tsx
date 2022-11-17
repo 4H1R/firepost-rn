@@ -5,7 +5,7 @@ import { useFormikContext } from 'formik';
 import { TAuthField } from 'types';
 import TextInput from './TextInput';
 import ErrorMessage from './ErrorMessage';
-import Button from './Button';
+import Button from 'shared/common/Button';
 
 type FieldsProps<T> = {
   fields: TAuthField<T>[];

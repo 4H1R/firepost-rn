@@ -5,13 +5,16 @@ import './libs/i18n';
 import Navigation from 'components/Navigation';
 import SplashScreen from 'components/SplashScreen';
 import queryClient from 'libs/queryClient';
+import IntroSlides from 'components/introSlides';
 
 export default function App() {
   return (
     <SplashScreen>
       <QueryClientProvider client={queryClient}>
         <StatusBar style="auto" />
-        <Navigation />
+        <IntroSlides>
+          <Navigation />
+        </IntroSlides>
       </QueryClientProvider>
     </SplashScreen>
   );
