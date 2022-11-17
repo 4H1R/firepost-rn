@@ -1,23 +1,30 @@
 import React from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import { ActivityIndicator, Text, TouchableOpacity } from 'react-native';
 
 import tw from 'libs/tailwind';
 
 type ButtonProps = {
   children: string;
   onPress?: () => void;
+  isLoading?: boolean;
 };
 
-function Button({ children, onPress }: ButtonProps) {
+function Button({ children, onPress, isLoading }: ButtonProps) {
   return (
     <TouchableOpacity
+      disabled={isLoading}
       onPress={onPress}
       activeOpacity={0.6}
-      style={tw`py-3 w-full bg-primary-600 rounded-lg mt-4`}
+      style={tw.style(
+        'flex-row items-center justify-center py-3 w-full bg-primary-600 rounded-lg mt-4',
+        { 'opacity-50': !!isLoading }
+      )}
     >
-      <Text style={tw`text-white mx-auto text-xl font-primary-semi`}>
-        {children}
-      </Text>
+      {isLoading ? (
+        <ActivityIndicator color="#ffffff" size="large" style={tw`mr-2`} />
+      ) : (
+        <Text style={tw`text-white text-xl font-primary-semi`}>{children}</Text>
+      )}
     </TouchableOpacity>
   );
 }

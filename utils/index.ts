@@ -1,8 +1,12 @@
 import { IField } from 'interfaces';
+import { TFieldName } from 'types';
 
-export function fieldsToInitialValues<T>(fields: IField<unknown>[]) {
+export function fieldsToInitialValues<T>(
+  fields: IField<unknown, T>[],
+  values?: Record<TFieldName<T>, string>
+) {
   return fields.reduce((curr, field) => {
-    curr[field.name] = '';
+    curr[field.name] = (values && values[field.name]) ?? '';
     return curr;
-  }, {} as Record<string, string>);
+  }, {} as Record<TFieldName<T>, string>);
 }

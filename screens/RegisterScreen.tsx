@@ -7,10 +7,11 @@ import {
 } from 'react-native-heroicons/outline';
 import { Formik } from 'formik';
 import { useTranslation } from 'react-i18next';
+import { AxiosError } from 'axios';
 import * as yup from 'yup';
 
-import { TextInputProps } from 'components/auth/TextInput';
-import { IField } from 'interfaces';
+import { IUnprocessableEntity } from 'interfaces';
+import { TAuthField } from 'types';
 import { fieldsToInitialValues } from 'utils';
 import Illustration from 'assets/svg/auth/register.svg';
 import Title from 'components/auth/Title';
@@ -21,9 +22,15 @@ import Link from 'components/auth/Link';
 import tw from 'libs/tailwind';
 import validations from 'fixtures/validations';
 import Fields from 'components/auth/Fields';
+import useRegister, { IRegisterDto } from 'services/auth/register';
+
+interface IRegister extends IRegisterDto {
+  passwordConfirmation: string;
+}
 
 function RegisterScreen() {
   const { t } = useTranslation();
+  const { mutate: register } = useRegister();
 
   const schema = yup.object({
     name: validations.name,
@@ -36,7 +43,7 @@ function RegisterScreen() {
     ),
   });
 
-  const fields: IField<TextInputProps>[] = [
+  const fields: TAuthField<IRegister>[] = [
     {
       name: 'name',
       fieldProps: {
@@ -84,7 +91,21 @@ function RegisterScreen() {
       <Formik
         validationSchema={schema}
         initialValues={fieldsToInitialValues(fields)}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={(values, { setErrors }) => {
+          register(values, {
+            onError: (e) => {
+              const error = e as AxiosError<IUnprocessableEntity<IRegisterDto>>;
+              if (error?.response?.status === 422) {
+                setErrors(error.response.data.errors);
+                return;
+              }
+              setErrors({ email: t('errors.somethingWentWrong') });
+            },
+            onSuccess: (data) => {
+              alert("You've registered successfully.");
+            },
+          });
+        }}
       >
         <Fields buttonText={t('auth.register.buttonText')} fields={fields} />
       </Formik>

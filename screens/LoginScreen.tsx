@@ -3,10 +3,11 @@ import { AtSymbolIcon, KeyIcon } from 'react-native-heroicons/outline';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
+import { AxiosError } from 'axios';
 
-import { IField } from 'interfaces';
+import { IUnprocessableEntity } from 'interfaces';
 import { fieldsToInitialValues } from 'utils';
-import { TextInputProps } from 'components/auth/TextInput';
+import { TAuthField } from 'types';
 import Illustration from 'assets/svg/auth/login.svg';
 import Title from 'components/auth/Title';
 import Container from 'components/auth/Container';
@@ -16,6 +17,7 @@ import Link from 'components/auth/Link';
 import tw from 'libs/tailwind';
 import validations from 'fixtures/validations';
 import Fields from 'components/auth/Fields';
+import useLogin, { ILoginDto } from 'services/auth/login';
 
 const schema = yup.object({
   email: validations.email,
@@ -24,8 +26,9 @@ const schema = yup.object({
 
 function LoginScreen() {
   const { t } = useTranslation();
+  const { mutate: login, isLoading } = useLogin();
 
-  const fields: IField<TextInputProps>[] = [
+  const fields: TAuthField<ILoginDto>[] = [
     {
       name: 'email',
       fieldProps: {
@@ -51,9 +54,27 @@ function LoginScreen() {
       <Formik
         validationSchema={schema}
         initialValues={fieldsToInitialValues(fields)}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={(values, { setErrors }) =>
+          login(values, {
+            onError: (e) => {
+              const error = e as AxiosError<IUnprocessableEntity<ILoginDto>>;
+              if (error?.response?.status === 422) {
+                setErrors({ email: t('errors.invalidCredentials') });
+                return;
+              }
+              setErrors({ email: t('errors.somethingWentWrong') });
+            },
+            onSuccess: (data) => {
+              alert("You've logged in successfully.");
+            },
+          })
+        }
       >
-        <Fields buttonText={t('auth.login.buttonText')} fields={fields} />
+        <Fields
+          isLoading={isLoading}
+          buttonText={t('auth.login.buttonText')}
+          fields={fields}
+        />
       </Formik>
       <ORDivider />
       <LoginWithGoogle />

@@ -2,19 +2,24 @@ import React from 'react';
 import { View } from 'react-native';
 import { useFormikContext } from 'formik';
 
-import { IField } from 'interfaces';
-import TextInput, { TextInputProps } from './TextInput';
+import { TAuthField } from 'types';
+import TextInput from './TextInput';
 import ErrorMessage from './ErrorMessage';
 import Button from './Button';
 
-type FieldsProps = {
-  fields: IField<TextInputProps>[];
+type FieldsProps<T> = {
+  fields: TAuthField<T>[];
   buttonText: string;
+  isLoading?: boolean;
 };
 
-function Fields({ fields, buttonText }: FieldsProps) {
+function Fields<T extends Record<string, any>>({
+  fields,
+  buttonText,
+  isLoading,
+}: FieldsProps<T>) {
   const { errors, handleBlur, handleChange, handleSubmit, values, touched } =
-    useFormikContext<Record<string, string>>();
+    useFormikContext<T>();
 
   const hasError = (name: string) =>
     (touched[name] && errors[name] !== undefined) || false;
@@ -33,7 +38,9 @@ function Fields({ fields, buttonText }: FieldsProps) {
           <ErrorMessage name={name} />
         </View>
       ))}
-      <Button onPress={handleSubmit}>{buttonText}</Button>
+      <Button isLoading={isLoading} onPress={handleSubmit}>
+        {buttonText}
+      </Button>
     </View>
   );
 }

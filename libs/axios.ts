@@ -1,12 +1,12 @@
 import mainAxios from 'axios';
+import { BACKEND_URL } from '@env';
 
 const axios = mainAxios.create({
-  baseURL: process.env.BACKEND_URL,
+  baseURL: BACKEND_URL,
   headers: {
     'Content-Type': 'application/json',
     Accept: 'application/json',
   },
-  withCredentials: true,
 });
 
 export default axios;
