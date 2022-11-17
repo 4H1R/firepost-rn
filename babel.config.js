@@ -3,6 +3,7 @@ module.exports = function (api) {
   return {
     presets: ['babel-preset-expo'],
     plugins: [
+      'transform-inline-environment-variables',
       [
         'module-resolver',
         {
@@ -13,7 +14,9 @@ module.exports = function (api) {
             components: './components',
             fixtures: './fixtures',
             interfaces: './interfaces',
+            types: './types',
             utils: './utils',
+            services: './services',
           },
         },
       ],

@@ -14,7 +14,7 @@ function Link({ text, linkText, navigateTo }: LinkProps) {
   const navigation = useNavigation();
 
   return (
-    <View style={tw`flex-row mt-4 items-center mx-auto`}>
+    <View style={tw`flex-row mt-4 items-center justify-center flex-wrap`}>
       <Text style={tw`text-base font-primary text-secondary-600`}>{text}</Text>
       <TouchableWithoutFeedback onPress={() => navigation.navigate(navigateTo)}>
         <Text style={tw`text-base font-primary text-primary-600 ml-2`}>

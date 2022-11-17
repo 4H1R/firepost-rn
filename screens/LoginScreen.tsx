@@ -24,6 +24,7 @@ const schema = yup.object({
 
 function LoginScreen() {
   const { t } = useTranslation();
+  console.log(process.env.BACKEND_URL);
 
   const fields: IField<TextInputProps>[] = [
     {

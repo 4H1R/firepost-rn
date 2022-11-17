@@ -1,6 +1,6 @@
 import { IField } from 'interfaces';
 
-export function fieldsToInitialValues(fields: IField<unknown>[]) {
+export function fieldsToInitialValues<T>(fields: IField<unknown>[]) {
   return fields.reduce((curr, field) => {
     curr[field.name] = '';
     return curr;
