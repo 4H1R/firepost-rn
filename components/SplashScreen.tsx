@@ -25,7 +25,7 @@ function SplashScreen({ children }: SplashScreenProps) {
   if (!fontsLoaded) return null;
 
   return (
-    <View style={tw`flex-1`} onLayout={onLayoutRootView}>
+    <View style={tw`flex-1 bg-secondary-50`} onLayout={onLayoutRootView}>
       {children}
     </View>
   );
