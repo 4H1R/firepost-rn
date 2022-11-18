@@ -1,17 +1,21 @@
 import React, { useRef, useState } from 'react';
 import { FlatList, ViewToken } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import tw from 'libs/tailwind';
 
+import { INTRO_SLIDER_KEY } from 'components/ResourceLoader';
 import introSlides from 'fixtures/introSlides';
 import Slide from './Slide';
+import useIntroSlider from 'stores/introSlider';
 
 type IntroSlidesProps = {
-  children: React.ReactNode;
+  children: JSX.Element;
 };
 
 function IntroSlides({ children }: IntroSlidesProps) {
+  const { show, hideIntroSlider } = useIntroSlider((state) => state);
   const [currentIndex, setCurrentIndex] = useState(0);
   const slidesRef = useRef<FlatList>(null);
   const isTheLastSlide = currentIndex === introSlides.length - 1;
@@ -22,23 +26,34 @@ function IntroSlides({ children }: IntroSlidesProps) {
     }
   ).current;
 
+  const handleHideIntroSlider = async () => {
+    try {
+      await AsyncStorage.setItem(INTRO_SLIDER_KEY, 'false');
+    } catch {
+    } finally {
+      hideIntroSlider();
+    }
+  };
+
   const handlePress = (index: number) => {
     if (!isTheLastSlide) {
       slidesRef.current?.scrollToIndex({ index });
       return;
     }
+    handleHideIntroSlider();
   };
 
   const viewConfig = useRef({ viewAreaCoveragePercentThreshold: 50 }).current;
 
+  if (!show) return children;
   return (
     <SafeAreaView style={tw`flex-1 items-center justify-center`}>
       <FlatList
         ref={slidesRef}
         data={introSlides}
         horizontal
-        showsHorizontalScrollIndicator
         pagingEnabled
+        showsHorizontalScrollIndicator={false}
         bounces={false}
         scrollEventThrottle={32}
         onViewableItemsChanged={onViewableItemsChanged}

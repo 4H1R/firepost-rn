@@ -11,7 +11,7 @@ type ContainerProps = {
 function Container({ children }: ContainerProps) {
   return (
     <SafeAreaView>
-      <ScrollView contentContainerStyle={tw`px-4`}>{children}</ScrollView>
+      <ScrollView contentContainerStyle={tw`px-4 py-2`}>{children}</ScrollView>
     </SafeAreaView>
   );
 }

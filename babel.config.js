@@ -18,6 +18,7 @@ module.exports = function (api) {
             utils: './utils',
             services: './services',
             shared: './shared',
+            stores: './stores',
           },
         },
       ],
