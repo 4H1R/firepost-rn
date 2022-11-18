@@ -8,7 +8,7 @@ import tw from 'libs/tailwind';
 import { INTRO_SLIDER_KEY } from 'components/ResourceLoader';
 import introSlides from 'fixtures/introSlides';
 import Slide from './Slide';
-import useIntroSlider from 'stores/introSlider';
+import useIntroSlider from 'stores/introSliderStore';
 
 type IntroSlidesProps = {
   children: JSX.Element;

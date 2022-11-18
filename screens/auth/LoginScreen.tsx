@@ -18,6 +18,7 @@ import tw from 'libs/tailwind';
 import validations from 'fixtures/validations';
 import Fields from 'components/auth/Fields';
 import useLogin, { ILoginDto } from 'services/auth/login';
+import useAuthUser from 'stores/authStore';
 
 const schema = yup.object({
   email: validations.email,
@@ -26,6 +27,7 @@ const schema = yup.object({
 
 function LoginScreen() {
   const { t } = useTranslation();
+  const setUser = useAuthUser((state) => state.setUser);
   const { mutate: login, isLoading } = useLogin();
 
   const fields: TAuthField<ILoginDto>[] = [
@@ -64,9 +66,7 @@ function LoginScreen() {
               }
               setErrors({ email: t('errors.somethingWentWrong') });
             },
-            onSuccess: (data) => {
-              alert("You've logged in successfully.");
-            },
+            onSuccess: setUser,
           })
         }
       >

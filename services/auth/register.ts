@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 
-import { IAuthUser } from 'interfaces';
+import { IAuthResponse } from 'interfaces';
 import axios from 'libs/axios';
 
 export interface IRegisterDto {
@@ -10,14 +10,8 @@ export interface IRegisterDto {
   password: string;
 }
 
-export interface ILoginResponse {
-  user: IAuthUser;
-  accessToken: string;
-  refreshToken: string;
-}
-
 async function register(data: IRegisterDto) {
-  const resp = await axios.post<ILoginResponse>('/auth/register', data);
+  const resp = await axios.post<IAuthResponse>('/auth/register', data);
   return resp.data;
 }
 

@@ -5,7 +5,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import tw from 'libs/tailwind';
-import useIntroSlider from 'stores/introSlider';
+import useIntroSlider from 'stores/introSliderStore';
 
 SplashScreen.preventAutoHideAsync().catch();
 
