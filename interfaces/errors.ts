@@ -3,7 +3,6 @@ export interface IError {
   status: number;
 }
 
-export interface IUnprocessableEntity<T extends Record<string, any>>
-  extends IError {
+export interface IUnprocessableEntity<T extends Record<string, any>> extends IError {
   errors: T;
 }

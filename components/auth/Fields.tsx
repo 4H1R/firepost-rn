@@ -13,16 +13,10 @@ type FieldsProps<T> = {
   isLoading?: boolean;
 };
 
-function Fields<T extends Record<string, any>>({
-  fields,
-  buttonText,
-  isLoading,
-}: FieldsProps<T>) {
-  const { errors, handleBlur, handleChange, handleSubmit, values, touched } =
-    useFormikContext<T>();
+function Fields<T extends Record<string, any>>({ fields, buttonText, isLoading }: FieldsProps<T>) {
+  const { errors, handleBlur, handleChange, handleSubmit, values, touched } = useFormikContext<T>();
 
-  const hasError = (name: string) =>
-    (touched[name] && errors[name] !== undefined) || false;
+  const hasError = (name: string) => (touched[name] && errors[name] !== undefined) || false;
 
   return (
     <View>

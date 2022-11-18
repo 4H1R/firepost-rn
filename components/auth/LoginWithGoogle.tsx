@@ -18,9 +18,7 @@ function LoginWithGoogle() {
         style={tw`text-secondary-200 bg-secondary-600 p-1 rounded-full mr-2`}
         size={15}
       />
-      <Text style={tw`text-secondary-500 font-primary text-base`}>
-        {t('auth.loginWithGoogle')}
-      </Text>
+      <Text style={tw`text-secondary-500 font-primary text-base`}>{t('auth.loginWithGoogle')}</Text>
     </TouchableOpacity>
   );
 }

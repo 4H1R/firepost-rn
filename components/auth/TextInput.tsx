@@ -18,10 +18,9 @@ function TextInput({ Icon, hasError = false, ...props }: TextInputProps) {
     <View style={tw`flex-row items-center justify-center`}>
       <TextInputMain
         {...props}
-        style={tw.style(
-          'p-2 flex-1 w-full bg-secondary-200 rounded-lg mt-4 font-primary',
-          { 'border border-danger-500': hasError }
-        )}
+        style={tw.style('p-2 flex-1 w-full bg-secondary-200 rounded-lg mt-4 font-primary', {
+          'border border-danger-500': hasError,
+        })}
       />
       <Icon
         strokeWidth={2}

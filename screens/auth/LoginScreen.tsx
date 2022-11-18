@@ -70,11 +70,7 @@ function LoginScreen() {
           })
         }
       >
-        <Fields
-          isLoading={isLoading}
-          buttonText={t('auth.login.buttonText')}
-          fields={fields}
-        />
+        <Fields isLoading={isLoading} buttonText={t('auth.login.buttonText')} fields={fields} />
       </Formik>
       <ORDivider />
       <LoginWithGoogle />

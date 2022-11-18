@@ -1,41 +1,41 @@
 {
-    "auth": {
-        "or": "OR",
-        "loginWithGoogle": "Login with Google",
-        "login": {
-            "title": "Login to your Account",
-            "buttonText": "Login",
-            "forgotYourPassword": "Forgot your Password ?",
-            "newToFirePost": "New to FirePost ?"
-        },
-        "register": {
-            "title": "Make an Account",
-            "buttonText": "Register",
-            "alreadyHaveAnAccount": "Already have an Account ?"
-        },
-        "forgotPassword": {
-            "title": "Forgot Password",
-            "rememberYourPassword": "Remember your password ?"
-        },
-        "resetPassword": {
-            "title": "Reset Password"
-        }
+  "auth": {
+    "or": "OR",
+    "loginWithGoogle": "Login with Google",
+    "login": {
+      "title": "Login to your Account",
+      "buttonText": "Login",
+      "forgotYourPassword": "Forgot your Password ?",
+      "newToFirePost": "New to FirePost ?"
     },
-    "fields": {
-        "email": "Email",
-        "password": "Password",
-        "passwordConfirmation": "Password Confirmation",
-        "name": "Name",
-        "username": "Username"
+    "register": {
+      "title": "Make an Account",
+      "buttonText": "Register",
+      "alreadyHaveAnAccount": "Already have an Account ?"
     },
-    "errors": {
-        "required": "This field is required.",
-        "min": "This field must be at least {{ min }}.",
-        "max": "This field must be less than {{ max }}.",
-        "passwordsMatch": "Passwords must match.",
-        "email": "This field must be a valid email.",
-        "matches": "This field is not valid.",
-        "invalidCredentials": "These credentials do not match our records.",
-        "somethingWentWrong": "Something went wrong Please try again later."
+    "forgotPassword": {
+      "title": "Forgot Password",
+      "rememberYourPassword": "Remember your password ?"
+    },
+    "resetPassword": {
+      "title": "Reset Password"
     }
+  },
+  "fields": {
+    "email": "Email",
+    "password": "Password",
+    "passwordConfirmation": "Password Confirmation",
+    "name": "Name",
+    "username": "Username"
+  },
+  "errors": {
+    "required": "This field is required.",
+    "min": "This field must be at least {{ min }}.",
+    "max": "This field must be less than {{ max }}.",
+    "passwordsMatch": "Passwords must match.",
+    "email": "This field must be a valid email.",
+    "matches": "This field is not valid.",
+    "invalidCredentials": "These credentials do not match our records.",
+    "somethingWentWrong": "Something went wrong Please try again later."
+  }
 }

@@ -14,9 +14,7 @@ function ErrorMessage({ name }: ErrorMessageProps) {
 
   if (!hasError) return null;
 
-  return (
-    <Text style={tw`text-danger-600 font-primary mt-2`}>{errors[name]}</Text>
-  );
+  return <Text style={tw`text-danger-600 font-primary mt-2`}>{errors[name]}</Text>;
 }
 
 export default ErrorMessage;

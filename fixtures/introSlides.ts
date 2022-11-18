@@ -15,15 +15,13 @@ const introSlides: IIntroSlide[] = [
   {
     id: '1',
     title: 'Welcome to FirePost',
-    description:
-      'This is where the Fire begins make sure to be in fire everyday!',
+    description: 'This is where the Fire begins make sure to be in fire everyday!',
     Illustration: First,
   },
   {
     id: '2',
     title: 'Share your Photos and Videos',
-    description:
-      'Be on touch with your friends and see their photos and videos',
+    description: 'Be on touch with your friends and see their photos and videos',
     Illustration: Second,
   },
   {

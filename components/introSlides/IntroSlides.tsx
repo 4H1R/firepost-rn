@@ -20,11 +20,9 @@ function IntroSlides({ children }: IntroSlidesProps) {
   const slidesRef = useRef<FlatList>(null);
   const isTheLastSlide = currentIndex === introSlides.length - 1;
 
-  const onViewableItemsChanged = useRef(
-    ({ viewableItems }: { viewableItems: ViewToken[] }) => {
-      setCurrentIndex(viewableItems[0].index ?? 0);
-    }
-  ).current;
+  const onViewableItemsChanged = useRef(({ viewableItems }: { viewableItems: ViewToken[] }) => {
+    setCurrentIndex(viewableItems[0].index ?? 0);
+  }).current;
 
   const handleHideIntroSlider = async () => {
     try {
