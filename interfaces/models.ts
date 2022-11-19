@@ -9,6 +9,7 @@ export interface IUser extends IModel {
   username: string;
   image: string | null;
   bio: string | null;
+  isVerified: boolean;
 }
 
 export interface IAuthUser extends IUser {

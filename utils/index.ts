@@ -10,3 +10,8 @@ export function fieldsToInitialValues<T>(
     return curr;
   }, {} as Record<TFieldName<T>, string>);
 }
+
+export function splitFirstWordAndRest(text: string) {
+  const textSplitted = text.split(' ');
+  return [textSplitted[0], textSplitted.slice(1).join(' ')];
+}

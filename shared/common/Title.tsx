@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text } from 'react-native';
 
+import { splitFirstWordAndRest } from 'utils';
 import tw from 'libs/tailwind';
 
 type TitleProps = {
@@ -8,8 +9,11 @@ type TitleProps = {
 };
 
 function Title({ children }: TitleProps) {
+  const [firstWord, rest] = splitFirstWordAndRest(children);
   return (
-    <Text style={tw`text-3xl text-secondary-700 font-primary-bold text-center`}>{children}</Text>
+    <Text style={tw`text-3xl font-primary-bold text-center text-secondary-900`}>
+      <Text style={tw`text-primary-600`}>{firstWord}</Text> {rest}
+    </Text>
   );
 }
 

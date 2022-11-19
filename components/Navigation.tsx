@@ -1,14 +1,55 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {
+  HomeIcon,
+  ChatBubbleLeftEllipsisIcon,
+  PlusCircleIcon,
+  BellIcon,
+  UserIcon,
+} from 'react-native-heroicons/outline';
 
+import { TRootStackParamList, TRootTabParamList } from 'types';
 import useAuthUser from 'stores/authStore';
 import RegisterScreen from 'screens/auth/RegisterScreen';
 import LoginScreen from 'screens/auth/LoginScreen';
 import ForgotPassword from 'screens/auth/ForgotPassword';
 import HomeScreen from 'screens/HomeScreen';
+import UserProfile from 'screens/users/UserProfile';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<TRootStackParamList>();
+const Tab = createBottomTabNavigator<TRootTabParamList>();
+
+function MyTabs() {
+  const user = useAuthUser((state) => state.user);
+
+  return (
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarActiveTintColor: '#4f46e5',
+        tabBarInactiveTintColor: '#9ca3af',
+        tabBarShowLabel: false,
+      }}
+    >
+      <Tab.Screen options={{ tabBarIcon: HomeIcon }} name="Home" component={HomeScreen} />
+      <Tab.Screen
+        options={{ tabBarIcon: ChatBubbleLeftEllipsisIcon }}
+        name="Messages"
+        component={HomeScreen}
+      />
+      <Tab.Screen options={{ tabBarIcon: PlusCircleIcon }} name="Create" component={HomeScreen} />
+      <Tab.Screen options={{ tabBarIcon: BellIcon }} name="Notifications" component={HomeScreen} />
+      <Tab.Screen
+        initialParams={{ username: user?.username }}
+        options={{ tabBarIcon: UserIcon }}
+        name="Profile"
+        component={UserProfile}
+      />
+    </Tab.Navigator>
+  );
+}
 
 function Navigation() {
   const user = useAuthUser((state) => state.user);
@@ -17,9 +58,7 @@ function Navigation() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {user ? (
-          <>
-            <Stack.Screen name="Home" component={HomeScreen} />
-          </>
+          <Stack.Screen name="Root" component={MyTabs} />
         ) : (
           <>
             <Stack.Screen name="Login" component={LoginScreen} />

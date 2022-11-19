@@ -5,6 +5,7 @@ import { IIntroSlide } from 'fixtures/introSlides';
 import Button from 'shared/common/Button';
 import tw from 'libs/tailwind';
 import Paginator from './Paginator';
+import { splitFirstWordAndRest } from 'utils';
 
 interface SlideProps extends IIntroSlide {
   activeIndex: number;
@@ -23,9 +24,7 @@ function Slide({
   index,
 }: SlideProps) {
   const { width } = useWindowDimensions();
-  const titleSplit = title.split(' ');
-  const firstWord = titleSplit[0];
-  const restTitle = titleSplit.slice(1).join(' ');
+  const [firstWord, restTitle] = splitFirstWordAndRest(title);
   const isTheLastSlide = activeIndex === slidesCount - 1;
 
   return (

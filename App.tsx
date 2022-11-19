@@ -7,6 +7,7 @@ import Navigation from 'components/Navigation';
 import ResourceLoader from 'components/ResourceLoader';
 import queryClient from 'libs/queryClient';
 import IntroSlides from 'components/introSlides';
+import Auth from 'components/Auth';
 
 export default function App() {
   return (
@@ -14,7 +15,9 @@ export default function App() {
       <QueryClientProvider client={queryClient}>
         <StatusBar style="auto" />
         <IntroSlides>
-          <Navigation />
+          <Auth>
+            <Navigation />
+          </Auth>
         </IntroSlides>
       </QueryClientProvider>
     </ResourceLoader>

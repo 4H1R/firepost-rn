@@ -22,7 +22,8 @@ function ResourceLoader({ children }: ResourceLoaderProps) {
   const [fontsLoaded] = useFonts({
     'Primary-Bold': require('../assets/fonts/Poppins-Bold.ttf'),
     'Primary-Semi': require('../assets/fonts/Poppins-SemiBold.ttf'),
-    'Primary-Regular': require('../assets/fonts/Poppins-Regular.ttf'),
+    'Primary-Medium': require('../assets/fonts/Poppins-Regular.ttf'),
+    'Primary-Regular': require('../assets/fonts/Poppins-Medium.ttf'),
   });
 
   const checkIntroSlides = async () => {

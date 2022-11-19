@@ -10,7 +10,7 @@ import { fieldsToInitialValues } from 'utils';
 import { TAuthField } from 'types';
 import Illustration from 'assets/svg/auth/login.svg';
 import Title from 'shared/common/Title';
-import Container from 'components/auth/Container';
+import Container from 'shared/common/Container';
 import ORDivider from 'components/auth/ORDivider';
 import LoginWithGoogle from 'components/auth/LoginWithGoogle';
 import Link from 'components/auth/Link';

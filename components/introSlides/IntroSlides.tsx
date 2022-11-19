@@ -1,28 +1,29 @@
-import React, { useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { FlatList, ViewToken } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useTranslation } from 'react-i18next';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import tw from 'libs/tailwind';
-
 import { INTRO_SLIDER_KEY } from 'components/ResourceLoader';
-import introSlides from 'fixtures/introSlides';
+import { transformIntroSlides } from 'utils/introSlides';
 import Slide from './Slide';
 import useIntroSlider from 'stores/introSliderStore';
+import tw from 'libs/tailwind';
 
 type IntroSlidesProps = {
   children: JSX.Element;
 };
 
 function IntroSlides({ children }: IntroSlidesProps) {
+  const { t } = useTranslation();
   const { show, hideIntroSlider } = useIntroSlider((state) => state);
   const [currentIndex, setCurrentIndex] = useState(0);
   const slidesRef = useRef<FlatList>(null);
+  const introSlides = useMemo(
+    () => transformIntroSlides(t('introSlides', { returnObjects: true })),
+    []
+  );
   const isTheLastSlide = currentIndex === introSlides.length - 1;
-
-  const onViewableItemsChanged = useRef(({ viewableItems }: { viewableItems: ViewToken[] }) => {
-    setCurrentIndex(viewableItems[0].index ?? 0);
-  }).current;
 
   const handleHideIntroSlider = async () => {
     try {
@@ -41,6 +42,9 @@ function IntroSlides({ children }: IntroSlidesProps) {
     handleHideIntroSlider();
   };
 
+  const onViewableItemsChanged = useRef(({ viewableItems }: { viewableItems: ViewToken[] }) => {
+    setCurrentIndex(viewableItems[0].index ?? 0);
+  }).current;
   const viewConfig = useRef({ viewAreaCoveragePercentThreshold: 50 }).current;
 
   if (!show) return children;

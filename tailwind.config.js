@@ -14,6 +14,7 @@ module.exports = {
       },
       fontFamily: {
         primary: 'Primary-Regular',
+        'primary-medium': 'Primary-Medium',
         'primary-semi': 'Primary-Semi',
         'primary-bold': 'Primary-Bold',
       },
