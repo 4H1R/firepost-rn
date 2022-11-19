@@ -1,11 +1,11 @@
 import React from 'react';
 import { Text, useWindowDimensions, View } from 'react-native';
 
-import { IIntroSlide } from 'fixtures/introSlides';
+import { splitFirstWordAndRest } from 'utils';
+import { IIntroSlide } from 'utils/introSlides';
 import Button from 'shared/common/Button';
 import tw from 'libs/tailwind';
 import Paginator from './Paginator';
-import { splitFirstWordAndRest } from 'utils';
 
 interface SlideProps extends IIntroSlide {
   activeIndex: number;

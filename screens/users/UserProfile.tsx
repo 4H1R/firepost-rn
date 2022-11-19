@@ -21,23 +21,24 @@ function ProfileScreen() {
   const { params } = useRoute<RouteProp<TRootTabParamList, 'Profile'>>();
   const { data } = useGetUser(params.username);
 
+  if (!data) return null;
   return (
     <Container>
       <View style={tw`flex-row items-center justify-between`}>
         <Picture />
         <View style={tw`flex-row items-center justify-center`}>
-          <NumberData count={128} title="Posts" />
-          <NumberData count={3223} title="Followers" />
-          <NumberData count={512} title="Followings" />
+          <NumberData count={data.postsCount} title="Posts" />
+          <NumberData count={data.followersCount} title="Followers" />
+          <NumberData count={data.followingsCount} title="Followings" />
         </View>
       </View>
       <View style={tw`flex-row items-end`}>
-        <Text style={tw`font-primary-bold text-base mt-2 mr-1`}>{data?.username}</Text>
-        {data?.isVerified && <CheckBadgeIcon style={tw`w-3 h-3w-3 text-primary-600`} />}
+        <Text style={tw`font-primary-bold text-base mt-2 mr-1`}>{data.username}</Text>
+        {data.isVerified && <CheckBadgeIcon style={tw`w-3 h-3w-3 text-primary-600`} />}
       </View>
-      <Text style={tw`font-primary-medium text-sm text-secondary-400 mt-1`}>{data?.name}</Text>
-      {data?.bio && (
-        <Text style={tw`font-primary-medium text-sm text-secondary-900 mt-2`}>{data?.bio}</Text>
+      <Text style={tw`font-primary-medium text-sm text-secondary-400 mt-1`}>{data.name}</Text>
+      {data.bio && (
+        <Text style={tw`font-primary-medium text-sm text-secondary-900 mt-2`}>{data.bio}</Text>
       )}
       <ScrollView
         horizontal
@@ -46,7 +47,7 @@ function ProfileScreen() {
       >
         <Action title="Follow" Icon={PlusIcon} color="primary" />
         <Action title="Message" Icon={ChatBubbleBottomCenterIcon} color="secondary-outline" />
-        <Action title="Website" Icon={GlobeAltIcon} color="secondary-outline" />
+        {data.website && <Action title="Website" Icon={GlobeAltIcon} color="secondary-outline" />}
         <Action title="Block" Icon={NoSymbolIcon} color="danger" />
       </ScrollView>
     </Container>

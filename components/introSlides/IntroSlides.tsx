@@ -23,7 +23,6 @@ function IntroSlides({ children }: IntroSlidesProps) {
     () => transformIntroSlides(t('introSlides', { returnObjects: true })),
     []
   );
-  const isTheLastSlide = currentIndex === introSlides.length - 1;
 
   const handleHideIntroSlider = async () => {
     try {
@@ -35,7 +34,7 @@ function IntroSlides({ children }: IntroSlidesProps) {
   };
 
   const handlePress = (index: number) => {
-    if (!isTheLastSlide) {
+    if (index < introSlides.length) {
       slidesRef.current?.scrollToIndex({ index });
       return;
     }

@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { IUser } from 'interfaces';
+import { IUserProfile } from 'interfaces';
 import axios from 'libs/axios';
 
 async function user(username: string) {
-  const resp = await axios.get<IUser>(`/users/${username}`);
+  const resp = await axios.get<IUserProfile>(`/users/${username}`);
   return resp.data;
 }
 
