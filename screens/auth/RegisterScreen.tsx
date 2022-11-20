@@ -23,6 +23,7 @@ import tw from 'libs/tailwind';
 import validations from 'fixtures/validations';
 import Fields from 'components/auth/Fields';
 import useRegister, { IRegisterDto } from 'services/auth/register';
+import useAuthUser from 'stores/authStore';
 
 interface IRegister extends IRegisterDto {
   passwordConfirmation: string;
@@ -30,7 +31,8 @@ interface IRegister extends IRegisterDto {
 
 function RegisterScreen() {
   const { t } = useTranslation();
-  const { mutate: register } = useRegister();
+  const { mutate: register, isLoading } = useRegister();
+  const setUser = useAuthUser((state) => state.setUser);
 
   const schema = yup.object({
     name: validations.name,
@@ -101,13 +103,11 @@ function RegisterScreen() {
               }
               setErrors({ email: t('errors.somethingWentWrong') });
             },
-            onSuccess: (data) => {
-              alert("You've registered successfully.");
-            },
+            onSuccess: setUser,
           });
         }}
       >
-        <Fields buttonText={t('auth.register.buttonText')} fields={fields} />
+        <Fields isLoading={isLoading} buttonText={t('auth.register.buttonText')} fields={fields} />
       </Formik>
       <ORDivider />
       <LoginWithGoogle />

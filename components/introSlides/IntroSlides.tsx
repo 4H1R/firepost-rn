@@ -20,7 +20,7 @@ function IntroSlides({ children }: IntroSlidesProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const slidesRef = useRef<FlatList>(null);
   const introSlides = useMemo(
-    () => transformIntroSlides(t('introSlides', { returnObjects: true })),
+    () => transformIntroSlides(t('introSlides.slides', { returnObjects: true })),
     []
   );
 

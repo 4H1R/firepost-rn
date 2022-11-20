@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, useWindowDimensions, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 import { splitFirstWordAndRest } from 'utils';
 import { IIntroSlide } from 'utils/introSlides';
@@ -23,6 +24,7 @@ function Slide({
   onPress,
   index,
 }: SlideProps) {
+  const { t } = useTranslation();
   const { width } = useWindowDimensions();
   const [firstWord, restTitle] = splitFirstWordAndRest(title);
   const isTheLastSlide = activeIndex === slidesCount - 1;
@@ -37,7 +39,9 @@ function Slide({
       <Text style={tw`text-center font-primary text-base text-secondary-500 mt-2`}>
         {description}
       </Text>
-      <Button onPress={() => onPress(index + 1)}>{isTheLastSlide ? 'Start' : 'Next'}</Button>
+      <Button onPress={() => onPress(index + 1)}>
+        {isTheLastSlide ? t('introSlides.getStarted') : t('introSlides.next')}
+      </Button>
     </View>
   );
 }

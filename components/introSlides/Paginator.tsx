@@ -11,7 +11,7 @@ type PaginatorProps = {
 
 function Paginator({ slidesCount, activeIndex, onPress }: PaginatorProps) {
   return (
-    <View style={tw`flex-row items-center justify-center m-8`}>
+    <View style={tw`flex-row items-center justify-center m-4`}>
       {Array.from({ length: slidesCount }).map((_, i) => (
         <TouchableWithoutFeedback onPress={() => onPress(i)} key={i}>
           <View

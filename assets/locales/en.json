@@ -38,22 +38,26 @@
     "invalidCredentials": "These credentials do not match our records.",
     "somethingWentWrong": "Something went wrong Please try again later."
   },
-  "introSlides": [
-    {
-      "title": "Welcome to FirePost",
-      "description": "This is where the Fire begins make sure to be in fire everyday!"
-    },
-    {
-      "title": "Share your Photos and Videos",
-      "description": "Be on touch with your friends and see their photos and videos"
-    },
-    {
-      "title": "Find new friends",
-      "description": "Browse through the app and find new people"
-    },
-    {
-      "title": "Check your followers",
-      "description": "See how long your followers have been following you"
-    }
-  ]
+  "introSlides": {
+    "getStarted": "Get Started",
+    "next": "Next",
+    "slides": [
+      {
+        "title": "Welcome to FirePost",
+        "description": "This is where the Fire begins make sure to be in fire everyday!"
+      },
+      {
+        "title": "Share your Photos and Videos",
+        "description": "Be on touch with your friends and see their photos and videos"
+      },
+      {
+        "title": "Find new friends",
+        "description": "Browse through the app and find new people"
+      },
+      {
+        "title": "Check your followers",
+        "description": "See how long your followers have been following you"
+      }
+    ]
+  }
 }
