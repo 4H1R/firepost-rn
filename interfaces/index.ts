@@ -12,5 +12,21 @@ export interface IAuthResponse {
   refreshToken: string;
 }
 
+export interface IPaginate<T> {
+  data: T[];
+  meta: {
+    currentPage: number;
+    lastPage: number;
+    next: null | number;
+    perPage: number;
+    prev: null | number;
+    total: number;
+  };
+}
+
+export interface IPaginateParams {
+  page: number | undefined;
+}
+
 export * from './models';
 export * from './errors';

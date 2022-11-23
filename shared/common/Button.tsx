@@ -4,12 +4,12 @@ import { ActivityIndicator, Text, TouchableOpacity } from 'react-native';
 import tw from 'libs/tailwind';
 
 type ButtonProps = {
-  children: string;
+  text: string;
   onPress?: () => void;
   isLoading?: boolean;
 };
 
-function Button({ children, onPress, isLoading = false }: ButtonProps) {
+function Button({ text, onPress, isLoading = false }: ButtonProps) {
   return (
     <TouchableOpacity
       disabled={isLoading}
@@ -23,7 +23,7 @@ function Button({ children, onPress, isLoading = false }: ButtonProps) {
       {isLoading ? (
         <ActivityIndicator color={tw.color('white')} size="large" style={tw`mr-2`} />
       ) : (
-        <Text style={tw`text-white text-xl font-primary-semi`}>{children}</Text>
+        <Text style={tw`text-white text-xl font-primary-semi`}>{text}</Text>
       )}
     </TouchableOpacity>
   );

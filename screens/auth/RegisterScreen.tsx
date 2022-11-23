@@ -88,7 +88,7 @@ function RegisterScreen() {
 
   return (
     <Container>
-      <Title>{t('auth.register.title')}</Title>
+      <Title text={t('auth.register.title')} />
       <Illustration style={tw`w-full h-40 mt-4`} />
       <Formik
         validationSchema={schema}

@@ -51,11 +51,14 @@ function LoginScreen() {
 
   return (
     <Container>
-      <Title>{t('auth.login.title')}</Title>
+      <Title text={t('auth.login.title')} />
       <Illustration style={tw`w-full h-56 mt-4`} />
       <Formik
         validationSchema={schema}
-        initialValues={fieldsToInitialValues(fields)}
+        initialValues={fieldsToInitialValues(fields, {
+          email: 'aric59@gmail.com',
+          password: 'password',
+        })}
         onSubmit={(values, { setErrors }) =>
           login(values, {
             onError: (e) => {

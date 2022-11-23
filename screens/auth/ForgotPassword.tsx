@@ -35,7 +35,7 @@ function ForgotPassword() {
 
   return (
     <Container>
-      <Title>{t('auth.forgotPassword.title')}</Title>
+      <Title text={t('auth.forgotPassword.title')} />
       <Illustration style={tw`w-full h-56 mt-4`} />
       <Formik
         validationSchema={schema}

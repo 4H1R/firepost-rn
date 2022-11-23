@@ -1,5 +1,6 @@
 import React from 'react';
-import { ScrollView, ScrollViewProps, ViewStyle } from 'react-native';
+import { ScrollViewProps, ViewStyle } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 
 import tw from 'libs/tailwind';
 

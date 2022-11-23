@@ -8,9 +8,7 @@ import {
   PlusCircleIcon,
   BellIcon,
   UserIcon,
-  ChevronLeftIcon,
 } from 'react-native-heroicons/outline';
-import { TouchableOpacity } from 'react-native';
 
 import { TRootStackParamList, TRootTabParamList } from 'types';
 import useAuthUser from 'stores/authStore';
@@ -44,18 +42,7 @@ function MyTabs() {
       />
       <Tab.Screen options={{ tabBarIcon: PlusCircleIcon }} name="Create" component={HomeScreen} />
       <Tab.Screen options={{ tabBarIcon: BellIcon }} name="Notifications" component={HomeScreen} />
-      <Tab.Screen
-        options={{
-          tabBarIcon: UserIcon,
-          headerLeft: () => (
-            <TouchableOpacity>
-              <ChevronLeftIcon style={tw`w-5 h-5 text-secondary-900`} />
-            </TouchableOpacity>
-          ),
-        }}
-        name="Profile"
-        component={UserProfile}
-      />
+      <Tab.Screen options={{ tabBarIcon: UserIcon }} name="Profile" component={UserProfile} />
     </Tab.Navigator>
   );
 }

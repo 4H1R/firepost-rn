@@ -32,9 +32,7 @@ function Fields<T extends Record<string, any>>({ fields, buttonText, isLoading }
           <ErrorMessage name={name} />
         </View>
       ))}
-      <Button isLoading={isLoading} onPress={handleSubmit}>
-        {buttonText}
-      </Button>
+      <Button text={buttonText} isLoading={isLoading} onPress={handleSubmit} />
     </View>
   );
 }
