@@ -9,7 +9,7 @@ type ButtonProps = {
   isLoading?: boolean;
 };
 
-function Button({ children, onPress, isLoading }: ButtonProps) {
+function Button({ children, onPress, isLoading = false }: ButtonProps) {
   return (
     <TouchableOpacity
       disabled={isLoading}
@@ -17,11 +17,11 @@ function Button({ children, onPress, isLoading }: ButtonProps) {
       activeOpacity={0.6}
       style={tw.style(
         'flex-row items-center justify-center py-3 w-full bg-primary-600 rounded-lg mt-4',
-        { 'opacity-50': !!isLoading }
+        { 'opacity-50': isLoading }
       )}
     >
       {isLoading ? (
-        <ActivityIndicator color="#ffffff" size="large" style={tw`mr-2`} />
+        <ActivityIndicator color={tw.color('white')} size="large" style={tw`mr-2`} />
       ) : (
         <Text style={tw`text-white text-xl font-primary-semi`}>{children}</Text>
       )}

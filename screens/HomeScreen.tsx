@@ -1,17 +1,25 @@
 import React from 'react';
-import { Button, Text, View } from 'react-native';
+import { Button, Text } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import tw from 'libs/tailwind';
 import useAuthUser from 'stores/authStore';
+import Container from 'shared/common/Container';
 
 function HomeScreen() {
   const clearUser = useAuthUser((state) => state.clearUser);
+  const navigation = useNavigation();
+  const handleNavigate = () =>
+    navigation.navigate('Root', {
+      screen: 'Profile',
+    });
 
   return (
-    <View style={tw`flex-1 items-center justify-center`}>
+    <Container contentContainerStyle={tw`flex-1 items-center justify-center`}>
       <Text>Welcome to Home</Text>
       <Button title="Logout" onPress={clearUser} />
-    </View>
+      <Button title="Navigate to Profile" onPress={handleNavigate} />
+    </Container>
   );
 }
 

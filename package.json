@@ -21,7 +21,7 @@
     "expo-localization": "~14.0.0",
     "expo-splash-screen": "~0.17.5",
     "expo-status-bar": "~1.4.2",
-    "expo-updates": "~0.15.5",
+    "expo-updates": "~0.15.6",
     "formik": "^2.2.9",
     "i18next": "^22.0.5",
     "react": "18.1.0",

@@ -15,20 +15,18 @@ declare global {
   }
 }
 
-export type RootStackScreenProps<Screen extends keyof TRootStackParamList> = NativeStackScreenProps<
-  TRootStackParamList,
-  Screen
->;
+export type TRootStackScreenProps<Screen extends keyof TRootStackParamList> =
+  NativeStackScreenProps<TRootStackParamList, Screen>;
 
 export type TRootTabParamList = {
   Home: undefined;
   Messages: undefined;
   Create: undefined;
   Notifications: undefined;
-  Profile: { username: string };
+  Profile: undefined;
 };
 
-export type RootTabScreenProps<Screen extends keyof TRootTabParamList> = CompositeScreenProps<
+export type TRootTabScreenProps<Screen extends keyof TRootTabParamList> = CompositeScreenProps<
   BottomTabScreenProps<TRootTabParamList, Screen>,
   NativeStackScreenProps<TRootStackParamList>
 >;

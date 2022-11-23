@@ -21,4 +21,5 @@ export interface IUserProfile extends IUser {
   postsCount: number;
   followingsCount: number;
   followersCount: number;
+  isFollowed: boolean;
 }

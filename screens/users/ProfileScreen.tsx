@@ -1,25 +1,17 @@
 import React from 'react';
-import { Text, View, ScrollView } from 'react-native';
-import {
-  PlusIcon,
-  ChatBubbleBottomCenterIcon,
-  NoSymbolIcon,
-  GlobeAltIcon,
-  CheckBadgeIcon,
-} from 'react-native-heroicons/outline';
-import { RouteProp, useRoute } from '@react-navigation/native';
+import { Text, View } from 'react-native';
+import { CheckBadgeIcon } from 'react-native-heroicons/outline';
 
-import { TRootTabParamList } from 'types';
-import Container from 'shared/common/Container';
 import Picture from 'components/users/show/Picture';
 import NumberData from 'components/users/show/NumberData';
-import Action from 'components/users/show/Action';
 import tw from 'libs/tailwind';
 import useGetUser from 'services/users/show';
+import useAuthUser from 'stores/authStore';
+import Container from 'shared/common/Container';
 
 function ProfileScreen() {
-  const { params } = useRoute<RouteProp<TRootTabParamList, 'Profile'>>();
-  const { data } = useGetUser(params.username);
+  const user = useAuthUser((state) => state.user);
+  const { data } = useGetUser(user!.username);
 
   if (!data) return null;
   return (
@@ -40,16 +32,6 @@ function ProfileScreen() {
       {data.bio && (
         <Text style={tw`font-primary-medium text-sm text-secondary-900 mt-2`}>{data.bio}</Text>
       )}
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={tw`flex-row items-center mt-4`}
-      >
-        <Action title="Follow" Icon={PlusIcon} color="primary" />
-        <Action title="Message" Icon={ChatBubbleBottomCenterIcon} color="secondary-outline" />
-        {data.website && <Action title="Website" Icon={GlobeAltIcon} color="secondary-outline" />}
-        <Action title="Block" Icon={NoSymbolIcon} color="danger" />
-      </ScrollView>
     </Container>
   );
 }

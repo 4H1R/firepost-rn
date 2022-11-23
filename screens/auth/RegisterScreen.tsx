@@ -15,7 +15,7 @@ import { TAuthField } from 'types';
 import { fieldsToInitialValues } from 'utils';
 import Illustration from 'assets/svg/auth/register.svg';
 import Title from 'shared/common/Title';
-import Container from 'shared/common/Container';
+import Container from 'components/auth/Container';
 import ORDivider from 'components/auth/ORDivider';
 import LoginWithGoogle from 'components/auth/LoginWithGoogle';
 import Link from 'components/auth/Link';

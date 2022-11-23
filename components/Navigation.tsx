@@ -8,7 +8,9 @@ import {
   PlusCircleIcon,
   BellIcon,
   UserIcon,
+  ChevronLeftIcon,
 } from 'react-native-heroicons/outline';
+import { TouchableOpacity } from 'react-native';
 
 import { TRootStackParamList, TRootTabParamList } from 'types';
 import useAuthUser from 'stores/authStore';
@@ -16,20 +18,21 @@ import RegisterScreen from 'screens/auth/RegisterScreen';
 import LoginScreen from 'screens/auth/LoginScreen';
 import ForgotPassword from 'screens/auth/ForgotPassword';
 import HomeScreen from 'screens/HomeScreen';
-import UserProfile from 'screens/users/UserProfile';
+import UserProfile from 'screens/users/ProfileScreen';
+import tw from 'libs/tailwind';
 
 const Stack = createNativeStackNavigator<TRootStackParamList>();
 const Tab = createBottomTabNavigator<TRootTabParamList>();
 
 function MyTabs() {
-  const user = useAuthUser((state) => state.user);
-
   return (
     <Tab.Navigator
       screenOptions={{
-        headerShown: false,
-        tabBarActiveTintColor: '#4f46e5',
-        tabBarInactiveTintColor: '#9ca3af',
+        headerTitle: '',
+        headerLeftContainerStyle: tw`mx-4`,
+        headerRightContainerStyle: tw`mx-4`,
+        tabBarActiveTintColor: tw.color('primary-600'),
+        tabBarInactiveTintColor: tw.color('secondary-400'),
         tabBarShowLabel: false,
       }}
     >
@@ -42,8 +45,14 @@ function MyTabs() {
       <Tab.Screen options={{ tabBarIcon: PlusCircleIcon }} name="Create" component={HomeScreen} />
       <Tab.Screen options={{ tabBarIcon: BellIcon }} name="Notifications" component={HomeScreen} />
       <Tab.Screen
-        initialParams={{ username: user?.username }}
-        options={{ tabBarIcon: UserIcon }}
+        options={{
+          tabBarIcon: UserIcon,
+          headerLeft: () => (
+            <TouchableOpacity>
+              <ChevronLeftIcon style={tw`w-5 h-5 text-secondary-900`} />
+            </TouchableOpacity>
+          ),
+        }}
         name="Profile"
         component={UserProfile}
       />
