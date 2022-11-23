@@ -55,10 +55,7 @@ function LoginScreen() {
       <Illustration style={tw`w-full h-56 mt-4`} />
       <Formik
         validationSchema={schema}
-        initialValues={fieldsToInitialValues(fields, {
-          email: 'aric59@gmail.com',
-          password: 'password',
-        })}
+        initialValues={fieldsToInitialValues(fields)}
         onSubmit={(values, { setErrors }) =>
           login(values, {
             onError: (e) => {
