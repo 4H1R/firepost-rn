@@ -16,7 +16,7 @@ function HomeScreen() {
 
   return (
     <Container contentContainerStyle={tw`flex-1 items-center justify-center`}>
-      <Text>Welcome to Home</Text>
+      <Text style={tw`font-primary`}>Welcome to Home</Text>
       <Button title="Logout" onPress={clearUser} />
       <Button title="Navigate to Profile" onPress={handleNavigate} />
     </Container>

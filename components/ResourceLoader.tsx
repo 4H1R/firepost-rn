@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useFonts } from 'expo-font';
 import { View } from 'react-native';
-import * as SplashScreen from 'expo-splash-screen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as SplashScreen from 'expo-splash-screen';
 
 import tw from 'libs/tailwind';
 import useIntroSlider from 'stores/introSliderStore';
@@ -16,9 +16,7 @@ type ResourceLoaderProps = {
 };
 
 function ResourceLoader({ children }: ResourceLoaderProps) {
-  const [isLoading, setIsLoading] = useState(true);
   const showIntroSlider = useIntroSlider((state) => state.showIntroSlider);
-
   const [fontsLoaded] = useFonts({
     'Primary-Bold': require('../assets/fonts/Poppins-Bold.ttf'),
     'Primary-Semi': require('../assets/fonts/Poppins-SemiBold.ttf'),
@@ -30,10 +28,7 @@ function ResourceLoader({ children }: ResourceLoaderProps) {
     try {
       const result = await AsyncStorage.getItem(INTRO_SLIDER_KEY);
       if (!result) showIntroSlider();
-    } catch {
-    } finally {
-      setIsLoading(false);
-    }
+    } catch {}
   };
 
   useEffect(() => {
@@ -41,9 +36,8 @@ function ResourceLoader({ children }: ResourceLoaderProps) {
   }, []);
 
   const onLayoutRootView = useCallback(async () => {
-    if (!fontsLoaded || isLoading) return;
     await SplashScreen.hideAsync();
-  }, [fontsLoaded, isLoading]);
+  }, []);
 
   if (!fontsLoaded) return null;
 

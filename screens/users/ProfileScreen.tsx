@@ -20,7 +20,11 @@ function ProfileScreen() {
         <Picture />
         <View style={tw`flex-row items-center justify-center`}>
           <NumberData count={data.postsCount} title="Posts" />
-          <NumberData count={data.followersCount} title="Followers" />
+          <NumberData
+            onPress={() => console.log('pressed')}
+            count={data.followersCount}
+            title="Followers"
+          />
           <NumberData count={data.followingsCount} title="Followings" />
         </View>
       </View>

@@ -13,13 +13,13 @@ export default function App() {
   return (
     <ResourceLoader>
       <QueryClientProvider client={queryClient}>
-        <StatusBar style="auto" />
         <IntroSlides>
           <Auth>
             <Navigation />
           </Auth>
         </IntroSlides>
       </QueryClientProvider>
+      <StatusBar style="auto" />
     </ResourceLoader>
   );
 }
