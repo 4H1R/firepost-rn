@@ -1,17 +1,9 @@
 import React, { useEffect } from 'react';
-import * as SecureStore from 'expo-secure-store';
 
+import { getRefreshToken, setRefreshToken } from 'utils/auth';
 import axios from 'libs/axios';
 import useAuthUser from 'stores/authStore';
 import useRefreshToken from 'services/auth/refresh';
-
-async function getRefreshToken() {
-  return await SecureStore.getItemAsync('refreshToken');
-}
-
-async function setRefreshToken(refresh: string) {
-  return await SecureStore.setItemAsync('refreshToken', refresh);
-}
 
 type AuthProps = {
   children: JSX.Element;

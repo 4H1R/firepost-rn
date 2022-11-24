@@ -55,7 +55,10 @@ function LoginScreen() {
       <Illustration style={tw`w-full h-56 mt-4`} />
       <Formik
         validationSchema={schema}
-        initialValues={fieldsToInitialValues(fields)}
+        initialValues={fieldsToInitialValues(fields, {
+          email: 'garret_schumm85@gmail.com',
+          password: 'password',
+        })}
         onSubmit={(values, { setErrors }) =>
           login(values, {
             onError: (e) => {
@@ -66,6 +69,7 @@ function LoginScreen() {
               }
               setErrors({ email: t('errors.somethingWentWrong') });
             },
+            // Refresh token is being updated in secure storage on Auth component
             onSuccess: setUser,
           })
         }

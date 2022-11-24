@@ -10,10 +10,16 @@ async function followers(username: string, params: IPaginateParams) {
   return resp.data;
 }
 
-function useGetUserFollowers(username: string, enabled: boolean) {
+export interface IFollowersParams extends IPaginateParams {
+  enabled: boolean;
+}
+
+function useGetUserFollowers(username: string, params: IFollowersParams) {
+  const { query, enabled } = params;
+
   return useInfiniteQuery(
-    ['users', username, 'followers'],
-    ({ pageParam }) => followers(username, { page: pageParam }),
+    ['users', username, 'followers', { query }],
+    ({ pageParam }) => followers(username, { page: pageParam, query: query }),
     {
       enabled,
       getNextPageParam: (lastPage) => lastPage.meta.next,

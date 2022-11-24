@@ -25,7 +25,8 @@ export interface IPaginate<T> {
 }
 
 export interface IPaginateParams {
-  page: number | undefined;
+  page?: number;
+  query?: string;
 }
 
 export * from './models';

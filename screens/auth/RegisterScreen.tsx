@@ -103,6 +103,7 @@ function RegisterScreen() {
               }
               setErrors({ email: t('errors.somethingWentWrong') });
             },
+            // Refresh token is being updated in secure storage on Auth component
             onSuccess: setUser,
           });
         }}

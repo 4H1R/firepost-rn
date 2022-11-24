@@ -39,9 +39,10 @@ function Slide({
       <Text style={tw`text-center font-primary text-base text-secondary-500 mt-2`}>
         {description}
       </Text>
-      <Button onPress={() => onPress(index + 1)}>
-        {isTheLastSlide ? t('introSlides.getStarted') : t('introSlides.next')}
-      </Button>
+      <Button
+        onPress={() => onPress(index + 1)}
+        text={isTheLastSlide ? t('introSlides.getStarted') : t('introSlides.next')}
+      />
     </View>
   );
 }

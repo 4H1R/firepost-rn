@@ -23,7 +23,7 @@ export type TRootTabParamList = {
   Messages: undefined;
   Create: undefined;
   Notifications: undefined;
-  Profile: undefined;
+  Profile: { username: string };
 };
 
 export type TRootTabScreenProps<Screen extends keyof TRootTabParamList> = CompositeScreenProps<

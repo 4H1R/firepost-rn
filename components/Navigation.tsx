@@ -23,6 +23,7 @@ const Stack = createNativeStackNavigator<TRootStackParamList>();
 const Tab = createBottomTabNavigator<TRootTabParamList>();
 
 function MyTabs() {
+  const username = useAuthUser((state) => state.user!.username);
   return (
     <Tab.Navigator
       screenOptions={{
@@ -42,7 +43,12 @@ function MyTabs() {
       />
       <Tab.Screen options={{ tabBarIcon: PlusCircleIcon }} name="Create" component={HomeScreen} />
       <Tab.Screen options={{ tabBarIcon: BellIcon }} name="Notifications" component={HomeScreen} />
-      <Tab.Screen options={{ tabBarIcon: UserIcon }} name="Profile" component={UserProfile} />
+      <Tab.Screen
+        initialParams={{ username }}
+        options={{ tabBarIcon: UserIcon }}
+        name="Profile"
+        component={UserProfile}
+      />
     </Tab.Navigator>
   );
 }
@@ -54,13 +60,15 @@ function Navigation() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {user ? (
-          <Stack.Screen name="Root" component={MyTabs} />
+          <Stack.Group>
+            <Stack.Screen name="Root" component={MyTabs} />
+          </Stack.Group>
         ) : (
-          <>
+          <Stack.Group>
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="Register" component={RegisterScreen} />
             <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
-          </>
+          </Stack.Group>
         )}
       </Stack.Navigator>
     </NavigationContainer>

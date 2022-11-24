@@ -10,7 +10,7 @@ type ContainerProps = {
 
 function Container({ children }: ContainerProps) {
   return (
-    <SafeAreaView style={tw`bg-color`}>
+    <SafeAreaView style={tw`bg-color flex-1`}>
       <MainContainer>{children}</MainContainer>
     </SafeAreaView>
   );
