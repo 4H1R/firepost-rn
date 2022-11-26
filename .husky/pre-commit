@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Run Prettier
+npm run format && git add -A .
+# Run typescript type checking
+tsc

@@ -7,7 +7,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@gorhom/bottom-sheet": "^4.4.5",
@@ -52,7 +53,8 @@
     "prettier": "^2.7.1",
     "react-native-svg-transformer": "^1.0.0",
     "react-native-vector-icons": "^9.2.0",
-    "typescript": "^4.6.3"
+    "typescript": "^4.6.3",
+    "husky": "^8.0.0"
   },
   "private": true
 }
