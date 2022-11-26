@@ -2,12 +2,13 @@ import React from 'react';
 import { View, Text, TouchableWithoutFeedback } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
+import { TRootStackParamList } from 'types';
 import tw from 'libs/tailwind';
 
 type LinkProps = {
   text: string;
   linkText: string;
-  navigateTo: string;
+  navigateTo: keyof Omit<TRootStackParamList, 'Root'>;
 };
 
 function Link({ text, linkText, navigateTo }: LinkProps) {

@@ -38,10 +38,10 @@ function UsersBottomSheet({ modalRef, useQuery, title, username }: UsersBottomSh
     if (!hasNextPage) return;
     fetchNextPage();
   };
-  const handleNavigateToProfile = (userUsername: string) => {
-    navigation.push('Root', {
-      screen: 'Profile',
-      params: { username: userUsername },
+  const handleNavigateToProfile = (profileUsername: string) => {
+    navigation.navigate('Root', {
+      screen: 'Users',
+      params: { screen: 'Show', params: { username: profileUsername } },
     });
   };
 

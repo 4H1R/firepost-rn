@@ -19,6 +19,7 @@ import validations from 'fixtures/validations';
 import Fields from 'components/auth/Fields';
 import useLogin, { ILoginDto } from 'services/auth/login';
 import useAuthUser from 'stores/authStore';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const schema = yup.object({
   email: validations.email,
@@ -56,7 +57,7 @@ function LoginScreen() {
       <Formik
         validationSchema={schema}
         initialValues={fieldsToInitialValues(fields, {
-          email: 'garret_schumm85@gmail.com',
+          email: 'leann.franecki63@hotmail.com',
           password: 'password',
         })}
         onSubmit={(values, { setErrors }) =>

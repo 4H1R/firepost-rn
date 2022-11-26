@@ -3,7 +3,7 @@ import { FlatList, View } from 'react-native';
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { RouteProp, useRoute } from '@react-navigation/native';
 
-import { TRootTabParamList } from 'types';
+import { TUsersStackParamList } from 'types';
 import Picture from 'components/users/show/Picture';
 import NumberData from 'components/users/show/NumberData';
 import tw from 'libs/tailwind';
@@ -19,7 +19,7 @@ import useGetUserFollowings from 'services/users/followings';
 
 function ProfileScreen() {
   const authUser = useAuthUser((state) => state.user);
-  const { params } = useRoute<RouteProp<TRootTabParamList, 'Profile'>>();
+  const { params } = useRoute<RouteProp<TUsersStackParamList, 'Show'>>();
   const followersRef = useRef<BottomSheetModal>(null);
   const followingsRef = useRef<BottomSheetModal>(null);
   const { data: user } = useGetUser(params.username);
@@ -38,27 +38,27 @@ function ProfileScreen() {
             <View style={tw`flex-row items-center justify-between`}>
               <Picture />
               <View style={tw`flex-row items-center justify-center`}>
-                <NumberData count={user.postsCount} title="Posts" />
+                <NumberData count={user?.postsCount} title="Posts" />
                 <NumberData
                   onPress={handleOpenFollowers}
-                  count={user.followersCount}
+                  count={user?.followersCount}
                   title="Followers"
                 />
                 <NumberData
                   onPress={handleOpenFollowings}
-                  count={user.followingsCount}
+                  count={user?.followingsCount}
                   title="Followings"
                 />
               </View>
             </View>
-            <Username username={user.username} isVerified={user.isVerified} />
-            <Name name={user.name} />
-            <Bio bio={user.bio} />
+            <Username username={user?.username} isVerified={user?.isVerified} />
+            <Name name={user?.name} />
+            <Bio bio={user?.bio} />
             <Actions
-              isFollowed={user.isFollowed}
-              username={user.username}
+              isFollowed={user?.isFollowed}
+              username={user?.username}
               authUsername={authUser!.username}
-              website={user.website}
+              website={user?.website}
             />
           </View>
         }

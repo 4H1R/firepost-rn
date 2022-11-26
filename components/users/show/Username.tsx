@@ -1,16 +1,30 @@
 import React from 'react';
-import { StyleSheetProperties, Text, TextStyle, View } from 'react-native';
+import { Text, TextStyle, View } from 'react-native';
 import { CheckBadgeIcon } from 'react-native-heroicons/outline';
+import { Rect } from 'react-content-loader/native';
 
+import { getRandomNumber } from 'utils';
 import tw from 'libs/tailwind';
+import ContentLoader from 'libs/ContentLoader';
+
+function Loader() {
+  const props = { width: getRandomNumber(100, 200), height: 30 };
+  return (
+    <ContentLoader {...props}>
+      <Rect x="0" y="10" rx="4" ry="4" {...props} />
+    </ContentLoader>
+  );
+}
 
 type UsernameProps = {
   username: string;
   isVerified: boolean;
   usernameStyle?: TextStyle;
+  isLoading?: boolean;
 };
 
-function Username({ username, isVerified, usernameStyle }: UsernameProps) {
+function Username({ username, isVerified, usernameStyle, isLoading }: UsernameProps) {
+  if (isLoading) return <Loader />;
   return (
     <View style={tw`flex-row items-end`}>
       <Text style={tw.style('font-primary-bold text-xl mt-2 mr-1', usernameStyle)}>{username}</Text>

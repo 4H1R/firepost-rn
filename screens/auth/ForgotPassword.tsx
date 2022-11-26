@@ -4,8 +4,7 @@ import { Formik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
 
-import { IField } from 'interfaces';
-import { TextInputProps } from 'components/auth/TextInput';
+import { TAuthField } from 'types';
 import { fieldsToInitialValues } from 'utils';
 import Illustration from 'assets/svg/auth/forgotPassword.svg';
 import Title from 'shared/common/Title';
@@ -22,7 +21,7 @@ const schema = yup.object({
 function ForgotPassword() {
   const { t } = useTranslation();
 
-  const fields: IField<TextInputProps>[] = [
+  const fields: TAuthField<any>[] = [
     {
       name: 'email',
       fieldProps: {

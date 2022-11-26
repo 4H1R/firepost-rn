@@ -23,10 +23,16 @@ export type TRootTabParamList = {
   Messages: undefined;
   Create: undefined;
   Notifications: undefined;
+  Users: NavigatorScreenParams<TUsersStackParamList> | undefined;
+};
+
+export type TUsersStackParamList = {
+  Show: { username: string };
   Profile: { username: string };
 };
 
-export type TRootTabScreenProps<Screen extends keyof TRootTabParamList> = CompositeScreenProps<
-  BottomTabScreenProps<TRootTabParamList, Screen>,
-  NativeStackScreenProps<TRootStackParamList>
->;
+export type TUsersStackScreenProps<Screen extends keyof TUsersStackParamList> =
+  CompositeScreenProps<
+    BottomTabScreenProps<TUsersStackParamList, Screen>,
+    NativeStackScreenProps<TRootTabParamList>
+  >;
