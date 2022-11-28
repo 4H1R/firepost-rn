@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { FlatList, ViewToken } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
@@ -41,10 +41,14 @@ function IntroSlides({ children }: IntroSlidesProps) {
     handleHideIntroSlider();
   };
 
-  const onViewableItemsChanged = useRef(({ viewableItems }: { viewableItems: ViewToken[] }) => {
-    setCurrentIndex(viewableItems[0].index ?? 0);
-  }).current;
-  const viewConfig = useRef({ viewAreaCoveragePercentThreshold: 50 }).current;
+  const onViewableItemsChanged = useCallback(
+    ({ viewableItems }: { viewableItems: ViewToken[] }) => {
+      setCurrentIndex(viewableItems[0].index ?? 0);
+    },
+    []
+  );
+
+  const viewConfig = useMemo(() => ({ viewAreaCoveragePercentThreshold: 50 }), []);
 
   if (!show) return children;
   return (

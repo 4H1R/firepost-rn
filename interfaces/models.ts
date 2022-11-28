@@ -23,3 +23,9 @@ export interface IUserProfile extends IUser {
   followersCount: number;
   isFollowed: boolean;
 }
+
+export interface IPost extends IModel {
+  userId: number;
+  image: string;
+  description: string;
+}

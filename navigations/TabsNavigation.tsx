@@ -1,22 +1,23 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
   HomeIcon,
-  ChatBubbleLeftEllipsisIcon,
   PlusCircleIcon,
   BellIcon,
   UserIcon,
+  ChatBubbleLeftRightIcon,
 } from 'react-native-heroicons/outline';
 
 import { TRootTabParamList } from 'types';
 import tw from 'libs/tailwind';
 import HomeScreen from 'screens/HomeScreen';
 import UsersNavigation from './UsersNavigation';
+import PostsNavigation from './PostsNavigation';
 
-const Tab = createBottomTabNavigator<TRootTabParamList>();
+const TabStack = createBottomTabNavigator<TRootTabParamList>();
 
 function TabsNavigation() {
   return (
-    <Tab.Navigator
+    <TabStack.Navigator
       screenOptions={{
         headerShown: false,
         headerTitle: '',
@@ -27,16 +28,28 @@ function TabsNavigation() {
         tabBarShowLabel: false,
       }}
     >
-      <Tab.Screen options={{ tabBarIcon: HomeIcon }} name="Home" component={HomeScreen} />
-      <Tab.Screen
-        options={{ tabBarIcon: ChatBubbleLeftEllipsisIcon }}
+      <TabStack.Screen options={{ tabBarIcon: HomeIcon }} name="Home" component={HomeScreen} />
+      <TabStack.Screen
+        options={{ tabBarIcon: ChatBubbleLeftRightIcon }}
         name="Messages"
         component={HomeScreen}
       />
-      <Tab.Screen options={{ tabBarIcon: PlusCircleIcon }} name="Create" component={HomeScreen} />
-      <Tab.Screen options={{ tabBarIcon: BellIcon }} name="Notifications" component={HomeScreen} />
-      <Tab.Screen options={{ tabBarIcon: UserIcon }} name="Users" component={UsersNavigation} />
-    </Tab.Navigator>
+      <TabStack.Screen
+        options={{ tabBarIcon: PlusCircleIcon }}
+        name="Create"
+        component={HomeScreen}
+      />
+      <TabStack.Screen
+        options={{ tabBarIcon: BellIcon }}
+        name="Notifications"
+        component={HomeScreen}
+      />
+      <TabStack.Screen
+        options={{ tabBarIcon: UserIcon }}
+        name="Users"
+        component={UsersNavigation}
+      />
+    </TabStack.Navigator>
   );
 }
 

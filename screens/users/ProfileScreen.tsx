@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { FlatList, View } from 'react-native';
+import { FlatList, Image, TouchableOpacity, View } from 'react-native';
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { RouteProp, useRoute } from '@react-navigation/native';
 
@@ -16,6 +16,8 @@ import Actions from 'components/users/show/actions';
 import UsersBottomSheet from 'components/users/UsersBottomSheet';
 import useGetUserFollowers from 'services/users/followers';
 import useGetUserFollowings from 'services/users/followings';
+import useGetPosts from 'services/posts';
+import ActivityIndicator from 'shared/common/ActivityIndicator';
 
 function ProfileScreen() {
   const authUser = useAuthUser((state) => state.user);
@@ -23,10 +25,16 @@ function ProfileScreen() {
   const followersRef = useRef<BottomSheetModal>(null);
   const followingsRef = useRef<BottomSheetModal>(null);
   const { data: user } = useGetUser(params.username);
+  const {
+    data: posts,
+    isFetchingNextPage: isFetchingMorePosts,
+    hasNextPage: hasMorePosts,
+    fetchNextPage: fetchMorePosts,
+  } = useGetPosts({ userId: user?.id }, { enabled: !!user?.id });
 
   const handleOpenFollowers = () => followersRef.current?.present();
   const handleOpenFollowings = () => followingsRef.current?.present();
-  const data = Array.from({ length: 10 }).map((_, i) => i);
+  const handleLoadMorePosts = () => hasMorePosts && fetchMorePosts();
 
   if (!user) return null;
 
@@ -36,7 +44,7 @@ function ProfileScreen() {
         ListHeaderComponent={
           <View style={tw`mb-4`}>
             <View style={tw`flex-row items-center justify-between`}>
-              <Picture />
+              <Picture uri={user.image} />
               <View style={tw`flex-row items-center justify-center`}>
                 <NumberData count={user?.postsCount} title="Posts" />
                 <NumberData
@@ -63,11 +71,16 @@ function ProfileScreen() {
           </View>
         }
         contentContainerStyle={tw`container`}
-        numColumns={3}
-        data={data}
-        keyExtractor={(i) => i.toString()}
-        renderItem={(item) => (
-          <View style={tw`flex-1 h-24 bg-secondary-300 mx-1 my-1 rounded`}></View>
+        numColumns={2}
+        onEndReachedThreshold={0.3}
+        onEndReached={handleLoadMorePosts}
+        data={posts?.pages.map((page) => page.data).flat()}
+        keyExtractor={(post) => post.id.toString()}
+        ListFooterComponent={isFetchingMorePosts ? <ActivityIndicator /> : null}
+        renderItem={({ item: post }) => (
+          <TouchableOpacity activeOpacity={0.5} style={tw`flex-1 m-1 `}>
+            <Image source={{ uri: post.image }} style={tw`h-32 rounded`} />
+          </TouchableOpacity>
         )}
       />
       <UsersBottomSheet

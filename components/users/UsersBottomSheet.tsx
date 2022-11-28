@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { ActivityIndicator, Text, TextInput, View, TouchableOpacity } from 'react-native';
+import { Text, TextInput, View, TouchableOpacity } from 'react-native';
 import { BottomSheetModal, BottomSheetFlatList } from '@gorhom/bottom-sheet';
 import { UseInfiniteQueryResult } from '@tanstack/react-query';
 import { useNavigation } from '@react-navigation/native';
@@ -10,6 +10,7 @@ import tw from 'libs/tailwind';
 import Picture from './show/Picture';
 import Username from './show/Username';
 import Name from './show/Name';
+import ActivityIndicator from 'shared/common/ActivityIndicator';
 
 const emojiList = ['👌', '👋', '🎉', '🔥', '🗿'];
 
@@ -18,7 +19,8 @@ type UsersBottomSheetProps = {
   title: string;
   useQuery: (
     username: string,
-    params: IFollowersParams
+    params: IFollowersParams,
+    options?: { enabled: boolean }
   ) => UseInfiniteQueryResult<IPaginate<IUser>, unknown>;
   username: string;
 };
@@ -27,17 +29,15 @@ function UsersBottomSheet({ modalRef, useQuery, title, username }: UsersBottomSh
   const [isOpen, setIsOpen] = useState(false);
   const navigation = useNavigation();
   const [query, setQuery] = useState('');
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useQuery(username, {
-    enabled: isOpen,
-    query,
-  });
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useQuery(
+    username,
+    { query },
+    { enabled: isOpen }
+  );
   const randomEmoji = useMemo(() => emojiList[Math.floor(Math.random() * emojiList.length)], []);
 
   const handleChange = (index: number) => setIsOpen(index >= 0);
-  const handleLoadMore = () => {
-    if (!hasNextPage) return;
-    fetchNextPage();
-  };
+  const handleLoadMore = () => hasNextPage && fetchNextPage();
   const handleNavigateToProfile = (profileUsername: string) => {
     navigation.navigate('Root', {
       screen: 'Users',
@@ -68,18 +68,14 @@ function UsersBottomSheet({ modalRef, useQuery, title, username }: UsersBottomSh
         keyExtractor={(item) => item.username}
         onEndReachedThreshold={0.3}
         onEndReached={handleLoadMore}
-        ListFooterComponent={
-          isFetchingNextPage ? (
-            <ActivityIndicator style={tw`my-2`} size="large" color={tw.color('primary-600')} />
-          ) : null
-        }
+        ListFooterComponent={isFetchingNextPage ? <ActivityIndicator /> : null}
         renderItem={({ item }) => (
           <TouchableOpacity
             activeOpacity={0.6}
             onPress={() => handleNavigateToProfile(item.username)}
           >
             <View style={tw`flex-row items-center pb-4`}>
-              <Picture />
+              <Picture uri={item.image} />
               <View style={tw`flex ml-4 items-start`}>
                 <Username
                   usernameStyle={tw`text-base`}

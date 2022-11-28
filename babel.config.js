@@ -20,6 +20,7 @@ module.exports = function (api) {
             services: './services',
             shared: './shared',
             stores: './stores',
+            hooks: './hooks',
           },
         },
       ],

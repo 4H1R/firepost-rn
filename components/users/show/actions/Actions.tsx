@@ -3,7 +3,6 @@ import { ScrollView } from 'react-native';
 import {
   ChatBubbleBottomCenterIcon,
   NoSymbolIcon,
-  GlobeAltIcon,
   ArrowPathIcon,
   BookmarkIcon,
 } from 'react-native-heroicons/outline';
@@ -13,6 +12,7 @@ import tw from 'libs/tailwind';
 import FollowAction from './FollowAction';
 import UnFollowAction from './UnFollowAction';
 import LogoutAction from './LogoutAction';
+import WebsiteAction from './WebsiteAction';
 
 type ActionsProps = {
   username: string;
@@ -42,7 +42,7 @@ function Actions({ username, authUsername, website, isFollowed }: ActionsProps) 
             <FollowAction username={username} />
           )}
           <Action title="Message" Icon={ChatBubbleBottomCenterIcon} color="secondary-outline" />
-          {website && <Action title="Website" Icon={GlobeAltIcon} color="secondary-outline" />}
+          {website && <WebsiteAction website={website} />}
           <Action title="Block" Icon={NoSymbolIcon} color="danger" />
         </>
       )}

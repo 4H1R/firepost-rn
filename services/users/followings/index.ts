@@ -11,16 +11,15 @@ async function followings(username: string, params: IPaginateParams) {
   return resp.data;
 }
 
-function useGetUserFollowings(username: string, params: IFollowersParams) {
-  const { query, enabled } = params;
-
+function useGetUserFollowings(
+  username: string,
+  params: IFollowersParams,
+  options?: { enabled: boolean }
+) {
   return useInfiniteQuery(
-    ['users', username, 'followings', { query }],
-    ({ pageParam }) => followings(username, { page: pageParam, query }),
-    {
-      enabled,
-      getNextPageParam: (lastPage) => lastPage.meta.next,
-    }
+    ['users', username, 'followings', params],
+    ({ pageParam }) => followings(username, { ...params, page: pageParam }),
+    { ...options, getNextPageParam: (lastPage) => lastPage.meta.next }
   );
 }
 

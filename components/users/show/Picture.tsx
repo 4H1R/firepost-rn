@@ -1,10 +1,17 @@
 import React from 'react';
+import { Image } from 'react-native';
 
-import Profile from 'assets/svg/profile.svg';
+import Default from 'assets/svg/profile.svg';
 import tw from 'libs/tailwind';
 
-function Picture() {
-  return <Profile style={tw`h-20 w-20 border-2 border-secondary-400 rounded-full`} />;
+type PictureProps = {
+  uri: string | null;
+};
+
+function Picture({ uri }: PictureProps) {
+  const props = { style: tw`h-20 w-20 border-2 border-secondary-400 rounded-full` };
+
+  return uri ? <Image {...props} source={{ uri }} /> : <Default {...props} />;
 }
 
 export default Picture;

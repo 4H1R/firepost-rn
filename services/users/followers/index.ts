@@ -10,20 +10,17 @@ async function followers(username: string, params: IPaginateParams) {
   return resp.data;
 }
 
-export interface IFollowersParams extends IPaginateParams {
-  enabled: boolean;
-}
+export interface IFollowersParams extends IPaginateParams {}
 
-function useGetUserFollowers(username: string, params: IFollowersParams) {
-  const { query, enabled } = params;
-
+function useGetUserFollowers(
+  username: string,
+  params: IFollowersParams,
+  options?: { enabled: boolean }
+) {
   return useInfiniteQuery(
-    ['users', username, 'followers', { query }],
-    ({ pageParam }) => followers(username, { page: pageParam, query: query }),
-    {
-      enabled,
-      getNextPageParam: (lastPage) => lastPage.meta.next,
-    }
+    ['users', username, 'followers', params],
+    ({ pageParam }) => followers(username, { ...params, page: pageParam }),
+    { ...options, getNextPageParam: (lastPage) => lastPage.meta.next }
   );
 }
 

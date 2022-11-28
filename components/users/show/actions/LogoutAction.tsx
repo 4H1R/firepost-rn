@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ArrowLeftOnRectangleIcon } from 'react-native-heroicons/outline';
 
 import { removeRefreshToken } from 'utils/auth';
+import { useDoubleClick } from 'hooks';
 import useAuthUser from 'stores/authStore';
 import Action from './Action';
 
 function LogoutAction() {
-  const [isDoubledClicked, setIsDoubledClicked] = useState(false);
+  const { isDoubledClicked, handleDoubleClickToggle } = useDoubleClick();
   const clearUser = useAuthUser((state) => state.clearUser);
 
-  const handleToggle = () => setIsDoubledClicked(true);
   const handleLogout = () => {
     removeRefreshToken();
     clearUser();
@@ -18,9 +18,9 @@ function LogoutAction() {
   return (
     <Action
       title={isDoubledClicked ? 'Are you Sure?' : 'Logout'}
-      onPress={isDoubledClicked ? handleLogout : handleToggle}
-      Icon={ArrowLeftOnRectangleIcon}
       color="danger"
+      onPress={isDoubledClicked ? handleLogout : handleDoubleClickToggle}
+      Icon={ArrowLeftOnRectangleIcon}
     />
   );
 }
