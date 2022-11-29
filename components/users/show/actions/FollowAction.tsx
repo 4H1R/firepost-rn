@@ -1,8 +1,8 @@
-import { useQueryClient } from '@tanstack/react-query';
 import React from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 import { UserPlusIcon } from 'react-native-heroicons/outline';
-import useFollowUser from 'services/users/followers/create';
 
+import useFollowUser from 'services/users/followers/create';
 import Action from './Action';
 
 type FollowActionProps = {

@@ -1,4 +1,4 @@
-import { IField } from 'interfaces';
+import { IField, IPaginate } from 'interfaces';
 import { TFieldName } from 'types';
 
 export function fieldsToInitialValues<T>(
@@ -18,4 +18,8 @@ export function splitFirstWordAndRest(text: string) {
 
 export function getRandomNumber(min: number, max: number) {
   return Math.floor(Math.random() * (max - min)) + min;
+}
+
+export function getNextPageParam(lastPage: IPaginate<unknown>) {
+  return lastPage.meta.next ?? undefined;
 }

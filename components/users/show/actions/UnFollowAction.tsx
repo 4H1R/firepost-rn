@@ -1,15 +1,17 @@
-import { useQueryClient } from '@tanstack/react-query';
 import React from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 import { UserMinusIcon } from 'react-native-heroicons/outline';
-import useUnFollowUser from 'services/users/followers/delete';
 
+import { useDoubleClick } from 'hooks';
 import Action from './Action';
+import useUnFollowUser from 'services/users/followers/delete';
 
 type UnFollowActionProps = {
   username: string;
 };
 
 function UnFollowAction({ username }: UnFollowActionProps) {
+  const { isDoubledClicked, handleDoubleClickToggle } = useDoubleClick();
   const { mutate, isLoading } = useUnFollowUser();
   const queryClient = useQueryClient();
 
@@ -23,10 +25,10 @@ function UnFollowAction({ username }: UnFollowActionProps) {
 
   return (
     <Action
-      onPress={handleUnFollow}
-      isLoading={isLoading}
-      title="Un Follow"
+      onPress={isDoubledClicked ? handleUnFollow : handleDoubleClickToggle}
+      title={isDoubledClicked ? 'Are you Sure ?' : 'Un Follow'}
       Icon={UserMinusIcon}
+      isLoading={isLoading}
       color="secondary"
     />
   );

@@ -19,9 +19,9 @@ function Bio({ bio }: BioProps) {
 
   return (
     <TouchableWithoutFeedback onPress={handleToggleShort}>
-      <Text style={tw`font-primary-medium text-base text-secondary-900 mt-2`}>
+      <Text style={tw`font-primary-medium text-sm text-secondary-900 mt-2`}>
         {bioTransformed}{' '}
-        <Text style={tw`text-primary-600 text-lg`}>{isBig && isShort && '...'}</Text>
+        <Text style={tw`text-primary-600 text-base`}>{isBig && isShort && '...'}</Text>
       </Text>
     </TouchableWithoutFeedback>
   );

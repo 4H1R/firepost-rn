@@ -29,7 +29,7 @@ function UsersBottomSheet({ modalRef, useQuery, title, username }: UsersBottomSh
   const [isOpen, setIsOpen] = useState(false);
   const navigation = useNavigation();
   const [query, setQuery] = useState('');
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useQuery(
+  const { data, fetchNextPage, isFetchingNextPage } = useQuery(
     username,
     { query },
     { enabled: isOpen }
@@ -37,7 +37,6 @@ function UsersBottomSheet({ modalRef, useQuery, title, username }: UsersBottomSh
   const randomEmoji = useMemo(() => emojiList[Math.floor(Math.random() * emojiList.length)], []);
 
   const handleChange = (index: number) => setIsOpen(index >= 0);
-  const handleLoadMore = () => hasNextPage && fetchNextPage();
   const handleNavigateToProfile = (profileUsername: string) => {
     navigation.navigate('Root', {
       screen: 'Users',
@@ -67,7 +66,7 @@ function UsersBottomSheet({ modalRef, useQuery, title, username }: UsersBottomSh
         data={data?.pages.map((page) => page.data).flat()}
         keyExtractor={(item) => item.username}
         onEndReachedThreshold={0.3}
-        onEndReached={handleLoadMore}
+        onEndReached={() => fetchNextPage()}
         ListFooterComponent={isFetchingNextPage ? <ActivityIndicator /> : null}
         renderItem={({ item }) => (
           <TouchableOpacity

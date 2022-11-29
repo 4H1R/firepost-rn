@@ -1,5 +1,5 @@
 export interface IModel {
-  id: number;
+  id: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -28,4 +28,8 @@ export interface IPost extends IModel {
   userId: number;
   image: string;
   description: string;
+}
+
+export interface IPostWithUser extends IPost {
+  user: IUser;
 }

@@ -1,17 +1,18 @@
 import React from 'react';
 import { GlobeAltIcon } from 'react-native-heroicons/outline';
+import * as WebBrowser from 'expo-web-browser';
 
 import { useDoubleClick } from 'hooks';
 import Action from './Action';
 
 type WebsiteActionProps = {
-  website: string;
+  url: string;
 };
 
-function WebsiteAction({ website }: WebsiteActionProps) {
+function WebsiteAction({ url }: WebsiteActionProps) {
   const { isDoubledClicked, handleDoubleClickToggle } = useDoubleClick();
 
-  const handleVisitWebsite = () => {};
+  const handleVisitWebsite = () => WebBrowser.openBrowserAsync(url);
 
   return (
     <Action
