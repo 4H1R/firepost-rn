@@ -1,14 +1,15 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { TextInput } from 'react-native';
 
-import PostsScreen from 'screens/posts/PostsScreen';
+import IndexScreen from 'screens/posts/IndexScreen';
 
-const PostStack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator();
 
 function PostsNavigation() {
   return (
-    <PostStack.Navigator>
-      <PostStack.Screen name="Index" component={PostsScreen} />
-    </PostStack.Navigator>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Index" component={IndexScreen} />
+    </Stack.Navigator>
   );
 }
 

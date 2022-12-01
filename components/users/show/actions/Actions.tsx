@@ -5,6 +5,7 @@ import {
   ArrowPathIcon,
   BookmarkIcon,
 } from 'react-native-heroicons/outline';
+import { useNavigation } from '@react-navigation/native';
 
 import Action from './Action';
 import tw from 'libs/tailwind';
@@ -22,6 +23,15 @@ type ActionsProps = {
 };
 
 function Actions({ username, authUsername, website, isFollowed }: ActionsProps) {
+  const navigation = useNavigation();
+
+  const handleNavigateToEdit = () => {
+    navigation.navigate('Root', {
+      screen: 'Users',
+      params: { screen: 'Edit' },
+    });
+  };
+
   return (
     <ScrollView
       horizontal
@@ -31,7 +41,12 @@ function Actions({ username, authUsername, website, isFollowed }: ActionsProps) 
       {authUsername === username ? (
         <>
           <Action title="Saved Posts" Icon={BookmarkIcon} color="primary" />
-          <Action title="Edit" Icon={ArrowPathIcon} color="secondary-outline" />
+          <Action
+            onPress={handleNavigateToEdit}
+            title="Edit"
+            Icon={ArrowPathIcon}
+            color="secondary-outline"
+          />
           <LogoutAction />
         </>
       ) : (

@@ -4,6 +4,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 export type TRootStackParamList = {
   Root: NavigatorScreenParams<TRootTabParamList> | undefined;
+  Messages: undefined;
   Login: undefined;
   Register: undefined;
   ForgotPassword: undefined;
@@ -20,7 +21,7 @@ export type TRootStackScreenProps<Screen extends keyof TRootStackParamList> =
 
 export type TRootTabParamList = {
   Home: undefined;
-  Messages: undefined;
+  Posts: undefined;
   Create: undefined;
   Notifications: undefined;
   Users: NavigatorScreenParams<TUsersStackParamList> | undefined;
@@ -28,7 +29,7 @@ export type TRootTabParamList = {
 
 export type TUsersStackParamList = {
   Show: { username: string };
-  Profile: { username: string };
+  Edit: undefined;
 };
 
 export type TUsersStackScreenProps<Screen extends keyof TUsersStackParamList> =

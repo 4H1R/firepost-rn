@@ -1,3 +1,4 @@
 import useDoubleClick from './useDoubleClick';
+import useDebounce from './useDebounce';
 
-export { useDoubleClick };
+export { useDoubleClick, useDebounce };

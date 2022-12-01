@@ -8,6 +8,7 @@ import RegisterScreen from 'screens/auth/RegisterScreen';
 import LoginScreen from 'screens/auth/LoginScreen';
 import ForgotPassword from 'screens/auth/ForgotPassword';
 import TabsNavigation from './TabsNavigation';
+import MessagesNavigation from './MessagesNavigation';
 
 const Stack = createNativeStackNavigator<TRootStackParamList>();
 
@@ -20,6 +21,7 @@ function Navigation() {
         {user ? (
           <Stack.Group>
             <Stack.Screen name="Root" component={TabsNavigation} />
+            <Stack.Screen name="Messages" component={MessagesNavigation} />
           </Stack.Group>
         ) : (
           <Stack.Group>

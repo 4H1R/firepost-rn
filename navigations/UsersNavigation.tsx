@@ -1,19 +1,25 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { TUsersStackParamList } from 'types';
-import ProfileScreen from 'screens/users/ProfileScreen';
+import ShowScreen from 'screens/users/ShowScreen';
 import useAuthUser from 'stores/authStore';
+import EditScreen from 'screens/users/EditScreen';
 
-const UserStack = createNativeStackNavigator<TUsersStackParamList>();
+const Stack = createNativeStackNavigator<TUsersStackParamList>();
 
 function UsersNavigation() {
   const username = useAuthUser((state) => state.user!.username);
 
   return (
-    <UserStack.Navigator>
-      <UserStack.Screen initialParams={{ username }} name="Profile" component={ProfileScreen} />
-      <UserStack.Screen name="Show" component={ProfileScreen} />
-    </UserStack.Navigator>
+    <Stack.Navigator>
+      <Stack.Screen
+        getId={({ params }) => params.username}
+        initialParams={{ username }}
+        name="Show"
+        component={ShowScreen}
+      />
+      <Stack.Screen name="Edit" component={EditScreen} />
+    </Stack.Navigator>
   );
 }
 

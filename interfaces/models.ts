@@ -25,7 +25,7 @@ export interface IUserProfile extends IUser {
 }
 
 export interface IPost extends IModel {
-  userId: number;
+  userId: string;
   image: string;
   description: string;
 }

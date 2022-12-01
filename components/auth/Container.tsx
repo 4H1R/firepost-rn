@@ -1,8 +1,8 @@
 import React from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 import MainContainer from 'shared/common/Container';
 import tw from 'libs/tailwind';
+import SafeAreaView from 'shared/common/SafeAreaView';
 
 type ContainerProps = {
   children: React.ReactNode;
@@ -10,7 +10,7 @@ type ContainerProps = {
 
 function Container({ children }: ContainerProps) {
   return (
-    <SafeAreaView style={tw`bg-color flex-1`}>
+    <SafeAreaView>
       <MainContainer>{children}</MainContainer>
     </SafeAreaView>
   );

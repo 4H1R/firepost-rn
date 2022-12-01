@@ -1,78 +1,64 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { TouchableOpacity } from 'react-native';
 import {
   HomeIcon,
   PlusCircleIcon,
   BellIcon,
   UserIcon,
-  ChatBubbleLeftRightIcon,
   RocketLaunchIcon,
+  ChatBubbleLeftRightIcon,
 } from 'react-native-heroicons/outline';
-import DropDownPicker from 'react-native-dropdown-picker';
+import { useNavigation } from '@react-navigation/native';
 
 import { TRootTabParamList } from 'types';
 import tw from 'libs/tailwind';
 import HomeScreen from 'screens/HomeScreen';
 import UsersNavigation from './UsersNavigation';
 import PostsNavigation from './PostsNavigation';
-
-const iconProps = { style: tw`text-primary-600` };
-
-const items = [
-  { label: 'Home', value: 'home', icon: () => <HomeIcon {...iconProps} /> },
-  { label: 'Explore', value: 'explore', icon: () => <RocketLaunchIcon {...iconProps} /> },
-];
+import PostsCreateScreen from 'screens/posts/CreateScreen';
+import NotificationsScreen from 'screens/NotificationsScreen';
+import HeaderTitle from 'shared/common/HeaderTitle';
 
 const TabStack = createBottomTabNavigator<TRootTabParamList>();
 
 function TabsNavigation() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [value, setValue] = useState('home');
-
+  const navigation = useNavigation();
   return (
     <TabStack.Navigator
       screenOptions={{
         tabBarActiveTintColor: tw.color('primary-600'),
         tabBarInactiveTintColor: tw.color('secondary-400'),
         tabBarShowLabel: false,
+        headerTitle: ({ children }) => <HeaderTitle title={children} />,
       }}
     >
       <TabStack.Screen
         options={{
           tabBarIcon: HomeIcon,
-          headerTitle: () => (
-            <DropDownPicker
-              closeOnBackPressed
-              closeAfterSelecting
-              hideSelectedItemIcon
-              textStyle={tw`font-primary`}
-              style={tw.style('border-0', { 'w-26': !isOpen })}
-              showArrowIcon
-              open={isOpen}
-              value={value}
-              items={items}
-              setOpen={setIsOpen}
-              setValue={setValue}
-            />
+          headerRight: () => (
+            <TouchableOpacity onPress={() => navigation.navigate('Messages')}>
+              <ChatBubbleLeftRightIcon style={tw`h-8 w-8 text-secondary-900 mx-4`} />
+            </TouchableOpacity>
           ),
         }}
         name="Home"
         component={HomeScreen}
       />
       <TabStack.Screen
-        options={{ tabBarIcon: ChatBubbleLeftRightIcon }}
-        name="Messages"
-        component={HomeScreen}
+        options={{ tabBarIcon: RocketLaunchIcon, headerShown: false }}
+        name="Posts"
+        component={PostsNavigation}
       />
       <TabStack.Screen
         options={{ tabBarIcon: PlusCircleIcon }}
         name="Create"
-        component={HomeScreen}
+        component={PostsCreateScreen}
       />
       <TabStack.Screen
         options={{ tabBarIcon: BellIcon }}
         name="Notifications"
-        component={HomeScreen}
+        component={NotificationsScreen}
       />
       <TabStack.Screen
         options={{ tabBarIcon: UserIcon, headerShown: false }}

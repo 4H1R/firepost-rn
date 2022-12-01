@@ -11,13 +11,13 @@ import useGetUser from 'services/users/show';
 import useAuthUser from 'stores/authStore';
 import Username from 'components/users/show/Username';
 import Name from 'components/users/show/Name';
-import Bio from 'components/users/show/Bio';
 import Actions from 'components/users/show/actions';
 import UsersBottomSheet from 'components/users/UsersBottomSheet';
 import useGetUserFollowers from 'services/users/followers';
 import useGetUserFollowings from 'services/users/followings';
 import ActivityIndicator from 'shared/common/ActivityIndicator';
 import useGetUserPosts from 'services/users/posts';
+import ToggableText from 'shared/common/ToggableText';
 
 function ProfileScreen() {
   const authUser = useAuthUser((state) => state.user);
@@ -62,7 +62,7 @@ function ProfileScreen() {
               </View>
               <Username username={user?.username} isVerified={user?.isVerified} />
               <Name name={user?.name} />
-              <Bio bio={user?.bio} />
+              <ToggableText text={user?.bio} />
               <Actions
                 isFollowed={user?.isFollowed}
                 username={user?.username}

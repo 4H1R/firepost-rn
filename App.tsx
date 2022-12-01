@@ -3,6 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useDeviceContext } from 'twrnc';
+import Toast from 'react-native-toast-message';
 
 import './libs/i18n';
 import Navigation from './navigations';
@@ -11,6 +12,7 @@ import queryClient from 'libs/queryClient';
 import IntroSlides from 'components/introSlides';
 import Auth from 'components/Auth';
 import tw from 'libs/tailwind';
+import toastConfig from 'libs/toast';
 
 export default function App() {
   useDeviceContext(tw);
@@ -27,6 +29,7 @@ export default function App() {
         </QueryClientProvider>
       </ResourceLoader>
       <StatusBar style="auto" />
+      <Toast config={toastConfig} />
     </GestureHandlerRootView>
   );
 }

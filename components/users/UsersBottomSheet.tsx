@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { Text, TextInput, View, TouchableOpacity } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
 import { BottomSheetModal, BottomSheetFlatList } from '@gorhom/bottom-sheet';
 import { UseInfiniteQueryResult } from '@tanstack/react-query';
 import { useNavigation } from '@react-navigation/native';
@@ -11,8 +11,9 @@ import Picture from './show/Picture';
 import Username from './show/Username';
 import Name from './show/Name';
 import ActivityIndicator from 'shared/common/ActivityIndicator';
+import SearchTextInput from 'shared/common/SearchTextInput';
 
-const emojiList = ['👌', '👋', '🎉', '🔥', '🗿'];
+const emojiList = ['👌', '👋', '🎉', '🔥', '🗿', '👀', '✨', '👑'];
 
 type UsersBottomSheetProps = {
   modalRef: React.RefObject<BottomSheetModal>;
@@ -56,12 +57,7 @@ function UsersBottomSheet({ modalRef, useQuery, title, username }: UsersBottomSh
       <Text style={tw`font-primary-bold text-secondary-900 text-2xl`}>
         {title} {randomEmoji}
       </Text>
-      <TextInput
-        value={query}
-        onChangeText={setQuery}
-        placeholder="Search ..."
-        style={tw`p-2 my-4 w-full bg-secondary-200 rounded-lg font-primary`}
-      />
+      <SearchTextInput onTextDebounced={setQuery} />
       <BottomSheetFlatList
         data={data?.pages.map((page) => page.data).flat()}
         keyExtractor={(item) => item.username}
