@@ -54,22 +54,26 @@ function UsersBottomSheet({ modalRef, useQuery, title, username }: UsersBottomSh
       onChange={handleChange}
       snapPoints={['50%', '100%']}
     >
-      <Text style={tw`font-primary-bold text-secondary-900 text-2xl`}>
-        {title} {randomEmoji}
-      </Text>
-      <SearchTextInput onTextDebounced={setQuery} />
       <BottomSheetFlatList
         data={data?.pages.map((page) => page.data).flat()}
         keyExtractor={(item) => item.username}
         onEndReachedThreshold={0.3}
         onEndReached={() => fetchNextPage()}
+        ListHeaderComponent={
+          <>
+            <Text style={tw`font-primary-bold text-secondary-900 text-2xl pb-2`}>
+              {title} {randomEmoji}
+            </Text>
+            <SearchTextInput onTextDebounced={setQuery} />
+          </>
+        }
         ListFooterComponent={isFetchingNextPage ? <ActivityIndicator /> : null}
         renderItem={({ item }) => (
           <TouchableOpacity
             activeOpacity={0.6}
             onPress={() => handleNavigateToProfile(item.username)}
           >
-            <View style={tw`flex-row items-center pb-4`}>
+            <View style={tw`flex-row items-center pt-4`}>
               <Picture uri={item.image} />
               <View style={tw`flex ml-4 items-start`}>
                 <Username

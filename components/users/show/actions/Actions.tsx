@@ -32,6 +32,13 @@ function Actions({ username, authUsername, website, isFollowed }: ActionsProps) 
     });
   };
 
+  const handleNavigateToSavedPosts = () => {
+    navigation.navigate('Root', {
+      screen: 'Posts',
+      params: { screen: 'Saved' },
+    });
+  };
+
   return (
     <ScrollView
       horizontal
@@ -40,7 +47,12 @@ function Actions({ username, authUsername, website, isFollowed }: ActionsProps) 
     >
       {authUsername === username ? (
         <>
-          <Action title="Saved Posts" Icon={BookmarkIcon} color="primary" />
+          <Action
+            onPress={handleNavigateToSavedPosts}
+            title="Saved Posts"
+            Icon={BookmarkIcon}
+            color="primary"
+          />
           <Action
             onPress={handleNavigateToEdit}
             title="Edit"

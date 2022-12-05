@@ -33,3 +33,9 @@ export interface IPost extends IModel {
 export interface IPostWithUser extends IPost {
   user: IUser;
 }
+
+export interface IMessage extends IModel {
+  userId: string;
+  senderId: string;
+  text: string;
+}

@@ -27,6 +27,8 @@ function TabsNavigation() {
   return (
     <TabStack.Navigator
       screenOptions={{
+        headerStyle: tw`border-b border-secondary-300/50 bg-secondary-100`,
+        tabBarStyle: tw`bg-secondary-100`,
         tabBarActiveTintColor: tw.color('primary-600'),
         tabBarInactiveTintColor: tw.color('secondary-400'),
         tabBarShowLabel: false,

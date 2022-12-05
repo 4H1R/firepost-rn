@@ -25,7 +25,8 @@ module.exports = {
     plugin(({ addUtilities }) => {
       addUtilities({
         'bg-color': 'bg-secondary-50',
-        container: 'bg-color px-4 py-2',
+        container: 'bg-color p-4',
+        skeleton: 'bg-secondary-300',
       });
     }),
   ],

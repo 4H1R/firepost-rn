@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { FlatList, Image, TouchableOpacity, View } from 'react-native';
+import { FlatList, View } from 'react-native';
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { RouteProp, useRoute } from '@react-navigation/native';
 
@@ -18,8 +18,9 @@ import useGetUserFollowings from 'services/users/followings';
 import ActivityIndicator from 'shared/common/ActivityIndicator';
 import useGetUserPosts from 'services/users/posts';
 import ToggableText from 'shared/common/ToggableText';
+import PostImage from 'components/posts/PostImage';
 
-function ProfileScreen() {
+function ShowScreen() {
   const authUser = useAuthUser((state) => state.user);
   const { params } = useRoute<RouteProp<TUsersStackParamList, 'Show'>>();
   const followersRef = useRef<BottomSheetModal>(null);
@@ -78,11 +79,7 @@ function ProfileScreen() {
           data={posts?.pages.map((page) => page.data).flat()}
           keyExtractor={(post) => post.id.toString()}
           ListFooterComponent={isFetchingMorePosts ? <ActivityIndicator /> : null}
-          renderItem={({ item: post }) => (
-            <TouchableOpacity activeOpacity={0.5} style={tw`flex-1 m-1`}>
-              <Image source={{ uri: post.image }} style={tw`h-32 rounded`} />
-            </TouchableOpacity>
-          )}
+          renderItem={({ item: post }) => <PostImage {...post} />}
         />
       </View>
       <UsersBottomSheet
@@ -100,4 +97,4 @@ function ProfileScreen() {
     </BottomSheetModalProvider>
   );
 }
-export default ProfileScreen;
+export default ShowScreen;

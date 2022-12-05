@@ -19,7 +19,6 @@ import validations from 'fixtures/validations';
 import Fields from 'components/auth/Fields';
 import useLogin, { ILoginDto } from 'services/auth/login';
 import useAuthUser from 'stores/authStore';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const schema = yup.object({
   email: validations.email,

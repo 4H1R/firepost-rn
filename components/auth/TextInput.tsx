@@ -15,17 +15,17 @@ export interface TextInputProps extends TextInputMainProps {
 
 function TextInput({ Icon, hasError = false, ...props }: TextInputProps) {
   return (
-    <View style={tw`flex-row items-center justify-center`}>
+    <View
+      style={tw.style('flex-row items-center justify-center bg-secondary-200 rounded-lg mt-4 p-2', {
+        'border border-danger-600': hasError,
+      })}
+    >
       <TextInputMain
+        placeholderTextColor={tw.color('secondary-600')}
         {...props}
-        style={tw.style('p-2 flex-1 w-full bg-secondary-200 rounded-lg mt-4 font-primary', {
-          'border border-danger-500': hasError,
-        })}
+        style={tw.style('flex-1 text-secondary-600 font-primary')}
       />
-      <Icon
-        strokeWidth={2}
-        style={tw`w-5 h-5 text-secondary-500/70 absolute right-0 bottom-2 mr-2`}
-      />
+      <Icon strokeWidth={2} style={tw`w-5 h-5 text-secondary-600`} />
     </View>
   );
 }

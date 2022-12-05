@@ -20,6 +20,7 @@ function ToggableText({ text, maxLength = 150, canCopy = true }: TogglableTextPr
   const handleToggleShort = () => isBig && setIsShort((prev) => !prev);
   const handleCopyText = async () => {
     if (!canCopy) return;
+    await Clipboard.setStringAsync(text);
     Toast.show({ type: 'success', text1: 'Text Copied Successfully.' });
   };
 

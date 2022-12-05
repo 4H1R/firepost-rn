@@ -1,10 +1,9 @@
-import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
-import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
+import { NavigatorScreenParams } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 export type TRootStackParamList = {
   Root: NavigatorScreenParams<TRootTabParamList> | undefined;
-  Messages: undefined;
+  Messages: NavigatorScreenParams<TMessagesStackParamList> | undefined;
   Login: undefined;
   Register: undefined;
   ForgotPassword: undefined;
@@ -16,12 +15,9 @@ declare global {
   }
 }
 
-export type TRootStackScreenProps<Screen extends keyof TRootStackParamList> =
-  NativeStackScreenProps<TRootStackParamList, Screen>;
-
 export type TRootTabParamList = {
   Home: undefined;
-  Posts: undefined;
+  Posts: NavigatorScreenParams<TPostsStackParamList> | undefined;
   Create: undefined;
   Notifications: undefined;
   Users: NavigatorScreenParams<TUsersStackParamList> | undefined;
@@ -32,8 +28,15 @@ export type TUsersStackParamList = {
   Edit: undefined;
 };
 
-export type TUsersStackScreenProps<Screen extends keyof TUsersStackParamList> =
-  CompositeScreenProps<
-    BottomTabScreenProps<TUsersStackParamList, Screen>,
-    NativeStackScreenProps<TRootTabParamList>
-  >;
+export type TMessagesStackParamList = {
+  Index: undefined;
+  Show: { username: string };
+};
+
+export type TPostsStackParamList = {
+  Index: undefined;
+  Saved: undefined;
+};
+
+export type TRootStackScreenProps<Screen extends keyof TRootStackParamList> =
+  NativeStackScreenProps<TRootStackParamList, Screen>;
