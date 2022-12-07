@@ -3,9 +3,9 @@ import { FlatList, TouchableOpacity, View } from 'react-native';
 import { ChevronRightIcon } from 'react-native-heroicons/outline';
 import { useNavigation } from '@react-navigation/native';
 
+import { ZoomablePictureBorder } from 'shared/users/pictures';
 import tw from 'libs/tailwind';
 import SearchTextInput from 'shared/common/SearchTextInput';
-import Picture from 'components/users/show/Picture';
 import Username from 'components/users/show/Username';
 import Name from 'components/users/show/Name';
 import useGetMessagedUsers from 'services/messages';
@@ -39,7 +39,7 @@ function IndexScreen() {
             onPress={() => handleNavigateToMessage(item.username)}
           >
             <View style={tw`flex-row items-center pt-4`}>
-              <Picture uri={item.image} />
+              <ZoomablePictureBorder uri={item.image} />
               <View style={tw`flex ml-4 items-start`}>
                 <Username
                   usernameStyle={tw`text-base`}

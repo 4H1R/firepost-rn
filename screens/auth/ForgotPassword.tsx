@@ -4,15 +4,16 @@ import { Formik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
 
-import { TAuthField } from 'types';
 import { fieldsToInitialValues } from 'utils';
+import { TTextInputField } from 'types';
 import Illustration from 'assets/svg/auth/forgotPassword.svg';
 import Title from 'shared/common/Title';
 import Container from 'components/auth/Container';
 import Link from 'components/auth/Link';
 import tw from 'libs/tailwind';
-import Fields from 'components/auth/Fields';
 import validations from 'fixtures/validations';
+import TextInputField from 'shared/form/TextInputField';
+import Button from 'shared/common/Button';
 
 const schema = yup.object({
   email: validations.email,
@@ -21,7 +22,7 @@ const schema = yup.object({
 function ForgotPassword() {
   const { t } = useTranslation();
 
-  const fields: TAuthField<any>[] = [
+  const fields: TTextInputField<{ email: string }>[] = [
     {
       name: 'email',
       fieldProps: {
@@ -41,7 +42,14 @@ function ForgotPassword() {
         initialValues={fieldsToInitialValues(fields)}
         onSubmit={(values) => console.log(values)}
       >
-        <Fields buttonText={t('auth.resetPassword.title')} fields={fields} />
+        {({ handleSubmit }) => (
+          <>
+            {fields.map((field) => (
+              <TextInputField key={field.name} {...field} />
+            ))}
+            <Button text={t('auth.resetPassword.title')} onPress={handleSubmit} />
+          </>
+        )}
       </Formik>
       <Link
         text={t('auth.forgotPassword.rememberYourPassword')}

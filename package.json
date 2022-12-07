@@ -46,7 +46,8 @@
     "react-native-web": "~0.18.10",
     "twrnc": "^3.4.1",
     "yup": "^0.32.11",
-    "zustand": "^4.1.4"
+    "zustand": "^4.1.4",
+    "expo-image-picker": "~14.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.2",

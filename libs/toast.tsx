@@ -1,4 +1,4 @@
-import { SuccessToast, ToastConfig, ErrorToast } from 'react-native-toast-message';
+import { SuccessToast, ErrorToast, ToastConfig } from 'react-native-toast-message';
 import tw from './tailwind';
 
 const sharedProps = { text1Style: tw`font-primary font-normal text-sm`, text1NumberOfLines: 5 };

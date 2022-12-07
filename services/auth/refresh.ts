@@ -14,10 +14,10 @@ async function refresh(data: IRefreshDto) {
 }
 
 function useRefreshToken() {
-  const setUser = useAuthUser((state) => state.setUser);
+  const setAuth = useAuthUser((state) => state.setAuth);
 
   return useMutation(refresh, {
-    onSuccess: setUser,
+    onSuccess: setAuth,
   });
 }
 

@@ -4,7 +4,7 @@ import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet
 import { RouteProp, useRoute } from '@react-navigation/native';
 
 import { TUsersStackParamList } from 'types';
-import Picture from 'components/users/show/Picture';
+import { ZoomablePictureBorder } from 'shared/users/pictures';
 import NumberData from 'components/users/show/NumberData';
 import tw from 'libs/tailwind';
 import useGetUser from 'services/users/show';
@@ -46,7 +46,7 @@ function ShowScreen() {
           ListHeaderComponent={
             <View style={tw`mb-4`}>
               <View style={tw`flex-row items-center justify-between`}>
-                <Picture uri={user.image} />
+                <ZoomablePictureBorder uri={user.image} />
                 <View style={tw`flex-row items-center justify-center`}>
                   <NumberData count={user?.postsCount} title="Posts" />
                   <NumberData

@@ -10,8 +10,8 @@ import { useTranslation } from 'react-i18next';
 import { AxiosError } from 'axios';
 import * as yup from 'yup';
 
+import { TTextInputField } from 'types';
 import { IUnprocessableEntity } from 'interfaces';
-import { TAuthField } from 'types';
 import { fieldsToInitialValues } from 'utils';
 import Illustration from 'assets/svg/auth/register.svg';
 import Title from 'shared/common/Title';
@@ -21,9 +21,10 @@ import LoginWithGoogle from 'components/auth/LoginWithGoogle';
 import Link from 'components/auth/Link';
 import tw from 'libs/tailwind';
 import validations from 'fixtures/validations';
-import Fields from 'components/auth/Fields';
 import useRegister, { IRegisterDto } from 'services/auth/register';
 import useAuthUser from 'stores/authStore';
+import TextInputField from 'shared/form/TextInputField';
+import Button from 'shared/common/Button';
 
 interface IRegister extends IRegisterDto {
   passwordConfirmation: string;
@@ -32,7 +33,7 @@ interface IRegister extends IRegisterDto {
 function RegisterScreen() {
   const { t } = useTranslation();
   const { mutate: register, isLoading } = useRegister();
-  const setUser = useAuthUser((state) => state.setUser);
+  const setAuth = useAuthUser((state) => state.setAuth);
 
   const schema = yup.object({
     name: validations.name,
@@ -45,7 +46,7 @@ function RegisterScreen() {
     ),
   });
 
-  const fields: TAuthField<IRegister>[] = [
+  const fields: TTextInputField<IRegister>[] = [
     {
       name: 'name',
       fieldProps: {
@@ -93,22 +94,33 @@ function RegisterScreen() {
       <Formik
         validationSchema={schema}
         initialValues={fieldsToInitialValues(fields)}
-        onSubmit={(values, { setErrors }) => {
+        onSubmit={(values: any, { setErrors }) => {
           register(values, {
             onError: (e) => {
               const error = e as AxiosError<IUnprocessableEntity<IRegisterDto>>;
               if (error?.response?.status === 422) {
-                setErrors(error.response.data.errors);
+                // setErrors(error.response.data.errors);
                 return;
               }
               setErrors({ email: t('errors.somethingWentWrong') });
             },
             // Refresh token is being updated in secure storage on Auth component
-            onSuccess: setUser,
+            onSuccess: setAuth,
           });
         }}
       >
-        <Fields isLoading={isLoading} buttonText={t('auth.register.buttonText')} fields={fields} />
+        {({ handleSubmit }) => (
+          <>
+            {fields.map((field) => (
+              <TextInputField key={field.name} {...field} />
+            ))}
+            <Button
+              text={t('auth.register.buttonText')}
+              isLoading={isLoading}
+              onPress={handleSubmit}
+            />
+          </>
+        )}
       </Formik>
       <ORDivider />
       <LoginWithGoogle />

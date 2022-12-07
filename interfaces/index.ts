@@ -1,9 +1,9 @@
 import { TFieldName } from 'types';
 import { IAuthUser } from './models';
 
-export interface IField<T, K = string> {
-  name: TFieldName<K>;
-  fieldProps: T;
+export interface IField<Props, Name = string> {
+  fieldProps: Props;
+  name: TFieldName<Name>;
 }
 
 export interface IAuthResponse {

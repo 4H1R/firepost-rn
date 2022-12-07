@@ -36,6 +36,7 @@ export type TMessagesStackParamList = {
 export type TPostsStackParamList = {
   Index: undefined;
   Saved: undefined;
+  Show: { id: string };
 };
 
 export type TRootStackScreenProps<Screen extends keyof TRootStackParamList> =

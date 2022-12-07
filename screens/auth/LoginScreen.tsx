@@ -6,8 +6,8 @@ import { useTranslation } from 'react-i18next';
 import { AxiosError } from 'axios';
 
 import { IUnprocessableEntity } from 'interfaces';
+import { TTextInputField } from 'types';
 import { fieldsToInitialValues } from 'utils';
-import { TAuthField } from 'types';
 import Illustration from 'assets/svg/auth/login.svg';
 import Title from 'shared/common/Title';
 import Container from 'components/auth/Container';
@@ -16,9 +16,10 @@ import LoginWithGoogle from 'components/auth/LoginWithGoogle';
 import Link from 'components/auth/Link';
 import tw from 'libs/tailwind';
 import validations from 'fixtures/validations';
-import Fields from 'components/auth/Fields';
 import useLogin, { ILoginDto } from 'services/auth/login';
 import useAuthUser from 'stores/authStore';
+import Button from 'shared/common/Button';
+import TextInputField from 'shared/form/TextInputField';
 
 const schema = yup.object({
   email: validations.email,
@@ -27,10 +28,10 @@ const schema = yup.object({
 
 function LoginScreen() {
   const { t } = useTranslation();
-  const setUser = useAuthUser((state) => state.setUser);
+  const setAuth = useAuthUser((state) => state.setAuth);
   const { mutate: login, isLoading } = useLogin();
 
-  const fields: TAuthField<ILoginDto>[] = [
+  const fields: TTextInputField<ILoginDto>[] = [
     {
       name: 'email',
       fieldProps: {
@@ -67,11 +68,22 @@ function LoginScreen() {
               setErrors({ email: t('errors.somethingWentWrong') });
             },
             // Refresh token is being updated in secure storage on Auth component
-            onSuccess: setUser,
+            onSuccess: setAuth,
           })
         }
       >
-        <Fields isLoading={isLoading} buttonText={t('auth.login.buttonText')} fields={fields} />
+        {({ handleSubmit }) => (
+          <>
+            {fields.map((field) => (
+              <TextInputField key={field.name} {...field} />
+            ))}
+            <Button
+              text={t('auth.login.buttonText')}
+              isLoading={isLoading}
+              onPress={handleSubmit}
+            />
+          </>
+        )}
       </Formik>
       <ORDivider />
       <LoginWithGoogle />
