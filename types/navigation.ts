@@ -1,5 +1,6 @@
 import { NavigatorScreenParams } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { IUser } from 'interfaces';
 
 export type TRootStackParamList = {
   Root: NavigatorScreenParams<TRootTabParamList> | undefined;
@@ -30,7 +31,7 @@ export type TUsersStackParamList = {
 
 export type TMessagesStackParamList = {
   Index: undefined;
-  Show: { username: string };
+  Show: { user: IUser };
 };
 
 export type TPostsStackParamList = {

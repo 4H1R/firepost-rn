@@ -12,16 +12,17 @@ import useGetMessagedUsers from 'services/messages';
 import ActivityIndicator from 'shared/common/ActivityIndicator';
 import BgContainer from 'shared/container/BgContainer';
 import SafeAreaView from 'shared/common/SafeAreaView';
+import { IUser } from 'interfaces';
 
 function IndexScreen() {
   const navigation = useNavigation();
   const [query, setQuery] = useState('');
   const { data, fetchNextPage, isFetchingNextPage } = useGetMessagedUsers({ query });
 
-  const handleNavigateToMessage = (username: string) => {
+  const handleNavigateToMessage = (user: IUser) => {
     navigation.navigate('Messages', {
       screen: 'Show',
-      params: { username },
+      params: { user },
     });
   };
 
@@ -37,10 +38,7 @@ function IndexScreen() {
           onEndReached={() => fetchNextPage()}
           ListFooterComponent={isFetchingNextPage ? <ActivityIndicator /> : null}
           renderItem={({ item }) => (
-            <TouchableOpacity
-              activeOpacity={0.6}
-              onPress={() => handleNavigateToMessage(item.username)}
-            >
+            <TouchableOpacity activeOpacity={0.6} onPress={() => handleNavigateToMessage(item)}>
               <View style={tw`flex-row items-center pt-4`}>
                 <ZoomablePictureBorder uri={item.image} />
                 <View style={tw`flex ml-4 items-start`}>

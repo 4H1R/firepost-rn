@@ -13,19 +13,18 @@ function HomeScreen() {
 
   return (
     <BgContainer>
-      <SafeAreaView>
-        <FlatList
-          onEndReachedThreshold={0.3}
-          numColumns={1}
-          removeClippedSubviews
-          contentContainerStyle={tw`container`}
-          data={posts?.pages.map((page) => page.data).flat()}
-          keyExtractor={(post) => post.id.toString()}
-          onEndReached={() => fetchNextPage()}
-          ListFooterComponent={isFetchingNextPage ? <ActivityIndicator /> : null}
-          renderItem={({ item: post }) => <Post {...post} />}
-        />
-      </SafeAreaView>
+      <SafeAreaView />
+      <FlatList
+        onEndReachedThreshold={0.3}
+        numColumns={1}
+        removeClippedSubviews
+        contentContainerStyle={tw`container`}
+        data={posts?.pages.map((page) => page.data).flat()}
+        keyExtractor={(post) => post.id.toString()}
+        onEndReached={() => fetchNextPage()}
+        ListFooterComponent={isFetchingNextPage ? <ActivityIndicator /> : null}
+        renderItem={({ item: post }) => <Post {...post} />}
+      />
     </BgContainer>
   );
 }

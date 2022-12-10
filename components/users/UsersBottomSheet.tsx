@@ -12,6 +12,7 @@ import Username from './show/Username';
 import Name from './show/Name';
 import ActivityIndicator from 'shared/common/ActivityIndicator';
 import SearchTextInput from 'shared/common/SearchTextInput';
+import SafeAreaView from 'shared/common/SafeAreaView';
 
 const emojiList = ['👌', '👋', '🎉', '🔥', '🗿', '👀', '✨', '👑'];
 

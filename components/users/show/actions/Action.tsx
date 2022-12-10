@@ -13,6 +13,7 @@ type ActionProps = {
   onPress?: () => void;
   isLoading?: boolean;
 };
+
 function Action({ Icon, color, title, onPress, isLoading = false }: ActionProps) {
   const { bg, text } = {
     primary: { bg: 'bg-primary-600', text: 'text-secondary-50' },

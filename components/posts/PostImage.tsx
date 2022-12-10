@@ -18,7 +18,7 @@ function PostImage({ image, id }: PostImageProps) {
   };
 
   return (
-    <TouchableOpacity onPress={handleNavigateToPost} activeOpacity={0.5} style={tw`flex-1 m-1`}>
+    <TouchableOpacity onPress={handleNavigateToPost} activeOpacity={0.5} style={tw`w-[48%] m-1`}>
       <Image source={{ uri: image }} style={tw`h-32 rounded skeleton`} />
     </TouchableOpacity>
   );

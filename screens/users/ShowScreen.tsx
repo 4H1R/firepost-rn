@@ -46,48 +46,47 @@ function ShowScreen() {
 
   return (
     <BottomSheetModalProvider>
+      <SafeAreaView />
       <BgContainer>
-        <SafeAreaView>
-          <FlatList
-            ListHeaderComponent={
-              <View style={tw`mb-4`}>
-                <View style={tw`flex-row items-center justify-between`}>
-                  <ZoomablePictureBorder uri={user.image} />
-                  <View style={tw`flex-row items-center justify-center`}>
-                    <NumberData count={user?.postsCount} title="Posts" />
-                    <NumberData
-                      onPress={handleOpenFollowers}
-                      count={user?.followersCount}
-                      title="Followers"
-                    />
-                    <NumberData
-                      onPress={handleOpenFollowings}
-                      count={user?.followingsCount}
-                      title="Followings"
-                    />
-                  </View>
+        <FlatList
+          ListHeaderComponent={
+            <View style={tw`mb-4`}>
+              <View style={tw`flex-row items-center justify-between`}>
+                <ZoomablePictureBorder uri={user.image} />
+                <View style={tw`flex-row items-center justify-center`}>
+                  <NumberData count={user?.postsCount} title="Posts" />
+                  <NumberData
+                    onPress={handleOpenFollowers}
+                    count={user?.followersCount}
+                    title="Followers"
+                  />
+                  <NumberData
+                    onPress={handleOpenFollowings}
+                    count={user?.followingsCount}
+                    title="Followings"
+                  />
                 </View>
-                <Username username={user?.username} isVerified={user?.isVerified} />
-                <Name name={user?.name} />
-                <ToggableText text={user?.bio} />
-                <Actions
-                  isFollowed={user?.isFollowed}
-                  username={user?.username}
-                  authUsername={authUser!.username}
-                  website={user?.website}
-                />
               </View>
-            }
-            contentContainerStyle={tw`container`}
-            numColumns={2}
-            onEndReachedThreshold={0.3}
-            onEndReached={handleLoadMorePosts}
-            data={posts?.pages.map((page) => page.data).flat()}
-            keyExtractor={(post) => post.id.toString()}
-            ListFooterComponent={isFetchingMorePosts ? <ActivityIndicator /> : null}
-            renderItem={({ item: post }) => <PostImage {...post} />}
-          />
-        </SafeAreaView>
+              <Username username={user?.username} isVerified={user?.isVerified} />
+              <Name name={user?.name} />
+              <ToggableText text={user?.bio} />
+              <Actions
+                isFollowed={user?.isFollowed}
+                username={user?.username}
+                authUsername={authUser!.username}
+                website={user?.website}
+              />
+            </View>
+          }
+          contentContainerStyle={tw`container`}
+          numColumns={2}
+          onEndReachedThreshold={0.3}
+          onEndReached={handleLoadMorePosts}
+          data={posts?.pages.map((page) => page.data).flat()}
+          keyExtractor={(post) => post.id.toString()}
+          ListFooterComponent={isFetchingMorePosts ? <ActivityIndicator /> : null}
+          renderItem={({ item: post }) => <PostImage {...post} />}
+        />
       </BgContainer>
       <UsersBottomSheet
         title="Followers"

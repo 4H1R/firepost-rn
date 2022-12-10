@@ -7,7 +7,7 @@ import {
 import tw from 'libs/tailwind';
 
 export interface SafeAreaViewProps extends SafeAreaViewPropsMain {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 function SafeAreaView({ children, ...props }: SafeAreaViewProps) {
