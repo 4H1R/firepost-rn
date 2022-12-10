@@ -19,7 +19,7 @@ export type TRootTabParamList = {
   Home: undefined;
   Posts: NavigatorScreenParams<TPostsStackParamList> | undefined;
   Create: undefined;
-  Notifications: undefined;
+  Messages: NavigatorScreenParams<TMessagesStackParamList> | undefined;
   Users: NavigatorScreenParams<TUsersStackParamList> | undefined;
 };
 

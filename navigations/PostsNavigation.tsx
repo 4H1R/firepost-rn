@@ -9,7 +9,7 @@ const Stack = createNativeStackNavigator<TPostsStackParamList>();
 
 function PostsNavigation() {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator initialRouteName="Index" screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Index" component={IndexScreen} />
       <Stack.Screen name="Saved" component={SavedScreen} />
       <Stack.Screen getId={({ params }) => params.id} name="Show" component={ShowScreen} />

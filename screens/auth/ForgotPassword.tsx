@@ -8,7 +8,7 @@ import { fieldsToInitialValues } from 'utils';
 import { TTextInputField } from 'types';
 import Illustration from 'assets/svg/auth/forgotPassword.svg';
 import Title from 'shared/common/Title';
-import Container from 'components/auth/Container';
+import SafeScrollViewContainer from 'shared/container/SafeScrollViewContainer';
 import Link from 'components/auth/Link';
 import tw from 'libs/tailwind';
 import validations from 'fixtures/validations';
@@ -34,7 +34,7 @@ function ForgotPassword() {
   ];
 
   return (
-    <Container>
+    <SafeScrollViewContainer>
       <Title text={t('auth.forgotPassword.title')} />
       <Illustration style={tw`w-full h-56 mt-4`} />
       <Formik
@@ -56,7 +56,7 @@ function ForgotPassword() {
         linkText={t('auth.login.buttonText')}
         navigateTo="Login"
       />
-    </Container>
+    </SafeScrollViewContainer>
   );
 }
 

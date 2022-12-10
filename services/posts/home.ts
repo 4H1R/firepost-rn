@@ -1,11 +1,11 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 
-import { IPaginate, IPaginateParams, IPostWithUser } from 'interfaces';
+import { IPaginate, IPaginateParams, IPostFull } from 'interfaces';
 import { getNextPageParam } from 'utils';
 import axios from 'libs/axios';
 
 async function findAll(params?: IPaginateParams) {
-  const resp = await axios.get<IPaginate<IPostWithUser>>('/auth/posts', {
+  const resp = await axios.get<IPaginate<IPostFull>>('/posts/home', {
     params,
   });
   return resp.data;

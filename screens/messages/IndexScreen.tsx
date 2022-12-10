@@ -10,6 +10,8 @@ import Username from 'components/users/show/Username';
 import Name from 'components/users/show/Name';
 import useGetMessagedUsers from 'services/messages';
 import ActivityIndicator from 'shared/common/ActivityIndicator';
+import BgContainer from 'shared/container/BgContainer';
+import SafeAreaView from 'shared/common/SafeAreaView';
 
 function IndexScreen() {
   const navigation = useNavigation();
@@ -24,36 +26,38 @@ function IndexScreen() {
   };
 
   return (
-    <View style={tw`bg-color flex-1`}>
-      <FlatList
-        contentContainerStyle={tw`container`}
-        ListHeaderComponent={<SearchTextInput onTextDebounced={setQuery} />}
-        data={data?.pages.map((page) => page.data).flat()}
-        keyExtractor={(item) => item.username}
-        onEndReachedThreshold={0.3}
-        onEndReached={() => fetchNextPage()}
-        ListFooterComponent={isFetchingNextPage ? <ActivityIndicator /> : null}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            activeOpacity={0.6}
-            onPress={() => handleNavigateToMessage(item.username)}
-          >
-            <View style={tw`flex-row items-center pt-4`}>
-              <ZoomablePictureBorder uri={item.image} />
-              <View style={tw`flex ml-4 items-start`}>
-                <Username
-                  usernameStyle={tw`text-base`}
-                  username={item.username}
-                  isVerified={item.isVerified}
-                />
-                <Name style={tw`text-sm`} name={item.name} />
+    <BgContainer>
+      <SafeAreaView>
+        <FlatList
+          contentContainerStyle={tw`container`}
+          ListHeaderComponent={<SearchTextInput onTextDebounced={setQuery} />}
+          data={data?.pages.map((page) => page.data).flat()}
+          keyExtractor={(item) => item.username}
+          onEndReachedThreshold={0.3}
+          onEndReached={() => fetchNextPage()}
+          ListFooterComponent={isFetchingNextPage ? <ActivityIndicator /> : null}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              activeOpacity={0.6}
+              onPress={() => handleNavigateToMessage(item.username)}
+            >
+              <View style={tw`flex-row items-center pt-4`}>
+                <ZoomablePictureBorder uri={item.image} />
+                <View style={tw`flex ml-4 items-start`}>
+                  <Username
+                    usernameStyle={tw`text-base`}
+                    username={item.username}
+                    isVerified={item.isVerified}
+                  />
+                  <Name style={tw`text-sm`} name={item.name} />
+                </View>
+                <ChevronRightIcon style={tw`h-6 w-6 text-secondary-900 ml-auto`} />
               </View>
-              <ChevronRightIcon style={tw`h-6 w-6 text-secondary-900 ml-auto`} />
-            </View>
-          </TouchableOpacity>
-        )}
-      />
-    </View>
+            </TouchableOpacity>
+          )}
+        />
+      </SafeAreaView>
+    </BgContainer>
   );
 }
 

@@ -15,7 +15,7 @@ import { IUnprocessableEntity } from 'interfaces';
 import { fieldsToInitialValues } from 'utils';
 import Illustration from 'assets/svg/auth/register.svg';
 import Title from 'shared/common/Title';
-import Container from 'components/auth/Container';
+import SafeScrollViewContainer from 'shared/container/SafeScrollViewContainer';
 import ORDivider from 'components/auth/ORDivider';
 import LoginWithGoogle from 'components/auth/LoginWithGoogle';
 import Link from 'components/auth/Link';
@@ -88,7 +88,7 @@ function RegisterScreen() {
   ];
 
   return (
-    <Container>
+    <SafeScrollViewContainer>
       <Title text={t('auth.register.title')} />
       <Illustration style={tw`w-full h-40 mt-4`} />
       <Formik
@@ -129,7 +129,7 @@ function RegisterScreen() {
         linkText={t('auth.login.buttonText')}
         navigateTo="Login"
       />
-    </Container>
+    </SafeScrollViewContainer>
   );
 }
 

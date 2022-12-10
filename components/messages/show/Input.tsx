@@ -35,14 +35,14 @@ function Input({ username }: InputProps) {
     );
   };
   return (
-    <View style={tw`flex-row justify-between items-center bg-secondary-200 py-3 px-4`}>
+    <View style={tw`flex-row justify-between items-center bg-secondary-200 py-3 px-4 mt-auto`}>
       <TextInput
         multiline
         value={text}
         onChangeText={setText}
-        placeholder="Send your message ..."
+        placeholder="Type your message ..."
         placeholderTextColor={tw.color('secondary-600')}
-        style={tw`flex-1 font-primary rounded-t`}
+        style={tw`flex-1 font-primary rounded-t-lg`}
       />
       <TouchableOpacity
         onPress={handleCreateMessage}

@@ -24,13 +24,14 @@ type UsersBottomSheetProps = {
     options?: { enabled: boolean }
   ) => UseInfiniteQueryResult<IPaginate<IUser>, unknown>;
   username: string;
+  Empty: JSX.Element;
 };
 
-function UsersBottomSheet({ modalRef, useQuery, title, username }: UsersBottomSheetProps) {
+function UsersBottomSheet({ modalRef, useQuery, title, username, Empty }: UsersBottomSheetProps) {
   const [isOpen, setIsOpen] = useState(false);
   const navigation = useNavigation();
   const [query, setQuery] = useState('');
-  const { data, fetchNextPage, isFetchingNextPage } = useQuery(
+  const { data, fetchNextPage, isFetchingNextPage, isLoading } = useQuery(
     username,
     { query },
     { enabled: isOpen }
@@ -59,6 +60,7 @@ function UsersBottomSheet({ modalRef, useQuery, title, username }: UsersBottomSh
         keyExtractor={(item) => item.username}
         onEndReachedThreshold={0.3}
         onEndReached={() => fetchNextPage()}
+        ListEmptyComponent={isLoading ? null : Empty}
         ListHeaderComponent={
           <>
             <Text style={tw`font-primary-bold text-secondary-900 text-2xl pb-2`}>

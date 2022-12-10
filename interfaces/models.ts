@@ -30,7 +30,7 @@ export interface IPost extends IModel {
   description: string;
 }
 
-export interface IPostWithUser extends IPost {
+export interface IPostFull extends IPost {
   user: IUser;
 }
 

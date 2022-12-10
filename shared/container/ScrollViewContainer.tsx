@@ -4,14 +4,20 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 import tw from 'libs/tailwind';
 
-interface ContainerProps extends ScrollViewProps {
+export interface ScrollViewContainerProps extends ScrollViewProps {
   style?: ViewStyle;
   contentContainerStyle?: ViewStyle;
 }
 
-function Container({ children, style, contentContainerStyle }: ContainerProps) {
+function ScrollViewContainer({
+  children,
+  style,
+  contentContainerStyle,
+  ...props
+}: ScrollViewContainerProps) {
   return (
     <ScrollView
+      {...props}
       style={tw.style('bg-color', style)}
       contentContainerStyle={tw.style('px-4 py-2', contentContainerStyle)}
     >
@@ -20,4 +26,4 @@ function Container({ children, style, contentContainerStyle }: ContainerProps) {
   );
 }
 
-export default Container;
+export default ScrollViewContainer;

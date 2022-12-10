@@ -39,7 +39,7 @@ function TextInput({
       <TextInputMain
         placeholderTextColor={tw.color('secondary-400')}
         {...props}
-        style={tw.style('flex-1 text-secondary-600 font-primary', textInputStyle)}
+        style={tw.style('flex-1 flex text-secondary-600 font-primary', textInputStyle)}
       />
       {Icon && <Icon strokeWidth={2} style={tw.style('w-5 h-5 text-secondary-600', iconStyle)} />}
     </View>

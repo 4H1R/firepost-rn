@@ -9,15 +9,14 @@ import Toast from 'react-native-toast-message';
 import { fieldsToInitialValues } from 'utils';
 import { TTextInputField } from 'types';
 import useUpdateUser, { IUpdateUserDto } from 'services/users/update';
-import Illustration from 'assets/svg/users/edit.svg';
 import Title from 'shared/common/Title';
-import Container from 'shared/common/Container';
-import tw from 'libs/tailwind';
 import useAuthUser from 'stores/authStore';
 import Button from 'shared/common/Button';
 import TextInputField from 'shared/form/TextInputField';
 import Description from 'components/users/edit/Description';
 import PictureChanger from 'components/users/edit/PictureChanger';
+import SafeScrollViewContainer from 'shared/container/SafeScrollViewContainer';
+import BgContainer from 'shared/container/BgContainer';
 
 type TField = { description: string } & TTextInputField<IUpdateUserDto>;
 
@@ -58,44 +57,48 @@ function EditScreen() {
   ];
 
   return (
-    <Container contentContainerStyle={tw`py-4`}>
-      <Title text="Edit your Profile" />
-      <Illustration style={tw`w-full h-56 mt-2`} />
-      <Formik
-        initialValues={fieldsToInitialValues(fields, {
-          name: user!.name,
-          username: user!.username,
-          bio: user!.bio ?? '',
-        })}
-        onSubmit={(values: any) => {
-          update(values, {
-            onSuccess: (data) => {
-              queryClient.invalidateQueries(['users', user!.username]);
-              setUser(data);
-              Toast.show({ type: 'success', text1: 'Your profile has been updated successfully.' });
-              navigation.navigate('Root', {
-                screen: 'Users',
-                params: { screen: 'Show', params: { username: data.username } },
-              });
-            },
-            onError: () => {},
-          });
-        }}
-      >
-        {({ handleSubmit }) => (
-          <>
-            {fields.map(({ description, ...field }) => (
-              <Fragment key={field.name}>
-                <TextInputField {...field} />
-                <Description description={description} />
-              </Fragment>
-            ))}
-            <PictureChanger uri={user!.image} />
-            <Button text="Update" isLoading={isLoading} onPress={handleSubmit} />
-          </>
-        )}
-      </Formik>
-    </Container>
+    <BgContainer>
+      <SafeScrollViewContainer>
+        <Title text="Edit your Profile" />
+        <Formik
+          initialValues={fieldsToInitialValues(fields, {
+            name: user!.name,
+            username: user!.username,
+            bio: user!.bio ?? '',
+          })}
+          onSubmit={(values) => {
+            update(values, {
+              onSuccess: (data) => {
+                queryClient.invalidateQueries(['users', user!.username]);
+                setUser(data);
+                Toast.show({
+                  type: 'success',
+                  text1: 'Your profile has been updated successfully.',
+                });
+                navigation.navigate('Root', {
+                  screen: 'Users',
+                  params: { screen: 'Show', params: { username: data.username } },
+                });
+              },
+              onError: () => {},
+            });
+          }}
+        >
+          {({ handleSubmit }) => (
+            <>
+              {fields.map(({ description, ...field }) => (
+                <Fragment key={field.name}>
+                  <TextInputField {...field} />
+                  <Description description={description} />
+                </Fragment>
+              ))}
+              <PictureChanger uri={user!.image} />
+              <Button text="Update" isLoading={isLoading} onPress={handleSubmit} />
+            </>
+          )}
+        </Formik>
+      </SafeScrollViewContainer>
+    </BgContainer>
   );
 }
 

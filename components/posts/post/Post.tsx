@@ -1,20 +1,15 @@
 import React from 'react';
 import { Image, Text, View, TouchableOpacity } from 'react-native';
-import {
-  BookmarkIcon,
-  ChatBubbleLeftEllipsisIcon,
-  FireIcon,
-  PaperAirplaneIcon,
-} from 'react-native-heroicons/outline';
+import { BookmarkIcon, ChatBubbleLeftEllipsisIcon, FireIcon } from 'react-native-heroicons/outline';
 import { BlurView } from 'expo-blur';
 import { useNavigation } from '@react-navigation/native';
 
-import { IPostWithUser } from 'interfaces';
+import { IPostFull } from 'interfaces';
 import { ZoomablePictureBorder } from 'shared/users/pictures';
 import tw from 'libs/tailwind';
 import ToggableText from 'shared/common/ToggableText';
 
-interface PostProps extends IPostWithUser {}
+interface PostProps extends IPostFull {}
 
 function Post({ image, user, description }: PostProps) {
   const navigation = useNavigation();
@@ -31,7 +26,7 @@ function Post({ image, user, description }: PostProps) {
       <View style={tw`relative`}>
         <Image
           source={{ uri: image }}
-          style={tw`w-full h-80 rounded-tl-3xl rounded-tr-3xl skeleton`}
+          style={tw`w-full h-96 rounded-tl-3xl rounded-tr-3xl skeleton`}
         />
         <BlurView
           intensity={80}
@@ -54,11 +49,10 @@ function Post({ image, user, description }: PostProps) {
       <View style={tw`bg-secondary-200 container`}>
         <View style={tw`flex-row justify-between mt-2`}>
           <View style={tw`flex-row`}>
-            <ChatBubbleLeftEllipsisIcon style={tw`w-4 h-4 text-secondary-900 mr-4`} />
-            <PaperAirplaneIcon style={tw`w-4 h-4 text-secondary-900 mr-4`} />
-            <BookmarkIcon style={tw`w-4 h-4 text-secondary-900 mr-4`} />
+            <FireIcon style={tw`w-4 h-4 text-secondary-900 mr-4`} />
+            <ChatBubbleLeftEllipsisIcon style={tw`w-4 h-4 text-secondary-900`} />
           </View>
-          <FireIcon style={tw`w-4 h-4 text-secondary-900`} />
+          <BookmarkIcon style={tw`w-4 h-4 text-secondary-900 mr-4`} />
         </View>
         <ToggableText text={description} />
       </View>

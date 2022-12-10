@@ -9,10 +9,16 @@ type TogglableTextProps = {
   text: string | null;
   maxLength?: number;
   canCopy?: boolean;
+  isInitialShort?: boolean;
 };
 
-function ToggableText({ text, maxLength = 150, canCopy = true }: TogglableTextProps) {
-  const [isShort, setIsShort] = useState(true);
+function ToggableText({
+  text,
+  maxLength = 150,
+  canCopy = true,
+  isInitialShort = true,
+}: TogglableTextProps) {
+  const [isShort, setIsShort] = useState(isInitialShort);
   if (!text) return null;
 
   const isBig = text.length > maxLength;

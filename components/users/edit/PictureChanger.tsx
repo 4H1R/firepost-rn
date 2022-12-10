@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
+import { TouchableOpacity } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import { XMarkIcon } from 'react-native-heroicons/outline';
-import { Text, TouchableOpacity, View } from 'react-native';
 
 import { Picture, PictureProps } from 'shared/users/pictures';
 import tw from 'libs/tailwind';
@@ -16,8 +15,9 @@ function PictureChanger({ uri }: ProfilePictureProps) {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
-      aspect: [4, 3],
+      aspect: [4, 4],
       quality: 1,
+      allowsMultipleSelection: false,
     });
     if (result.canceled) return;
     setImage(result.assets[0].uri);

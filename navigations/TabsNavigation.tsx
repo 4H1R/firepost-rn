@@ -1,15 +1,12 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { TouchableOpacity } from 'react-native';
 import {
   HomeIcon,
   PlusCircleIcon,
-  BellIcon,
   UserIcon,
   RocketLaunchIcon,
   ChatBubbleLeftRightIcon,
 } from 'react-native-heroicons/outline';
-import { useNavigation } from '@react-navigation/native';
 
 import { TRootTabParamList } from 'types';
 import tw from 'libs/tailwind';
@@ -17,38 +14,24 @@ import HomeScreen from 'screens/HomeScreen';
 import UsersNavigation from './UsersNavigation';
 import PostsNavigation from './PostsNavigation';
 import PostsCreateScreen from 'screens/posts/CreateScreen';
-import NotificationsScreen from 'screens/NotificationsScreen';
-import HeaderTitle from 'shared/common/HeaderTitle';
+import MessagesNavigation from './MessagesNavigation';
 
 const TabStack = createBottomTabNavigator<TRootTabParamList>();
 
 function TabsNavigation() {
-  const navigation = useNavigation();
   return (
     <TabStack.Navigator
       screenOptions={{
-        headerStyle: tw`border-b border-secondary-300/50 bg-secondary-100`,
         tabBarStyle: tw`bg-secondary-100`,
         tabBarActiveTintColor: tw.color('primary-600'),
         tabBarInactiveTintColor: tw.color('secondary-400'),
         tabBarShowLabel: false,
-        headerTitle: ({ children }) => <HeaderTitle title={children} />,
+        headerShown: false,
       }}
     >
+      <TabStack.Screen options={{ tabBarIcon: HomeIcon }} name="Home" component={HomeScreen} />
       <TabStack.Screen
-        options={{
-          tabBarIcon: HomeIcon,
-          headerRight: () => (
-            <TouchableOpacity onPress={() => navigation.navigate('Messages')}>
-              <ChatBubbleLeftRightIcon style={tw`h-8 w-8 text-secondary-900 mx-4`} />
-            </TouchableOpacity>
-          ),
-        }}
-        name="Home"
-        component={HomeScreen}
-      />
-      <TabStack.Screen
-        options={{ tabBarIcon: RocketLaunchIcon, headerShown: false }}
+        options={{ tabBarIcon: RocketLaunchIcon }}
         name="Posts"
         component={PostsNavigation}
       />
@@ -58,12 +41,12 @@ function TabsNavigation() {
         component={PostsCreateScreen}
       />
       <TabStack.Screen
-        options={{ tabBarIcon: BellIcon }}
-        name="Notifications"
-        component={NotificationsScreen}
+        options={{ tabBarIcon: ChatBubbleLeftRightIcon }}
+        name="Messages"
+        component={MessagesNavigation}
       />
       <TabStack.Screen
-        options={{ tabBarIcon: UserIcon, headerShown: false }}
+        options={{ tabBarIcon: UserIcon }}
         name="Users"
         component={UsersNavigation}
       />

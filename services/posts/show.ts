@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { IPostWithUser } from 'interfaces';
+import { IPostFull } from 'interfaces';
 import axios from 'libs/axios';
 
 async function post(id: string) {
-  const resp = await axios.get<IPostWithUser>(`/posts/${id}`);
+  const resp = await axios.get<IPostFull>(`/posts/${id}`);
   return resp.data;
 }
 
