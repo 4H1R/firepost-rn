@@ -4,15 +4,13 @@ import { BottomSheetModal, BottomSheetFlatList } from '@gorhom/bottom-sheet';
 import { UseInfiniteQueryResult } from '@tanstack/react-query';
 import { useNavigation } from '@react-navigation/native';
 
-import { IPaginate, IUser } from 'interfaces';
-import { IFollowersParams } from 'services/users/followers';
+import { IPaginate, IPaginateParams, IUser } from 'interfaces';
 import { ZoomablePictureBorder } from 'shared/users/pictures';
 import tw from 'libs/tailwind';
 import Username from './show/Username';
 import Name from './show/Name';
 import ActivityIndicator from 'shared/common/ActivityIndicator';
 import SearchTextInput from 'shared/common/SearchTextInput';
-import SafeAreaView from 'shared/common/SafeAreaView';
 
 const emojiList = ['👌', '👋', '🎉', '🔥', '🗿', '👀', '✨', '👑'];
 
@@ -20,20 +18,20 @@ type UsersBottomSheetProps = {
   modalRef: React.RefObject<BottomSheetModal>;
   title: string;
   useQuery: (
-    username: string,
-    params: IFollowersParams,
+    identifier: string,
+    params: IPaginateParams,
     options?: { enabled: boolean }
   ) => UseInfiniteQueryResult<IPaginate<IUser>, unknown>;
-  username: string;
+  identifier: string;
   Empty: JSX.Element;
 };
 
-function UsersBottomSheet({ modalRef, useQuery, title, username, Empty }: UsersBottomSheetProps) {
+function UsersBottomSheet({ modalRef, useQuery, title, identifier, Empty }: UsersBottomSheetProps) {
   const [isOpen, setIsOpen] = useState(false);
   const navigation = useNavigation();
   const [query, setQuery] = useState('');
   const { data, fetchNextPage, isFetchingNextPage, isLoading } = useQuery(
-    username,
+    identifier,
     { query },
     { enabled: isOpen }
   );

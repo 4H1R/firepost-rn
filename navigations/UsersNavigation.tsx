@@ -18,7 +18,7 @@ function UsersNavigation() {
         name="Show"
         component={ShowScreen}
       />
-      <Stack.Screen name="Edit" component={EditScreen} />
+      <Stack.Screen options={{ presentation: 'modal' }} name="Edit" component={EditScreen} />
     </Stack.Navigator>
   );
 }

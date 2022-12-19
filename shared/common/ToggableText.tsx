@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, TouchableWithoutFeedback } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 import * as Clipboard from 'expo-clipboard';
 import Toast from 'react-native-toast-message';
 
@@ -31,12 +31,12 @@ function ToggableText({
   };
 
   return (
-    <TouchableWithoutFeedback onLongPress={handleCopyText} onPress={handleToggleShort}>
+    <TouchableOpacity activeOpacity={0.6} onLongPress={handleCopyText} onPress={handleToggleShort}>
       <Text style={tw`font-primary-medium text-sm text-secondary-900 mt-2`}>
         {textTransformed}{' '}
         <Text style={tw`text-primary-600 text-base`}>{isBig && isShort && '...'}</Text>
       </Text>
-    </TouchableWithoutFeedback>
+    </TouchableOpacity>
   );
 }
 

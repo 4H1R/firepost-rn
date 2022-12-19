@@ -7,6 +7,7 @@ import {
 } from 'react-native-heroicons/outline';
 import { useNavigation } from '@react-navigation/native';
 
+import { IUser } from 'interfaces';
 import Action from './Action';
 import tw from 'libs/tailwind';
 import FollowAction from './FollowAction';
@@ -16,14 +17,15 @@ import WebsiteAction from './WebsiteAction';
 import BlockAction from './BlockAction';
 
 type ActionsProps = {
-  username: string;
+  user: IUser;
   authUsername: string;
   website: string | null;
   isFollowed: boolean;
 };
 
-function Actions({ username, authUsername, website, isFollowed }: ActionsProps) {
+function Actions({ user, authUsername, website, isFollowed }: ActionsProps) {
   const navigation = useNavigation();
+  const { username } = user;
 
   const handleNavigateToEdit = () => {
     navigation.navigate('Root', {
@@ -36,6 +38,13 @@ function Actions({ username, authUsername, website, isFollowed }: ActionsProps) 
     navigation.navigate('Root', {
       screen: 'Posts',
       params: { screen: 'Saved' },
+    });
+  };
+
+  const handleNavigateToMessage = () => {
+    navigation.navigate('Root', {
+      screen: 'Messages',
+      params: { screen: 'Show', params: { user } },
     });
   };
 
@@ -68,7 +77,12 @@ function Actions({ username, authUsername, website, isFollowed }: ActionsProps) 
           ) : (
             <FollowAction username={username} />
           )}
-          <Action title="Message" Icon={ChatBubbleBottomCenterIcon} color="secondary-outline" />
+          <Action
+            onPress={handleNavigateToMessage}
+            title="Message"
+            Icon={ChatBubbleBottomCenterIcon}
+            color="secondary-outline"
+          />
           {website && <WebsiteAction url={website} />}
           <BlockAction username={username} />
         </>

@@ -1,21 +1,27 @@
-import React, { createContext, SetStateAction, useMemo, useState } from 'react';
+import React, { useMemo, useReducer, useRef } from 'react';
 import { Image, Text, View, TouchableOpacity } from 'react-native';
 import { BlurView } from 'expo-blur';
 import { useNavigation } from '@react-navigation/native';
+import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 
 import { IPostFull } from 'interfaces';
 import { ZoomablePictureBorder } from 'shared/users/pictures';
+import { postReducer } from './reducer';
 import tw from 'libs/tailwind';
 import ToggableText from 'shared/common/ToggableText';
 import Actions from './actions';
 import postContext from './context';
+import UsersBottomSheet from 'components/users/UsersBottomSheet';
+import useGetPostLikers from 'services/posts/likes';
+import Empty from 'shared/list/Empty';
 
 interface PostProps extends IPostFull {}
 
-function Post({ image, user, description }: PostProps) {
-  const [isLiked, setIsLiked] = useState(false);
-  const [isSaved, setIsSaved] = useState(false);
+function Post(post: PostProps) {
+  const { image, user, description, likesCount, id, isLiked, isSaved } = post;
+  const [state, dispatch] = useReducer(postReducer, { isLiked, isSaved, likesCount });
   const navigation = useNavigation();
+  const likersRef = useRef<BottomSheetModal>(null);
 
   const handleNavigateToUser = (username: string) => {
     navigation.navigate('Root', {
@@ -24,7 +30,7 @@ function Post({ image, user, description }: PostProps) {
     });
   };
 
-  const value = useMemo(() => ({ isLiked, setIsLiked, isSaved, setIsSaved }), [isLiked, isSaved]);
+  const value = useMemo(() => ({ state, post, dispatch, likersRef }), [state, post]);
 
   return (
     <postContext.Provider value={value}>
@@ -59,6 +65,15 @@ function Post({ image, user, description }: PostProps) {
           <ToggableText text={description} />
         </View>
       </View>
+      <BottomSheetModalProvider>
+        <UsersBottomSheet
+          useQuery={useGetPostLikers}
+          identifier={id}
+          modalRef={likersRef}
+          title="Likers"
+          Empty={<Empty title="No Likes" description="No one liked this post be the first one." />}
+        />
+      </BottomSheetModalProvider>
     </postContext.Provider>
   );
 }

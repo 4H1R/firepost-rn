@@ -32,6 +32,10 @@ export interface IPost extends IModel {
 
 export interface IPostFull extends IPost {
   user: IUser;
+  likesCount: number;
+  commentsCount: number;
+  isLiked: boolean;
+  isSaved: boolean;
 }
 
 export interface IMessage extends IModel {

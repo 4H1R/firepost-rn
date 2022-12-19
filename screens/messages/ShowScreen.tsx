@@ -21,6 +21,7 @@ function ShowScreen() {
     <BgContainer>
       <FlatList
         contentContainerStyle={tw`container`}
+        inverted
         data={data?.pages.map((page) => page.data).flat()}
         keyExtractor={(message) => message.id}
         onEndReachedThreshold={0.3}

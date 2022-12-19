@@ -1,8 +1,14 @@
 import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
-import { InformationCircleIcon, UserCircleIcon, UserIcon } from 'react-native-heroicons/outline';
+import {
+  ChevronLeftIcon,
+  InformationCircleIcon,
+  UserCircleIcon,
+  UserIcon,
+} from 'react-native-heroicons/outline';
 import { Formik } from 'formik';
 import { useNavigation } from '@react-navigation/native';
+import { TouchableHighlight, View } from 'react-native';
 import { useQueryClient } from '@tanstack/react-query';
 import Toast from 'react-native-toast-message';
 
@@ -17,6 +23,7 @@ import Description from 'components/users/edit/Description';
 import PictureChanger from 'components/users/edit/PictureChanger';
 import SafeScrollViewContainer from 'shared/container/SafeScrollViewContainer';
 import BgContainer from 'shared/container/BgContainer';
+import tw from 'libs/tailwind';
 
 type TField = { description: string } & TTextInputField<IUpdateUserDto>;
 
@@ -26,6 +33,10 @@ function EditScreen() {
   const queryClient = useQueryClient();
   const { user, setUser } = useAuthUser((state) => state);
   const { mutate: update, isLoading } = useUpdateUser();
+
+  const handleGoBack = () => {
+    navigation.goBack();
+  };
 
   const fields: TField[] = [
     {
@@ -59,7 +70,16 @@ function EditScreen() {
   return (
     <BgContainer>
       <SafeScrollViewContainer>
-        <Title text="Edit your Profile" />
+        <View style={tw`flex-row items-center justify-center`}>
+          <TouchableHighlight
+            underlayColor={tw.color('secondary-200')}
+            style={tw`absolute left-0 rounded-full`}
+            onPress={handleGoBack}
+          >
+            <ChevronLeftIcon strokeWidth={2} size={25} style={tw`text-secondary-900`} />
+          </TouchableHighlight>
+          <Title text="Edit your Profile" />
+        </View>
         <Formik
           initialValues={fieldsToInitialValues(fields, {
             name: user!.name,

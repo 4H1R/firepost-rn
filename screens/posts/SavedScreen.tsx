@@ -14,7 +14,6 @@ function SavedScreen() {
   return (
     <SafeAreaView>
       <FlatList
-        removeClippedSubviews
         numColumns={2}
         onEndReachedThreshold={0.3}
         contentContainerStyle={tw`container`}

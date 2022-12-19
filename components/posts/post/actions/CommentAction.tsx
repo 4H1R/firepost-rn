@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { ChatBubbleLeftEllipsisIcon } from 'react-native-heroicons/outline';
 
 import tw from 'libs/tailwind';
 import Action from './Action';
+import postContext from '../context';
 
 function CommentAction() {
-  return <Action Icon={ChatBubbleLeftEllipsisIcon} iconStyle={tw`text-secondary-900`} />;
+  const { post } = useContext(postContext);
+
+  return (
+    <Action
+      count={post.commentsCount}
+      Icon={ChatBubbleLeftEllipsisIcon}
+      iconStyle={tw`text-secondary-900`}
+    />
+  );
 }
 
 export default CommentAction;

@@ -15,7 +15,6 @@ function IndexScreen() {
     <SafeAreaView>
       <FlatList
         ListHeaderComponent={<SearchTextInput style={tw`mb-2`} onTextDebounced={() => {}} />}
-        removeClippedSubviews
         numColumns={2}
         onEndReachedThreshold={0.3}
         contentContainerStyle={tw`container`}

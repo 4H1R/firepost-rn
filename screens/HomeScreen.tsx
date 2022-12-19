@@ -10,14 +10,12 @@ import SafeAreaView from 'shared/common/SafeAreaView';
 
 function HomeScreen() {
   const { data: posts, isFetchingNextPage, fetchNextPage } = useGetHomePosts();
-
   return (
     <BgContainer>
       <SafeAreaView />
       <FlatList
         onEndReachedThreshold={0.3}
         numColumns={1}
-        removeClippedSubviews
         contentContainerStyle={tw`container`}
         data={posts?.pages.map((page) => page.data).flat()}
         keyExtractor={(post) => post.id.toString()}

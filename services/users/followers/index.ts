@@ -9,11 +9,9 @@ async function followers(username: string, params: IPaginateParams) {
   return resp.data;
 }
 
-export interface IFollowersParams extends IPaginateParams {}
-
 function useGetUserFollowers(
   username: string,
-  params: IFollowersParams,
+  params: IPaginateParams,
   options?: { enabled: boolean }
 ) {
   return useInfiniteQuery(

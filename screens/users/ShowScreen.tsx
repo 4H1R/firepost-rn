@@ -72,7 +72,7 @@ function ShowScreen() {
               <ToggableText text={user?.bio} />
               <Actions
                 isFollowed={user?.isFollowed}
-                username={user?.username}
+                user={user}
                 authUsername={authUser!.username}
                 website={user?.website}
               />
@@ -91,7 +91,7 @@ function ShowScreen() {
       <UsersBottomSheet
         title="Followers"
         useQuery={useGetUserFollowers}
-        username={params.username}
+        identifier={params.username}
         modalRef={followersRef}
         Empty={
           <Empty
@@ -117,7 +117,7 @@ function ShowScreen() {
         }
         title="Followings"
         useQuery={useGetUserFollowings}
-        username={params.username}
+        identifier={params.username}
         modalRef={followingsRef}
       />
     </BottomSheetModalProvider>
