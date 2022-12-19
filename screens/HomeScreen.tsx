@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Dimensions, FlatList, View } from 'react-native';
 
 import tw from 'libs/tailwind';
@@ -9,11 +9,20 @@ import BgContainer from 'shared/container/BgContainer';
 import SafeAreaView from 'shared/common/SafeAreaView';
 
 function HomeScreen() {
-  const { data: posts, isFetchingNextPage, fetchNextPage } = useGetHomePosts();
+  const {
+    data: posts,
+    isFetchingNextPage,
+    fetchNextPage,
+    refetch,
+    isRefetching,
+  } = useGetHomePosts();
+
   return (
     <BgContainer>
       <SafeAreaView />
       <FlatList
+        refreshing={isRefetching}
+        onRefresh={refetch}
         onEndReachedThreshold={0.3}
         numColumns={1}
         contentContainerStyle={tw`container`}

@@ -11,7 +11,7 @@ function PostsNavigation() {
   return (
     <Stack.Navigator initialRouteName="Index" screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Index" component={IndexScreen} />
-      <Stack.Screen name="Saved" component={SavedScreen} />
+      <Stack.Screen options={{ presentation: 'modal' }} name="Saved" component={SavedScreen} />
       <Stack.Screen getId={({ params }) => params.id} name="Show" component={ShowScreen} />
     </Stack.Navigator>
   );

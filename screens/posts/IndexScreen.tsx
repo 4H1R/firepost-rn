@@ -9,11 +9,13 @@ import PostImage from 'components/posts/PostImage';
 import SearchTextInput from 'shared/common/SearchTextInput';
 
 function IndexScreen() {
-  const { data: posts, isFetchingNextPage, fetchNextPage } = useGetPosts();
+  const { data: posts, isFetchingNextPage, fetchNextPage, isRefetching, refetch } = useGetPosts();
 
   return (
     <SafeAreaView>
       <FlatList
+        refreshing={isRefetching}
+        onRefresh={refetch}
         ListHeaderComponent={<SearchTextInput style={tw`mb-2`} onTextDebounced={() => {}} />}
         numColumns={2}
         onEndReachedThreshold={0.3}

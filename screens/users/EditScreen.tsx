@@ -1,21 +1,14 @@
 import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  ChevronLeftIcon,
-  InformationCircleIcon,
-  UserCircleIcon,
-  UserIcon,
-} from 'react-native-heroicons/outline';
+import { InformationCircleIcon, UserCircleIcon, UserIcon } from 'react-native-heroicons/outline';
 import { Formik } from 'formik';
 import { useNavigation } from '@react-navigation/native';
-import { TouchableHighlight, View } from 'react-native';
 import { useQueryClient } from '@tanstack/react-query';
 import Toast from 'react-native-toast-message';
 
 import { fieldsToInitialValues } from 'utils';
 import { TTextInputField } from 'types';
 import useUpdateUser, { IUpdateUserDto } from 'services/users/update';
-import Title from 'shared/common/Title';
 import useAuthUser from 'stores/authStore';
 import Button from 'shared/common/Button';
 import TextInputField from 'shared/form/TextInputField';
@@ -24,6 +17,7 @@ import PictureChanger from 'components/users/edit/PictureChanger';
 import SafeScrollViewContainer from 'shared/container/SafeScrollViewContainer';
 import BgContainer from 'shared/container/BgContainer';
 import tw from 'libs/tailwind';
+import TitleWithBackButton from 'shared/common/TitleWithBackButton';
 
 type TField = { description: string } & TTextInputField<IUpdateUserDto>;
 
@@ -70,16 +64,7 @@ function EditScreen() {
   return (
     <BgContainer>
       <SafeScrollViewContainer>
-        <View style={tw`flex-row items-center justify-center`}>
-          <TouchableHighlight
-            underlayColor={tw.color('secondary-200')}
-            style={tw`absolute left-0 rounded-full`}
-            onPress={handleGoBack}
-          >
-            <ChevronLeftIcon strokeWidth={2} size={25} style={tw`text-secondary-900`} />
-          </TouchableHighlight>
-          <Title text="Edit your Profile" />
-        </View>
+        <TitleWithBackButton title="Edit your Profile" onGoBack={handleGoBack} />
         <Formik
           initialValues={fieldsToInitialValues(fields, {
             name: user!.name,

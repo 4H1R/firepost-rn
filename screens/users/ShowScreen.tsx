@@ -28,19 +28,29 @@ function ShowScreen() {
   const { params } = useRoute<RouteProp<TUsersStackParamList, 'Show'>>();
   const followersRef = useRef<BottomSheetModal>(null);
   const followingsRef = useRef<BottomSheetModal>(null);
-  const { data: user } = useGetUser(params.username);
+  const {
+    data: user,
+    refetch: refetchUser,
+    isRefetching: isUserRefetching,
+  } = useGetUser(params.username);
   const {
     data: posts,
     isFetchingNextPage: isFetchingMorePosts,
-    hasNextPage: hasMorePosts,
     fetchNextPage: fetchMorePosts,
+    isRefetching: isPostsRefetching,
+    refetch: refetchPosts,
   } = useGetUserPosts(params.username);
 
   const isAuthUserProfile = authUser!.username === params.username;
+  const isRefetching = isUserRefetching || isPostsRefetching;
 
   const handleOpenFollowers = () => followersRef.current?.present();
   const handleOpenFollowings = () => followingsRef.current?.present();
-  const handleLoadMorePosts = () => hasMorePosts && fetchMorePosts();
+
+  const handleRefresh = () => {
+    refetchUser();
+    refetchPosts();
+  };
 
   if (!user) return null;
 
@@ -49,6 +59,8 @@ function ShowScreen() {
       <SafeAreaView />
       <BgContainer>
         <FlatList
+          refreshing={isRefetching}
+          onRefresh={handleRefresh}
           ListHeaderComponent={
             <View style={tw`mb-4`}>
               <View style={tw`flex-row items-center justify-between`}>
@@ -81,7 +93,7 @@ function ShowScreen() {
           contentContainerStyle={tw`container`}
           numColumns={2}
           onEndReachedThreshold={0.3}
-          onEndReached={handleLoadMorePosts}
+          onEndReached={() => fetchMorePosts()}
           data={posts?.pages.map((page) => page.data).flat()}
           keyExtractor={(post) => post.id.toString()}
           ListFooterComponent={isFetchingMorePosts ? <ActivityIndicator /> : null}

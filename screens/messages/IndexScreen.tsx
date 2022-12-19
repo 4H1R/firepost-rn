@@ -4,6 +4,7 @@ import { ChevronRightIcon } from 'react-native-heroicons/outline';
 import { useNavigation } from '@react-navigation/native';
 
 import { ZoomablePictureBorder } from 'shared/users/pictures';
+import { IUser } from 'interfaces';
 import tw from 'libs/tailwind';
 import SearchTextInput from 'shared/common/SearchTextInput';
 import Username from 'components/users/show/Username';
@@ -12,12 +13,13 @@ import useGetMessagedUsers from 'services/messages';
 import ActivityIndicator from 'shared/common/ActivityIndicator';
 import BgContainer from 'shared/container/BgContainer';
 import SafeAreaView from 'shared/common/SafeAreaView';
-import { IUser } from 'interfaces';
 
 function IndexScreen() {
   const navigation = useNavigation();
   const [query, setQuery] = useState('');
-  const { data, fetchNextPage, isFetchingNextPage } = useGetMessagedUsers({ query });
+  const { data, fetchNextPage, isFetchingNextPage, isRefetching, refetch } = useGetMessagedUsers({
+    query,
+  });
 
   const handleNavigateToMessage = (user: IUser) => {
     navigation.navigate('Messages', {
@@ -30,6 +32,8 @@ function IndexScreen() {
     <BgContainer>
       <SafeAreaView>
         <FlatList
+          refreshing={isRefetching}
+          onRefresh={refetch}
           contentContainerStyle={tw`container`}
           ListHeaderComponent={<SearchTextInput onTextDebounced={setQuery} />}
           data={data?.pages.map((page) => page.data).flat()}
