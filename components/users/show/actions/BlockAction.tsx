@@ -9,8 +9,6 @@ type BlockActionProps = {
 };
 
 function BlockAction({ username }: BlockActionProps) {
-  const { isDoubledClicked, handleDoubleClickToggle } = useDoubleClick();
-
   const handleBlock = () => {
     console.log(`${username} got blocked`);
     // Todo implement blocking
@@ -18,8 +16,9 @@ function BlockAction({ username }: BlockActionProps) {
 
   return (
     <Action
-      onPress={isDoubledClicked ? handleBlock : handleDoubleClickToggle}
-      title={isDoubledClicked ? 'Are you Sure ?' : 'Block'}
+      checkForDoubleClick
+      onPress={handleBlock}
+      title="Block"
       Icon={NoSymbolIcon}
       color="danger"
     />

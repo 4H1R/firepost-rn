@@ -2,7 +2,6 @@ import React from 'react';
 import { GlobeAltIcon } from 'react-native-heroicons/outline';
 import * as WebBrowser from 'expo-web-browser';
 
-import { useDoubleClick } from 'hooks';
 import Action from './Action';
 
 type WebsiteActionProps = {
@@ -10,16 +9,16 @@ type WebsiteActionProps = {
 };
 
 function WebsiteAction({ url }: WebsiteActionProps) {
-  const { isDoubledClicked, handleDoubleClickToggle } = useDoubleClick();
-
   const handleVisitWebsite = () => WebBrowser.openBrowserAsync(url);
 
   return (
     <Action
-      title={isDoubledClicked ? 'Visit the Website ?' : 'Website'}
+      checkForDoubleClick
+      doubleClickText="Visit the Website?"
+      title="Website"
       color="secondary-outline"
       Icon={GlobeAltIcon}
-      onPress={isDoubledClicked ? handleVisitWebsite : handleDoubleClickToggle}
+      onPress={handleVisitWebsite}
     />
   );
 }
