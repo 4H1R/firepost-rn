@@ -8,6 +8,7 @@ export interface IRegisterDto {
   username: string;
   email: string;
   password: string;
+  deviceName: string;
 }
 
 async function register(data: IRegisterDto) {

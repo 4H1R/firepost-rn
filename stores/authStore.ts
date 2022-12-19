@@ -4,7 +4,6 @@ import create from 'zustand';
 interface IUserData {
   user: IAuthUser | null;
   accessToken: string | null;
-  refreshToken: string | null;
 }
 
 interface IAuthStore extends IUserData {

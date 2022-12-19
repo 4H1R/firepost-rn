@@ -9,7 +9,6 @@ export interface IField<Props, Name = string> {
 export interface IAuthResponse {
   user: IAuthUser;
   accessToken: string;
-  refreshToken: string;
 }
 
 export interface IPaginate<T> {

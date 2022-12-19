@@ -13,6 +13,7 @@ import * as yup from 'yup';
 import { TTextInputField } from 'types';
 import { IUnprocessableEntity } from 'interfaces';
 import { fieldsToInitialValues } from 'utils';
+import { createAccessTokenName, setAccessToken } from 'utils/auth';
 import Illustration from 'assets/svg/auth/register.svg';
 import Title from 'shared/common/Title';
 import SafeScrollViewContainer from 'shared/container/SafeScrollViewContainer';
@@ -94,19 +95,24 @@ function RegisterScreen() {
       <Formik
         validationSchema={schema}
         initialValues={fieldsToInitialValues(fields)}
-        onSubmit={(values: any, { setErrors }) => {
-          register(values, {
-            onError: (e) => {
-              const error = e as AxiosError<IUnprocessableEntity<IRegisterDto>>;
-              if (error?.response?.status === 422) {
-                // setErrors(error.response.data.errors);
-                return;
-              }
-              setErrors({ email: t('errors.somethingWentWrong') });
-            },
-            // Refresh token is being updated in secure storage on Auth component
-            onSuccess: setAuth,
-          });
+        onSubmit={(values, { setErrors }) => {
+          register(
+            { ...values, deviceName: createAccessTokenName() },
+            {
+              onError: (e) => {
+                const error = e as AxiosError<IUnprocessableEntity<IRegisterDto>>;
+                if (error?.response?.status === 422) {
+                  // setErrors(error.response.data.errors);
+                  return;
+                }
+                setErrors({ email: t('errors.somethingWentWrong') });
+              },
+              onSuccess: (data) => {
+                setAuth(data);
+                setAccessToken(data.accessToken);
+              },
+            }
+          );
         }}
       >
         {({ handleSubmit }) => (

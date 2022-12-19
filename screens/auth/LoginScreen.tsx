@@ -8,6 +8,7 @@ import { AxiosError } from 'axios';
 import { IUnprocessableEntity } from 'interfaces';
 import { TTextInputField } from 'types';
 import { fieldsToInitialValues } from 'utils';
+import { createAccessTokenName, setAccessToken } from 'utils/auth';
 import Illustration from 'assets/svg/auth/login.svg';
 import Title from 'shared/common/Title';
 import SafeScrollViewContainer from 'shared/container/SafeScrollViewContainer';
@@ -57,20 +58,25 @@ function LoginScreen() {
       <Formik
         validationSchema={schema}
         initialValues={fieldsToInitialValues(fields)}
-        onSubmit={(values, { setErrors }) =>
-          login(values, {
-            onError: (e) => {
-              const error = e as AxiosError<IUnprocessableEntity<ILoginDto>>;
-              if (error?.response?.status === 422) {
-                setErrors({ email: t('errors.invalidCredentials') });
-                return;
-              }
-              setErrors({ email: t('errors.somethingWentWrong') });
-            },
-            // Refresh token is being updated in secure storage on Auth component
-            onSuccess: setAuth,
-          })
-        }
+        onSubmit={(values, { setErrors }) => {
+          login(
+            { ...values, deviceName: createAccessTokenName() },
+            {
+              onError: (e) => {
+                const error = e as AxiosError<IUnprocessableEntity<ILoginDto>>;
+                if (error?.response?.status === 422) {
+                  setErrors({ email: t('errors.invalidCredentials') });
+                  return;
+                }
+                setErrors({ email: t('errors.somethingWentWrong') });
+              },
+              onSuccess: (data) => {
+                setAuth(data);
+                setAccessToken(data.accessToken);
+              },
+            }
+          );
+        }}
       >
         {({ handleSubmit }) => (
           <>

@@ -6,6 +6,7 @@ import axios from 'libs/axios';
 export interface ILoginDto {
   email: string;
   password: string;
+  deviceName: string;
 }
 
 async function login(data: ILoginDto) {

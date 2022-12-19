@@ -13,12 +13,12 @@ import MessagesNavigation from './MessagesNavigation';
 const Stack = createNativeStackNavigator<TRootStackParamList>();
 
 function Navigation() {
-  const user = useAuthUser((state) => state.user);
+  const accessToken = useAuthUser((state) => state.accessToken);
 
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        {user ? (
+        {accessToken ? (
           <Stack.Group>
             <Stack.Screen name="Root" component={TabsNavigation} />
             <Stack.Screen name="Messages" component={MessagesNavigation} />

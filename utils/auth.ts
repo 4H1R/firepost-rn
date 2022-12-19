@@ -1,15 +1,20 @@
 import * as SecureStore from 'expo-secure-store';
+import * as Device from 'expo-device';
 
-const KEY = 'refreshToken';
+const KEY = 'accessToken';
 
-export async function getRefreshToken() {
+export function createAccessTokenName() {
+  return `${Device.modelName} | ${Device.deviceName}`;
+}
+
+export async function getAccessToken() {
   return await SecureStore.getItemAsync(KEY);
 }
 
-export async function setRefreshToken(refresh: string) {
-  return await SecureStore.setItemAsync(KEY, refresh);
+export async function setAccessToken(key: string) {
+  return await SecureStore.setItemAsync(KEY, key);
 }
 
-export async function removeRefreshToken() {
+export async function removeAccessToken() {
   return await SecureStore.deleteItemAsync(KEY);
 }
