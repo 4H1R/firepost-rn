@@ -1,6 +1,5 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { FlatList, ViewToken } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -9,6 +8,7 @@ import { transformIntroSlides } from 'utils/introSlides';
 import Slide from './Slide';
 import useIntroSlider from 'stores/introSliderStore';
 import tw from 'libs/tailwind';
+import SafeAreaView from 'shared/common/SafeAreaView';
 
 type IntroSlidesProps = {
   children: JSX.Element;

@@ -4,6 +4,7 @@ import { TMessagesStackParamList } from 'types';
 import IndexScreen from 'screens/messages/IndexScreen';
 import ShowScreen from 'screens/messages/ShowScreen';
 import Header from 'components/messages/show/Header';
+import headerOptions from 'fixtures/headerOptions';
 
 const Stack = createNativeStackNavigator<TMessagesStackParamList>();
 
@@ -13,8 +14,7 @@ function MessagesNavigation() {
       <Stack.Screen options={{ title: 'Messages' }} name="Index" component={IndexScreen} />
       <Stack.Screen
         options={({ route }) => ({
-          title: 'Show',
-          headerShown: true,
+          ...headerOptions,
           headerTitle: () => <Header user={route.params.user} />,
         })}
         name="Show"

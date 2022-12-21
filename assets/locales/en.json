@@ -26,7 +26,8 @@
     "password": "Password",
     "passwordConfirmation": "Password Confirmation",
     "name": "Name",
-    "username": "Username"
+    "username": "Username",
+    "website": "Website"
   },
   "errors": {
     "required": "This field is required.",

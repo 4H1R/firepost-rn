@@ -3,7 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 import axios from 'libs/axios';
 
 async function unSave(post: string) {
-  const resp = await axios.delete(`/posts/${post}/saves`);
+  const resp = await axios.delete(`/posts/${post}/saved`);
   return resp.data;
 }
 

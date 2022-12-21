@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
+import { useLogoutCleanUp } from 'hooks';
 import { IUser } from 'interfaces';
 import axios from 'libs/axios';
-import useLogout from 'services/auth/logout';
 import useAuthUser from 'stores/authStore';
 
 async function me() {
@@ -14,7 +14,7 @@ async function me() {
 function useGetMe() {
   const accessToken = useAuthUser((state) => state.accessToken);
   const setUser = useAuthUser((state) => state.setUser);
-  const { mutate: logout } = useLogout();
+  const cleanUp = useLogoutCleanUp();
 
   return useQuery(['users', 'me'], me, {
     enabled: !!accessToken,
@@ -22,7 +22,7 @@ function useGetMe() {
     onError: (e) => {
       if (e instanceof AxiosError) {
         // access token got deleted
-        if (e.response?.status === 401) logout();
+        if (e.response?.status === 401) cleanUp();
       }
     },
   });

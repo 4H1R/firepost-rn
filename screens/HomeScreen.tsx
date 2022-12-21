@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Dimensions, FlatList, View } from 'react-native';
+import React from 'react';
+import { FlatList } from 'react-native';
 
 import tw from 'libs/tailwind';
 import useGetHomePosts from 'services/posts/home';

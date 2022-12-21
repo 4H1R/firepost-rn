@@ -1,8 +1,7 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
+import { useLogoutCleanUp } from 'hooks';
 
-import { removeAccessToken } from 'utils/auth';
 import axios from 'libs/axios';
-import useAuthUser from 'stores/authStore';
 
 async function logout() {
   const resp = await axios.post('/auth/logout');
@@ -10,15 +9,10 @@ async function logout() {
 }
 
 function useLogout() {
-  const queryClient = useQueryClient();
-  const clearUser = useAuthUser((state) => state.clearUser);
+  const cleanUp = useLogoutCleanUp();
 
   return useMutation(logout, {
-    onSuccess: () => {
-      queryClient.clear();
-      removeAccessToken();
-      clearUser();
-    },
+    onSuccess: cleanUp,
   });
 }
 

@@ -4,7 +4,7 @@ import * as Device from 'expo-device';
 const KEY = 'accessToken';
 
 export function createAccessTokenName() {
-  return `${Device.modelName} | ${Device.deviceName}`;
+  return `${Device.deviceName} ${Device.modelName}`;
 }
 
 export async function getAccessToken() {

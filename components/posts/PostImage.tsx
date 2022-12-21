@@ -7,7 +7,7 @@ import tw from 'libs/tailwind';
 
 interface PostImageProps extends IPost {}
 
-function PostImage({ image, id }: PostImageProps) {
+function PostImage({ images, id }: PostImageProps) {
   const navigation = useNavigation();
 
   const handleNavigateToPost = () => {
@@ -19,7 +19,7 @@ function PostImage({ image, id }: PostImageProps) {
 
   return (
     <TouchableOpacity onPress={handleNavigateToPost} activeOpacity={0.5} style={tw`w-[48%] m-1`}>
-      <Image source={{ uri: image }} style={tw`h-32 rounded skeleton`} />
+      <Image source={{ uri: images[0] }} style={tw`h-32 rounded skeleton`} />
     </TouchableOpacity>
   );
 }

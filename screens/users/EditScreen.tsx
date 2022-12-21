@@ -1,10 +1,16 @@
 import React, { Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
-import { InformationCircleIcon, UserCircleIcon, UserIcon } from 'react-native-heroicons/outline';
+import {
+  AtSymbolIcon,
+  InformationCircleIcon,
+  UserCircleIcon,
+  UserIcon,
+} from 'react-native-heroicons/outline';
 import { Formik } from 'formik';
 import { useNavigation } from '@react-navigation/native';
 import { useQueryClient } from '@tanstack/react-query';
 import Toast from 'react-native-toast-message';
+import * as yup from 'yup';
 
 import { fieldsToInitialValues } from 'utils';
 import { TTextInputField } from 'types';
@@ -14,10 +20,17 @@ import Button from 'shared/common/Button';
 import TextInputField from 'shared/form/TextInputField';
 import Description from 'components/users/edit/Description';
 import PictureChanger from 'components/users/edit/PictureChanger';
-import SafeScrollViewContainer from 'shared/container/SafeScrollViewContainer';
 import BgContainer from 'shared/container/BgContainer';
 import tw from 'libs/tailwind';
-import TitleWithBackButton from 'shared/common/TitleWithBackButton';
+import validations from 'fixtures/validations';
+import ScrollViewContainer from 'shared/container/ScrollViewContainer';
+
+const validationSchema = yup.object({
+  name: validations.name,
+  username: validations.username,
+  website: validations.website,
+  bio: validations.bio,
+});
 
 type TField = { description: string } & TTextInputField<IUpdateUserDto>;
 
@@ -27,10 +40,6 @@ function EditScreen() {
   const queryClient = useQueryClient();
   const { user, setUser } = useAuthUser((state) => state);
   const { mutate: update, isLoading } = useUpdateUser();
-
-  const handleGoBack = () => {
-    navigation.goBack();
-  };
 
   const fields: TField[] = [
     {
@@ -50,6 +59,14 @@ function EditScreen() {
       },
     },
     {
+      name: 'website',
+      description: 'It can be your personal website or your company website.',
+      fieldProps: {
+        placeholder: t('fields.website'),
+        Icon: AtSymbolIcon,
+      },
+    },
+    {
       name: 'bio',
       description:
         "Bio is like a description of yourself you can write you're job, where you live etc ...",
@@ -63,13 +80,14 @@ function EditScreen() {
 
   return (
     <BgContainer>
-      <SafeScrollViewContainer>
-        <TitleWithBackButton title="Edit your Profile" onGoBack={handleGoBack} />
+      <ScrollViewContainer>
         <Formik
+          validationSchema={validationSchema}
           initialValues={fieldsToInitialValues(fields, {
             name: user!.name,
             username: user!.username,
             bio: user!.bio ?? '',
+            website: user!.website ?? '',
           })}
           onSubmit={(values) => {
             update(values, {
@@ -85,7 +103,6 @@ function EditScreen() {
                   params: { screen: 'Show', params: { username: data.username } },
                 });
               },
-              onError: () => {},
             });
           }}
         >
@@ -98,11 +115,11 @@ function EditScreen() {
                 </Fragment>
               ))}
               <PictureChanger uri={user!.image} />
-              <Button text="Update" isLoading={isLoading} onPress={handleSubmit} />
+              <Button style={tw`mb-4`} text="Update" isLoading={isLoading} onPress={handleSubmit} />
             </>
           )}
         </Formik>
-      </SafeScrollViewContainer>
+      </ScrollViewContainer>
     </BgContainer>
   );
 }

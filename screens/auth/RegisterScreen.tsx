@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  AtSymbolIcon,
+  EnvelopeIcon,
   InformationCircleIcon,
   KeyIcon,
   UserIcon,
@@ -66,7 +66,7 @@ function RegisterScreen() {
       name: 'email',
       fieldProps: {
         placeholder: t('fields.email'),
-        Icon: AtSymbolIcon,
+        Icon: EnvelopeIcon,
         keyboardType: 'email-address',
       },
     },
@@ -100,10 +100,11 @@ function RegisterScreen() {
             { ...values, deviceName: createAccessTokenName() },
             {
               onError: (e) => {
-                const error = e as AxiosError<IUnprocessableEntity<IRegisterDto>>;
-                if (error?.response?.status === 422) {
-                  // setErrors(error.response.data.errors);
-                  return;
+                if (e instanceof AxiosError<IUnprocessableEntity<IRegisterDto>>) {
+                  if (e?.response?.status === 422) {
+                    setErrors(e.response.data.errors);
+                    return;
+                  }
                 }
                 setErrors({ email: t('errors.somethingWentWrong') });
               },

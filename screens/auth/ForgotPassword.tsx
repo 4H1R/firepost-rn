@@ -1,5 +1,5 @@
 import React from 'react';
-import { AtSymbolIcon } from 'react-native-heroicons/outline';
+import { EnvelopeIcon } from 'react-native-heroicons/outline';
 import { Formik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
@@ -27,7 +27,7 @@ function ForgotPassword() {
       name: 'email',
       fieldProps: {
         placeholder: t('fields.email'),
-        Icon: AtSymbolIcon,
+        Icon: EnvelopeIcon,
         keyboardType: 'email-address',
       },
     },
@@ -40,7 +40,7 @@ function ForgotPassword() {
       <Formik
         validationSchema={schema}
         initialValues={fieldsToInitialValues(fields)}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={(values) => {}}
       >
         {({ handleSubmit }) => (
           <>

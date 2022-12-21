@@ -6,17 +6,31 @@ import { PostActionType } from '../reducer';
 import postContext from '../context';
 import tw from 'libs/tailwind';
 import Action from './Action';
+import useSavePost from 'services/posts/saved/create';
+import useUnSavePost from 'services/posts/saved/delete';
 
 function SaveAction() {
-  const { state, dispatch } = useContext(postContext);
+  const { state, dispatch, post } = useContext(postContext);
   const { isSaved } = state;
+  const { mutate: save } = useSavePost();
+  const { mutate: unSave } = useUnSavePost();
 
   const handleSave = () => {
     dispatch({ type: PostActionType.SAVE });
+    save(post.id, {
+      onError: () => {
+        dispatch({ type: PostActionType.UN_SAVE });
+      },
+    });
   };
 
   const handleUnSave = () => {
     dispatch({ type: PostActionType.UN_SAVE });
+    unSave(post.id, {
+      onError: () => {
+        dispatch({ type: PostActionType.SAVE });
+      },
+    });
   };
 
   return (

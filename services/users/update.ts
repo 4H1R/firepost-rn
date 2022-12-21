@@ -7,6 +7,7 @@ export interface IUpdateUserDto {
   username: string;
   name: string;
   bio: string | null;
+  website: string | null;
 }
 
 async function update(data: IUpdateUserDto) {

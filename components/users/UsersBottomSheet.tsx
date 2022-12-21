@@ -30,7 +30,7 @@ function UsersBottomSheet({ modalRef, useQuery, title, identifier, Empty }: User
   const [isOpen, setIsOpen] = useState(false);
   const navigation = useNavigation();
   const [query, setQuery] = useState('');
-  const { data, fetchNextPage, isFetchingNextPage, isLoading } = useQuery(
+  const { data, fetchNextPage, isFetchingNextPage, isLoading, isRefetching, refetch } = useQuery(
     identifier,
     { query },
     { enabled: isOpen }
@@ -52,9 +52,11 @@ function UsersBottomSheet({ modalRef, useQuery, title, identifier, Empty }: User
       ref={modalRef}
       index={0}
       onChange={handleChange}
-      snapPoints={['50%', '100%']}
+      snapPoints={['50%', '90%']}
     >
       <BottomSheetFlatList
+        refreshing={isRefetching}
+        onRefresh={refetch}
         data={data?.pages.map((page) => page.data).flat()}
         keyExtractor={(item) => item.username}
         onEndReachedThreshold={0.3}

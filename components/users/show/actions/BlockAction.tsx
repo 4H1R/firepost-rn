@@ -10,7 +10,6 @@ type BlockActionProps = {
 
 function BlockAction({ username }: BlockActionProps) {
   const handleBlock = () => {
-    console.log(`${username} got blocked`);
     // Todo implement blocking
   };
 

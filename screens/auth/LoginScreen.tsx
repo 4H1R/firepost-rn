@@ -1,5 +1,5 @@
 import React from 'react';
-import { AtSymbolIcon, KeyIcon } from 'react-native-heroicons/outline';
+import { EnvelopeIcon, KeyIcon } from 'react-native-heroicons/outline';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
@@ -37,7 +37,7 @@ function LoginScreen() {
       name: 'email',
       fieldProps: {
         placeholder: t('fields.email'),
-        Icon: AtSymbolIcon,
+        Icon: EnvelopeIcon,
         keyboardType: 'email-address',
       },
     },
@@ -63,10 +63,11 @@ function LoginScreen() {
             { ...values, deviceName: createAccessTokenName() },
             {
               onError: (e) => {
-                const error = e as AxiosError<IUnprocessableEntity<ILoginDto>>;
-                if (error?.response?.status === 422) {
-                  setErrors({ email: t('errors.invalidCredentials') });
-                  return;
+                if (e instanceof AxiosError<IUnprocessableEntity<ILoginDto>>) {
+                  if (e?.response?.status === 422) {
+                    setErrors({ email: t('errors.invalidCredentials') });
+                    return;
+                  }
                 }
                 setErrors({ email: t('errors.somethingWentWrong') });
               },
