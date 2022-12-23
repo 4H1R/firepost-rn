@@ -19,7 +19,7 @@ function ScrollViewContainer({
     <ScrollView
       {...props}
       style={tw.style('bg-color', style)}
-      contentContainerStyle={tw.style('px-4 py-2', contentContainerStyle)}
+      contentContainerStyle={tw.style('container py-2', contentContainerStyle)}
     >
       {children}
     </ScrollView>

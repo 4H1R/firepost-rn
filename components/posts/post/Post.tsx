@@ -1,4 +1,4 @@
-import React, { useMemo, useReducer, useRef } from 'react';
+import React, { useMemo, useReducer, useRef, useState } from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
 import { BlurView } from 'expo-blur';
 import { useNavigation } from '@react-navigation/native';
@@ -15,7 +15,8 @@ import postContext from './context';
 import UsersBottomSheet from 'components/users/UsersBottomSheet';
 import useGetPostLikers from 'services/posts/likes';
 import Empty from 'shared/list/Empty';
-import Images from './Images';
+import Images from '../images';
+import Paginator from '../images/Paginator';
 
 interface PostProps extends IPostFull {}
 
@@ -24,6 +25,7 @@ function Post(post: PostProps) {
   const [state, dispatch] = useReducer(postReducer, { isLiked, isSaved, likesCount });
   const navigation = useNavigation();
   const likersRef = useRef<BottomSheetModal>(null);
+  const [imagesIndex, setImagesIndex] = useState(0);
 
   const handleNavigateToUser = (username: string) => {
     navigation.navigate('Root', {
@@ -37,7 +39,7 @@ function Post(post: PostProps) {
   return (
     <postContext.Provider value={value}>
       <View style={tw`mb-2`}>
-        <Images images={images} />
+        <Images setCurrentIndex={setImagesIndex} images={images} />
         <BlurView
           intensity={80}
           tint="dark"
@@ -56,6 +58,7 @@ function Post(post: PostProps) {
           </TouchableOpacity>
         </BlurView>
         <View style={tw`bg-secondary-200 container`}>
+          <Paginator activeIndex={imagesIndex} total={images.length} />
           <Actions />
           <ToggableText text={description} />
           <Text style={tw`font-primary text-xs text-secondary-700`}>

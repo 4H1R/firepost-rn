@@ -12,6 +12,7 @@ function ShowScreen() {
   const { data: post } = useGetPost(params.id);
 
   if (!post) return null;
+
   return (
     <BgContainer>
       <SafeScrollViewContainer>
