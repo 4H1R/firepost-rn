@@ -13,13 +13,15 @@ import useGetMessagedUsers from 'services/messages';
 import ActivityIndicator from 'shared/common/ActivityIndicator';
 import BgContainer from 'shared/container/BgContainer';
 import SafeAreaView from 'shared/common/SafeAreaView';
+import Empty from 'shared/list/Empty';
 
 function IndexScreen() {
   const navigation = useNavigation();
   const [query, setQuery] = useState('');
-  const { data, fetchNextPage, isFetchingNextPage, isRefetching, refetch } = useGetMessagedUsers({
-    query,
-  });
+  const { isLoading, data, fetchNextPage, isFetchingNextPage, isRefetching, refetch } =
+    useGetMessagedUsers({
+      query,
+    });
 
   const handleNavigateToMessage = (user: IUser) => {
     navigation.navigate('Messages', {
@@ -35,6 +37,14 @@ function IndexScreen() {
           refreshing={isRefetching}
           onRefresh={refetch}
           contentContainerStyle={tw`container`}
+          ListEmptyComponent={
+            isLoading ? null : (
+              <Empty
+                title="You haven't messaged anyone yet"
+                description="Start chatting with your friends and families or anyone you want 🔥."
+              />
+            )
+          }
           ListHeaderComponent={<SearchTextInput onTextDebounced={setQuery} />}
           data={data?.pages.map((page) => page.data).flat()}
           keyExtractor={(item) => item.username}

@@ -17,9 +17,10 @@ function SafeScrollViewContainer({
   scrollViewProps,
 }: SafeScrollViewContainerProps) {
   return (
-    <SafeAreaView {...safeAreaProps}>
+    <>
+      <SafeAreaView {...safeAreaProps} />
       <ScrollViewContainer {...scrollViewProps}>{children}</ScrollViewContainer>
-    </SafeAreaView>
+    </>
   );
 }
 

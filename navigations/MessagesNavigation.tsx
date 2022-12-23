@@ -18,6 +18,7 @@ function MessagesNavigation() {
           headerTitle: () => <Header user={route.params.user} />,
         })}
         name="Show"
+        getId={({ params }) => params.user.id}
         component={ShowScreen}
       />
     </Stack.Navigator>

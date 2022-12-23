@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   AtSymbolIcon,
@@ -32,13 +32,16 @@ const validationSchema = yup.object({
   bio: validations.bio,
 });
 
-type TField = { description: string } & TTextInputField<IUpdateUserDto>;
+type TField = { description: string } & TTextInputField<
+  Pick<IUpdateUserDto, 'name' | 'username' | 'bio' | 'website'>
+>;
 
 function EditScreen() {
   const { t } = useTranslation();
+  const { user, setUser } = useAuthUser((state) => state);
+  const [image, setImage] = useState<string | null>(null);
   const navigation = useNavigation();
   const queryClient = useQueryClient();
-  const { user, setUser } = useAuthUser((state) => state);
   const { mutate: update, isLoading } = useUpdateUser();
 
   const fields: TField[] = [
@@ -90,7 +93,8 @@ function EditScreen() {
             website: user!.website ?? '',
           })}
           onSubmit={(values) => {
-            update(values, {
+            const data = { ...values, image, currentUsername: user!.username };
+            update(data, {
               onSuccess: (data) => {
                 queryClient.invalidateQueries(['users', user!.username]);
                 setUser(data);
@@ -114,7 +118,7 @@ function EditScreen() {
                   <Description description={description} />
                 </Fragment>
               ))}
-              <PictureChanger uri={user!.image} />
+              <PictureChanger image={image ?? user!.image} setImage={setImage} />
               <Button style={tw`mb-4`} text="Update" isLoading={isLoading} onPress={handleSubmit} />
             </>
           )}

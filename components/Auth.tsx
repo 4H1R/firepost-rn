@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import axios from 'libs/axios';
 import useAuthUser from 'stores/authStore';
-import { getAccessToken } from 'utils/auth';
 import useGetMe from 'services/users/me';
 
 type AuthProps = {
@@ -11,18 +10,9 @@ type AuthProps = {
 
 function Auth({ children }: AuthProps) {
   const accessToken = useAuthUser((state) => state.accessToken);
-  const setAuth = useAuthUser((state) => state.setAuth);
-  useGetMe();
-
-  useEffect(() => {
-    const setSavedAccessToken = async () => {
-      const accessToken = await getAccessToken();
-      setAuth({ accessToken });
-    };
-    setSavedAccessToken();
-  }, []);
-
   axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
+
+  useGetMe();
 
   return children;
 }

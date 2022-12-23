@@ -25,7 +25,7 @@ function TabsNavigation() {
         tabBarStyle: tw`bg-secondary-100`,
         tabBarActiveTintColor: tw.color('primary-600'),
         tabBarInactiveTintColor: tw.color('secondary-400'),
-        tabBarShowLabel: false,
+        tabBarLabelStyle: tw`font-primary`,
         headerShown: false,
       }}
     >
@@ -46,7 +46,7 @@ function TabsNavigation() {
         component={MessagesNavigation}
       />
       <TabStack.Screen
-        options={{ tabBarIcon: UserIcon }}
+        options={{ tabBarIcon: UserIcon, tabBarLabel: 'Profile' }}
         name="Users"
         component={UsersNavigation}
       />

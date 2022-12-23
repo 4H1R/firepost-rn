@@ -1,5 +1,5 @@
 import React from 'react';
-import { RouteProp, useRoute } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { FlatList } from 'react-native';
 
 import { TMessagesStackParamList } from 'types';
@@ -17,6 +17,7 @@ function ShowScreen() {
   const { data, fetchNextPage, isFetchingNextPage } = useGetUserMessages({
     username: params.user.username,
   });
+
   return (
     <BgContainer>
       <FlatList

@@ -1,11 +1,13 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useFonts } from 'expo-font';
 import { View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as SplashScreen from 'expo-splash-screen';
 
+import { getAccessToken } from 'utils/auth';
 import tw from 'libs/tailwind';
 import useIntroSlider from 'stores/introSliderStore';
+import useAuthUser from 'stores/authStore';
 
 SplashScreen.preventAutoHideAsync().catch();
 
@@ -16,7 +18,9 @@ type ResourceLoaderProps = {
 };
 
 function ResourceLoader({ children }: ResourceLoaderProps) {
+  const [isLoading, setIsLoading] = useState(true);
   const showIntroSlider = useIntroSlider((state) => state.showIntroSlider);
+  const setAuth = useAuthUser((state) => state.setAuth);
   const [fontsLoaded] = useFonts({
     'Primary-Bold': require('../assets/fonts/Poppins-Bold.ttf'),
     'Primary-Semi': require('../assets/fonts/Poppins-SemiBold.ttf'),
@@ -32,6 +36,15 @@ function ResourceLoader({ children }: ResourceLoaderProps) {
   };
 
   useEffect(() => {
+    const setSavedAccessToken = async () => {
+      const accessToken = await getAccessToken();
+      setAuth({ accessToken });
+      setIsLoading(false);
+    };
+    setSavedAccessToken();
+  }, []);
+
+  useEffect(() => {
     checkIntroSlides();
   }, []);
 
@@ -39,7 +52,7 @@ function ResourceLoader({ children }: ResourceLoaderProps) {
     await SplashScreen.hideAsync();
   }, []);
 
-  if (!fontsLoaded) return null;
+  if (!fontsLoaded || isLoading) return null;
 
   return (
     <View style={tw`flex-1`} onLayout={onLayoutRootView}>

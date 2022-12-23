@@ -1,8 +1,9 @@
 import React from 'react';
-import { Text, TextStyle, View, ViewStyle } from 'react-native';
+import { ButtonProps, Text, TextStyle, View, ViewStyle } from 'react-native';
 import { InformationCircleIcon } from 'react-native-heroicons/outline';
 
 import tw from 'libs/tailwind';
+import Button from 'shared/common/Button';
 
 type EmptyProps = {
   title: string;
@@ -10,9 +11,17 @@ type EmptyProps = {
   containerStyle?: ViewStyle;
   titleStyle?: TextStyle;
   descriptionStyle?: TextStyle;
+  Action?: React.ReactNode;
 };
 
-function Empty({ title, description, containerStyle, titleStyle, descriptionStyle }: EmptyProps) {
+function Empty({
+  title,
+  description,
+  containerStyle,
+  titleStyle,
+  descriptionStyle,
+  Action,
+}: EmptyProps) {
   return (
     <View
       style={tw.style(
@@ -39,6 +48,7 @@ function Empty({ title, description, containerStyle, titleStyle, descriptionStyl
       >
         {description}
       </Text>
+      {Action}
     </View>
   );
 }

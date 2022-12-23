@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { FlatList, View } from 'react-native';
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
-import { RouteProp, useRoute } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 
 import { TUsersStackParamList } from 'types';
 import { ZoomablePictureBorder } from 'shared/users/pictures';
@@ -22,9 +22,11 @@ import PostImage from 'components/posts/PostImage';
 import Empty from 'shared/list/Empty';
 import BgContainer from 'shared/container/BgContainer';
 import SafeAreaView from 'shared/common/SafeAreaView';
+import Button from 'shared/common/Button';
 
 function ShowScreen() {
   const authUser = useAuthUser((state) => state.user);
+  const navigation = useNavigation();
   const { params } = useRoute<RouteProp<TUsersStackParamList, 'Show'>>();
   const followersRef = useRef<BottomSheetModal>(null);
   const followingsRef = useRef<BottomSheetModal>(null);
@@ -34,6 +36,7 @@ function ShowScreen() {
     isRefetching: isUserRefetching,
   } = useGetUser(params.username);
   const {
+    isLoading,
     data: posts,
     isFetchingNextPage: isFetchingMorePosts,
     fetchNextPage: fetchMorePosts,
@@ -50,6 +53,10 @@ function ShowScreen() {
   const handleRefresh = () => {
     refetchUser();
     refetchPosts();
+  };
+
+  const handleNavigateToCreatePost = () => {
+    navigation.navigate('Root', { screen: 'Create' });
   };
 
   if (!user) return null;
@@ -92,6 +99,21 @@ function ShowScreen() {
           }
           contentContainerStyle={tw`container`}
           numColumns={2}
+          ListEmptyComponent={
+            isLoading || params.username !== authUser!.username ? null : (
+              <Empty
+                title="You haven't posted anything yet"
+                description="Share your favorite moment right now with your friends and families."
+                Action={
+                  <Button
+                    onPress={handleNavigateToCreatePost}
+                    text="Share a Moment"
+                    textStyle={tw`text-sm font-primary`}
+                  />
+                }
+              />
+            )
+          }
           onEndReachedThreshold={0.3}
           onEndReached={() => fetchMorePosts()}
           data={posts?.pages.map((page) => page.data).flat()}

@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from 'react';
-import { Image, FlatList, Dimensions, ViewToken } from 'react-native';
+import { Image, FlatList, ViewToken, useWindowDimensions } from 'react-native';
 
 import tw from 'libs/tailwind';
 
@@ -9,7 +9,7 @@ type ImagesProps = {
 };
 
 function Images({ images, setCurrentIndex }: ImagesProps) {
-  const dimensions = Dimensions.get('screen');
+  const { width, height } = useWindowDimensions();
   const containerPaddings = 32;
 
   const onViewableItemsChanged = useCallback(
@@ -34,8 +34,9 @@ function Images({ images, setCurrentIndex }: ImagesProps) {
       renderItem={({ item: image }) => (
         <Image
           source={{ uri: image }}
-          style={tw.style('h-96 rounded-tl-3xl rounded-tr-3xl skeleton', {
-            width: dimensions.width - containerPaddings,
+          style={tw.style('rounded-tl-3xl rounded-tr-3xl skeleton', {
+            width: width - containerPaddings,
+            height: height - height / 2,
           })}
         />
       )}

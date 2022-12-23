@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
-import { Picture, PictureProps } from 'shared/users/pictures';
+import { Picture } from 'shared/users/pictures';
 import tw from 'libs/tailwind';
 import Description from './Description';
 
-interface ProfilePictureProps extends Pick<PictureProps, 'uri'> {}
+interface ProfilePictureProps {
+  image: string | null;
+  setImage: React.Dispatch<React.SetStateAction<string | null>>;
+}
 
-function PictureChanger({ uri }: ProfilePictureProps) {
-  const [image, setImage] = useState(uri);
-
+function PictureChanger({ image, setImage }: ProfilePictureProps) {
   const handlePickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,

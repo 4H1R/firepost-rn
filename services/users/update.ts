@@ -5,13 +5,24 @@ import axios from 'libs/axios';
 
 export interface IUpdateUserDto {
   username: string;
+  currentUsername: string;
   name: string;
   bio: string | null;
   website: string | null;
+  image: string | null;
 }
 
 async function update(data: IUpdateUserDto) {
-  const resp = await axios.patch<IAuthUser>(`/users/${data.username}`, data);
+  const formData = new FormData();
+  const { currentUsername, ...rest } = data;
+
+  for (const [key, value] of Object.entries(rest)) {
+    if (value !== null) formData.append(key, value);
+  }
+
+  const resp = await axios.post<IAuthUser>(`/users/${currentUsername}`, formData, {
+    headers: { 'Content-type': 'multipart/form-data' },
+  });
   return resp.data;
 }
 
